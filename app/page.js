@@ -1,9 +1,9 @@
-import Events from "./components/Events";
+import Events from "./events/page";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import HeroSection from "./components/HeroSection";
 import Guests from "./components/Guests";
-import Sponsors from "./components/Sponsors";
+import Sponsors from "./sponsors/page";
 import Wrapper from "./components/bg-wrapper/Wrapper";
 
 export default function Home() {
