@@ -1,5 +1,4 @@
 import React from 'react';
-import backgroundImage from '../Img/bg.png'; // Ensure this path is correct
 
 const Guest = ({ title, imageUrl }) => {
   return (
@@ -36,14 +35,6 @@ const Guests = () => {
       <h1 className="text-6xl lg:text-7xl text-white font-extrabold  text-center mb-20" style={{ fontFamily: "'Clash Display', sans-serif" }}>
         Our Previous Guests
       </h1>
-      <div 
-        className="relative p-4" 
-        style={{ 
-          backgroundImage: `url(${backgroundImage})`, 
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center',
-        }}
-      >
         <div className="flex flex-wrap justify-evenly gap-5 md:gap-8">
           {guestData.map((card, index) => (
             <Guest
@@ -54,7 +45,6 @@ const Guests = () => {
           ))}
         </div>
       </div>
-    </div>
   );
 }
 
