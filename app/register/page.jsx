@@ -1,10 +1,6 @@
 import React from 'react';
-
-// Import the background image
 import backgroundImage from '../components/bg.jpeg';
-// Import the logo image
 import logoImage from '../components/logo.jpeg';
-
 export default function Register() {
     return (
         <section 
