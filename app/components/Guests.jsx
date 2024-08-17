@@ -3,8 +3,8 @@ import React from 'react';
 const Guest = ({ title, imageUrl }) => {
   return (
     <div className="flex flex-col items-center mb-4">
-      <div className="border rounded-full overflow-hidden w-[182.26px] h-[182.26px] flex items-center justify-center">
-        <img src={imageUrl} alt={title} className="w-full h-full object-cover rounded-full" />
+      <div className="border rounded-full overflow-hidden w-[180px] h-[180px] flex items-center justify-center">
+        <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
       </div>
       <div className="mt-2 text-center h-[34px] flex items-center justify-center">
         <h2 className="text-lg text-white">{title}</h2>
@@ -32,10 +32,21 @@ const guestData = [
 const Guests = () => {
   return (
     <div className='bg-black'>
-      <h1 className="text-6xl lg:text-7xl text-white font-extrabold  text-center mb-20" style={{ fontFamily: "'Clash Display', sans-serif" }}>
+      <h1 className="text-5xl lg:text-7xl text-white font-extrabold  text-center mb-0" style={{ fontFamily: "'Clash Display', sans-serif" }}>
         Our Previous Guests
       </h1>
-        <div className="flex flex-wrap justify-evenly gap-5 md:gap-8">
+
+      <div 
+        className={`flex flex-col items-center left-0 right-0 w-full pointer-events-none mt-20`}
+        style={{
+        height:"1200px",
+        backgroundImage:`url(/Img/bg.png)`,
+        backgroundSize: "auto 100%",
+        backgroundPosition: "center top",
+        backgroundRepeat: "no-repeat",
+        scale:"100%",
+      }}>
+        <div className="flex flex-wrap justify-evenly gap-5 md:gap-8 mr-4 ml-4">
           {guestData.map((card, index) => (
             <Guest
               key={index}
@@ -44,6 +55,8 @@ const Guests = () => {
             />
           ))}
         </div>
+        </div>
+
       </div>
   );
 }
