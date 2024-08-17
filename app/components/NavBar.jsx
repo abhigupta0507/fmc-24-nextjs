@@ -25,18 +25,18 @@ const NavBar = () => {
 
             <ul className="hidden md:flex gap-x-6 text-white">
               <li>
-                <Link href="/AboutUs">
+                <Link href="/aboutUs">
                   <p>About Us</p>
                 </Link>
               </li>
               <li>
-                <Link href="/Events">
+                <Link href="/events">
                   <p>Events</p>
                 </Link>
               </li>
               <li>
-                <Link href="/Sponsors">
-                  <p>Sponsors</p>
+                <Link href="/sponsors">
+                  <p>sponsors</p>
                 </Link>
               </li>
               <li>
@@ -46,7 +46,7 @@ const NavBar = () => {
               </li>
             </ul>
             <Button>
-              <Link className="text-white" href="/Register">
+              <Link className="text-white" href="/register">
                 Register
               </Link>
             </Button>
