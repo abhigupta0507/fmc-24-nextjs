@@ -1,4 +1,4 @@
-import Events from "./components/Events";
+import Events from "./components/Events/page";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import HeroSection from "./components/HeroSection";
