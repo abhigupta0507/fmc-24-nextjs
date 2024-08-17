@@ -1,7 +1,4 @@
 import React from "react";
-const Sponsors = () => {
-  return <div>Sponsors</div>;
-};
 import React from 'react'
 import Image from 'next/image'
 // import heading from "/Previous Sponsors.png"
