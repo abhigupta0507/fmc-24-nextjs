@@ -1,3 +1,7 @@
+import React from "react";
+const Sponsors = () => {
+  return <div>Sponsors</div>;
+};
 import React from 'react'
 import Image from 'next/image'
 // import heading from "/Previous Sponsors.png"
@@ -25,4 +29,4 @@ const Sponsors = () => {
   )
 }
 
-export default Sponsors
+export default Sponsors;
