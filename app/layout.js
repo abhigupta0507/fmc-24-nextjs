@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
+          rel="preconnect"
         />
       </head>
       <body className="bg-black overflow-x-hidden"><NavBar/>{children}</body>
