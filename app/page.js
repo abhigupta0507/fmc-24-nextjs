@@ -5,6 +5,7 @@ import HeroSection from "./components/HeroSection";
 import Guests from "./components/Guests";
 import Sponsors from "./sponsors/page";
 import Wrapper from "./components/bg-wrapper/Wrapper";
+import UnleashPotential from "./components/UnleashPotential";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
       <HeroSection />
       <Events />
       <Guests />
+      <UnleashPotential />
       <Sponsors />
       <Footer />
     </>
