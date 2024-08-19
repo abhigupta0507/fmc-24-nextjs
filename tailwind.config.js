@@ -7,10 +7,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'clash-display': ['Clash Display', 'sans-serif'],
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        wrapper: "url(/assets/images/Frame.svg)",
+        grid: "url(/assets/images/Grid.svg)",
       },
     },
   },
