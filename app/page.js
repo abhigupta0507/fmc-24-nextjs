@@ -15,7 +15,8 @@ export default function Home() {
       >
         FMC WEEKEND '24
       </div>
-      <div className="w-full h-[300px]">
+      {/* wrap each wrapper in div for better optimisation */}
+      <div className="w-[100vw] h-[30vh] lg:h-[70vh] sm:h-[40vh] md:h-[50vh]">
         <Wrapper grid={true}>
           <NavBar />
         </Wrapper>
