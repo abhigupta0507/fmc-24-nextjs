@@ -1,20 +1,9 @@
+'use client';
 import React from "react";
-//import Cinema from '../../public/Img/ClubEmojis_Potential/Cinema.png'
-function ClubCards (props){
-  return(
-    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-center items-center p-2 m-2">
-      <div className="border overflow-hidden w-[300px] h-[300px] flex items-center justify-center">
-        <img class="rounded-t-lg " src={props.img} alt="" />
-      </div>
-    <div class="p-5">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{props.name}</h5>
-        <a href="#" class="inline-flex items-center p-2 w-full text-sm font-medium text-center text-white bg-gray-700 rounded-lg transition transform translate-y-8 ease-in-out invisible group-hover:visible hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-            Explore More
-        </a>
-    </div>
-</div>
-  )
-}
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const ClubData= [
   {
@@ -44,18 +33,64 @@ const ClubData= [
   },
 ]
 
-const UnleashPotential = () => {
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
   return (
-    <div className="flex flex-wrap flex-col justify-center items-center bg-black">
-      <h1 className="text-5xl lg:text-7xl text-white font-extrabold  text-center mb-0" style={{ fontFamily: "'Clash Display', sans-serif"}}>
-        Unleash Your Potential Through Thrilling Competitive Events!
-      </h1>
-      <div className="flex justify-center items-center overflow-hidden mt-20">
-        {ClubData.map((i)=>(
-          <ClubCards key={i.id} img={i.img} name={i.name} />
-        ))}
-      </div>
-    </div>
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "red" }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "green" }}
+      onClick={onClick}
+    />
+  );
+}
+
+const UnleashPotential = () => {
+  var settings={
+    className: "center",
+    dots: true, 
+    infinte: true,
+    centerMode: true,
+    centerPadding: "60px",
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 100,
+    pauseOnHover: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
+  }
+  return (
+    <>
+    <h1 className="header text-5xl lg:text-7xl text-white font-extrabold  text-center mb-10">Unleash Your Potential Through Thrilling Competitive Events!</h1>
+        <Slider {...settings}>  
+            {ClubData.map((i)=>(
+              <div>
+              <div key={i.id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-center items-center p-2 m-2">
+                <div className="border overflow-hidden w-[300px] h-[300px] flex items-center justify-center">
+                  <img className="rounded-t-lg " src={i.img} alt="" />
+                </div>
+                <div className="p-5 flex flex-col items-center">
+                  <h5 className="mb-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{i.name}</h5>
+                  <button><a href="#" className="bg-gray-600 px-10 rounded-md hover:bg-gray-700 py-2 text-white font-semibold">EXPLORE MORE</a></button>
+                </div>
+              </div>
+              </div>
+            ))}
+        </Slider> 
+      </>
+   
   )
 }
 
