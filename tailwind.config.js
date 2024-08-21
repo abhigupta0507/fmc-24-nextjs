@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'clash-display': ['Clash Display', 'sans-serif'],
+        'clash': ['Clash Display', 'sans-serif'],
       },
       backgroundImage: {
         wrapper: "url(/assets/images/Frame.svg)",
