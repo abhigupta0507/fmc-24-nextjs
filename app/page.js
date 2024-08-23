@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       {/* wrap each wrapper in div for better optimisation */}
-      <div className="w-[100vw] h-[30vh] lg:h-[60vh] sm:h-[40vh] md:h-[50vh] pb-10">
+      <div className="w-[100vw] h-[1120px]  pb-10">
         <Wrapper grid={true} height={"60vh"}>
           <HeroSection />
         </Wrapper>
