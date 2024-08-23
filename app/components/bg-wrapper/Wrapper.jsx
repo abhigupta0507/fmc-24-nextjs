@@ -9,7 +9,6 @@ export default function Wrapper({ grid = false, height = "90vh", children }) {
         backgroundSize: grid ? "cover" : "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        scale: grid ? "" : "220%",
       }}
     >
       {children}
