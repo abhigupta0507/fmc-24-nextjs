@@ -10,12 +10,6 @@ import UnleashPotential from "./components/UnleashPotential";
 export default function Home() {
   return (
     <>
-      <div
-        className="text-2xl mx-auto text-center"
-        style={{ fontFamily: "'Clash Display', sans-serif" }}
-      >
-        FMC WEEKEND '24
-      </div>
       {/* wrap each wrapper in div for better optimisation */}
       <div className="w-[100vw] h-[30vh] lg:h-[70vh] sm:h-[40vh] md:h-[50vh]">
         <Wrapper grid={true}>
@@ -27,7 +21,7 @@ export default function Home() {
       </Wrapper>
       <HeroSection />
       <Events />
-      <Guests />
+      {/* <Guests /> */}
       <UnleashPotential />
       <Sponsors/>
       <Footer/>
