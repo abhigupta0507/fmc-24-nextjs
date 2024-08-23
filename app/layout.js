@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
       <head>
         <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500&display=swap" rel="stylesheet"/>
       </head>
-      <body className="bg-black overflow-x-hidden"><NavBar/>{children}</body>
+      <body className=" font-clash bg-black overflow-x-hidden"><NavBar/>{children}</body>
     </html>
   );
 }
