@@ -3,7 +3,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import Image from "next/image";
 
 const ClubData= [
   {
@@ -33,27 +33,7 @@ const ClubData= [
   },
 ]
 
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onClick={onClick}
-    />
-  );
-}
 
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "green" }}
-      onClick={onClick}
-    />
-  );
-}
 
 const UnleashPotential = () => {
   var settings={
@@ -64,25 +44,45 @@ const UnleashPotential = () => {
     centerPadding: "60px",
     speed: 500,
     autoplay: true,
-    autoplaySpeed: 100,
+    autoplaySpeed: 1000,
     pauseOnHover: true,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+
   }
   return (
     <>
-    <h1 className="header text-5xl lg:text-7xl text-white font-extrabold  text-center mb-10">Unleash Your Potential Through Thrilling Competitive Events!</h1>
+    <h1 className="header font-clash text-5xl lg:text-7xl text-white font-extrabold  text-center mb-10">Unleash Your Potential Through Thrilling Competitive Events!</h1>
         <Slider {...settings}>  
             {ClubData.map((i)=>(
               <div>
               <div key={i.id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-center items-center p-2 m-2">
                 <div className="border overflow-hidden w-[300px] h-[300px] flex items-center justify-center">
-                  <img className="rounded-t-lg " src={i.img} alt="" />
+                  <Image src={`${i.img}`}
+                alt="image"
+                width={400}
+                height={400}
+                unoptimized={true}
+                 />
                 </div>
                 <div className="p-5 flex flex-col items-center">
-                  <h5 className="mb-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{i.name}</h5>
+                  <h5 className="mb-10 text-2xl font-bold  text-gray-900 dark:text-white">{i.name}</h5>
                   <button><a href="#" className="bg-gray-600 px-10 rounded-md hover:bg-gray-700 py-2 text-white font-semibold">EXPLORE MORE</a></button>
                 </div>
               </div>
