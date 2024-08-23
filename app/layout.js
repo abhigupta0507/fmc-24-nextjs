@@ -9,10 +9,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap"
-          rel="preconnect"
-        />
+        <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500&display=swap" rel="stylesheet"/>
       </head>
       <body className="bg-black overflow-x-hidden"><NavBar/>{children}</body>
     </html>

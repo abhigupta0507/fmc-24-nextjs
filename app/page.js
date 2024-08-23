@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import HeroSection from "./components/HeroSection";
 import Guests from "./components/Guests";
-import Sponsors from "./sponsors/page";
+import Sponsors from "./components/Sponsors";
 import Wrapper from "./components/bg-wrapper/Wrapper";
 import UnleashPotential from "./components/UnleashPotential";
 
@@ -23,14 +23,14 @@ export default function Home() {
         </Wrapper>
       </div>
       <Wrapper>
-        <NavBar />
+       <NavBar />
       </Wrapper>
       <HeroSection />
       <Events />
       <Guests />
       <UnleashPotential />
-      <Sponsors />
-      <Footer />
+      <Sponsors/>
+      <Footer/>
     </>
   );
 }
