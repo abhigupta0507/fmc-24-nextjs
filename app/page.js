@@ -21,7 +21,7 @@ export default function Home() {
       </Wrapper>
       <HeroSection />
       <Events />
-      <Guests />
+      {/* <Guests /> */}
       <UnleashPotential />
       <Sponsors/>
       <Footer/>

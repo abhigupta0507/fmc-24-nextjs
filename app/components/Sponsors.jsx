@@ -13,7 +13,7 @@ const Sponsors = () => {
      <div className="z-0 flex items-center justify-center w-full">
       <Image
         src={group}
-        width={700}
+        width={650}
         height={100}
         alt="Sponsors"
         />

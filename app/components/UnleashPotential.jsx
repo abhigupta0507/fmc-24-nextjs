@@ -148,7 +148,7 @@ export default function UnleashPotential() {
       <Slider {...settings}>
         {ClubData.map((ClubData, index) => (
           <div key={index} className="px-2 ">
-            <div className=" bg-slate-950 border border-gray-200 p-4 rounded-lg overflow-hidden shadow-lg">
+            <div className=" bg-slate-950 border border-gray-200 p-2 rounded-lg overflow-hidden shadow-lg">
               <Image
                 src={`${ClubData.img}`}
                 alt="image"
