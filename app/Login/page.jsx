@@ -1,7 +1,6 @@
 "use client";
 
 import React from 'react';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 // Import the background image
 import backgroundImage from '../components/bg.jpeg';
@@ -9,52 +8,55 @@ import backgroundImage from '../components/bg.jpeg';
 import logoImage from '../components/logo.jpeg';
 
 function Login() {
-    const handleGoogleSuccess = (response) => {
-        console.log('Google Sign-In successful:', response);
-    };
-
-    const handleGoogleFailure = (error) => {
-        console.error('Google Sign-In failed:', error);
+    const handleGoogleSignInClick = () => {
+        console.log('Google Sign-In button clicked');
+        // Trigger your backend authentication process here
+        // Example: window.location.href = '/auth/google';
     };
 
     return (
-        <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-            <div
-                className="relative h-screen flex items-center justify-center overflow-hidden"
-                style={{
-                    backgroundImage: `url(${backgroundImage.src})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundAttachment: 'fixed',
-                }}
-            >
-                {/* Logo at the very top */}
-                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 mt-4">
-                    <img src={logoImage.src} alt="Logo" className="h-16 opacity-70" />
-                </div>
-
-                {/* Semi-transparent card containing both "Login" header and Google Sign-In button */}
-                <div
-                    className="relative z-10 flex flex-col items-center bg-black bg-opacity-50 p-8 rounded-lg text-center"
-                    style={{ marginTop: '-100px' }} // Shift the card 100px up
-                >
-                    <h2 className="text-3xl font-bold text-white mb-12">Login</h2> {/* Increased margin-bottom */}
-                    <GoogleLogin
-                        onSuccess={handleGoogleSuccess}
-                        onError={handleGoogleFailure}
-                        useOneTap
-                        text="signin_with"
-                        logo_alignment="center"
-                        shape="circle"
-                        style={{
-                            height: '50px',
-                            width: '50px',
-                        }}
-                    />
-                </div>
+        <div
+            className="relative h-screen flex items-center justify-center overflow-hidden"
+            style={{
+                backgroundImage: `url(${backgroundImage.src})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed',
+            }}
+        >
+            {/* Logo at the very top */}
+            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 mt-4">
+                <img src={logoImage.src} alt="Logo" className="h-16" /> {/* Removed opacity-70 */}
             </div>
-        </GoogleOAuthProvider>
+
+            {/* Semi-transparent card containing both "Login" header and Google Sign-In button */}
+            <div
+                className="relative z-10 flex flex-col items-center bg-black bg-opacity-50 p-8 rounded-lg text-center"
+                style={{ marginTop: '-50px' }} // Shift the card 50px down
+            >
+                <h2 className="text-4xl font-bold text-white mb-12">Login</h2> {/* Increased font size */}
+                <button
+                    onClick={handleGoogleSignInClick}
+                    className="bg-white text-black rounded-full p-3 flex items-center"
+                    style={{
+                        height: '50px',
+                        padding: '0 20px', // Added padding for text
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '10px', // Space between icon and text
+                    }}
+                >
+                    <img
+                        src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                        alt="Google"
+                        className="h-7" // Adjusted height to make the icon smaller
+                    />
+                    <span className="text-black font-medium">Sign in with Google</span>
+                </button>
+            </div>
+        </div>
     );
 }
 

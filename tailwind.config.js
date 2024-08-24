@@ -8,13 +8,27 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'clash-display': ['Clash Display', 'sans-serif'],
+        'clash': ['Clash Display', 'sans-serif'],
+        'manrope':["Manrope", "sans-serif"]
       },
       backgroundImage: {
-        wrapper: "url(/assets/images/Frame.svg)",
+        wrapperImg: "url(/assets/images/Frame.svg)",
         grid: "url(/assets/images/Grid.svg)",
       },
+      animation: {
+				fade: 'fadeIn .8s ease-in',
+			},
+
+			keyframes: {
+				fadeIn: {
+					from: { opacity: 0 },
+					to: { opacity: 1 },
+				},
+			},
     },
   },
-  plugins: [],
+  plugins: [
+    // require("tailwindcss-animation-delay"),
+    require('tailwindcss-animated'),
+  ],
 };

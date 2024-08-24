@@ -1,28 +1,25 @@
 import React from "react";
-import Image from 'next/image'
-// import heading from "/Previous Sponsors.png"
-// import group from "../public/Group 176.png"
+import Image from "next/image";
+import group from "../../public/Group 176.png";
 
 const Sponsors = () => {
   return (
-    <div className="flex flex-wrap justify-center items-center ">
-    <div className="absolute top-0 flex items-center justify-center w-full mt-[5961px]">    
-      <Image 
-         src={"/Previous Sponsors.png"}
-         className="w-[1006px] h-[128px] ml-[176px]"
-         alt="previous sponsors" width={1006} height={128}
-       />
+        <div className="flex flex-wrap justify-center items-center">
+         <div className="z-10 flex items-center justify-center w-full mt-20">   
+           <div className="font-clash text-white text-5xl lg:text-7xl font-bold text-center">
+             Previous Sponsors
+           </div> 
+        </div> 
+        <div className="z-0 flex items-center justify-center w-full">
+        <Image
+          src={group}
+          width={650}
+          height={100}
+          alt="Sponsors"
+          />
+        </div>
     </div>
-
-    <div className="flex items-center justify-center w-full mt-[6025px]">
-      <Image
-        src={"/Group 176.png"}
-        className="w-[1184px] h-[429.07px] ml-[122px]"
-        alt="Sponsors" width={1184} height={429.07}
-        />
-    </div>
-  </div>
-  )
-}
+  );
+};
 
 export default Sponsors;

@@ -3,31 +3,45 @@ import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import HeroSection from "./components/HeroSection";
 import Guests from "./components/Guests";
-import Sponsors from "./sponsors/page";
+import Sponsors from "./components/Sponsors";
 import Wrapper from "./components/bg-wrapper/Wrapper";
+import UnleashPotential from "./components/UnleashPotential";
+import Section from "./components/Section";
+import Background from "./components/Background";
+import ArtIsNotAThing from "./components/ArtIsNotAThing";
 
 export default function Home() {
   return (
     <>
-      <div
-        className="text-2xl mx-auto text-center"
-        style={{ fontFamily: "'Clash Display', sans-serif" }}
-      >
-        FMC WEEKEND '24
+      {/* wrap each wrapper in div for better optimisation */}
+      {/* <div className="w-[100vw] md:h-[1120px] h-[70vh] pb-10"> */}
+      {/* <Wrapper grid={true} height={"60vh"}> */}
+      {/* </Wrapper> */}
+
+      <Background />
+      <div className="h-auto w-screen z-20">
+        <Section>
+          <HeroSection />
+        </Section>
+        <Section>
+          <Guests />
+        </Section>
+        <Section>
+          <ArtIsNotAThing />
+        </Section>
+        {/* <Section>
+          <Events />
+        </Section> */}
+        <Section>
+          <UnleashPotential />
+        </Section>
+        <Section>
+          <Sponsors />
+        </Section>
+        {/* <Section>
+          <Footer />
+        </Section> */}
       </div>
-      <div className="w-full h-[300px]">
-        <Wrapper grid={true}>
-          
-        </Wrapper>
-      </div>
-      <Wrapper>
-        
-      </Wrapper>
-      <HeroSection />
-      <Events />
-      <Guests />
-      <Sponsors />
-      <Footer />
     </>
   );
 }
