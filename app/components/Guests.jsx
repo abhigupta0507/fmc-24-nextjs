@@ -18,17 +18,17 @@ const Guest = ({ title, imageUrl }) => {
 };
 
 const guestData = [
-  { title: "Guest 1", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 2", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 3", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 4", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 7", imageUrl: "https://via.placeholder.com/300" },
-  // { title: "Guest 1", imageUrl: "https://via.placeholder.com/300" },
-  // { title: "Guest 2", imageUrl: "https://via.placeholder.com/300" },
-  // { title: "Guest 3", imageUrl: "https://via.placeholder.com/300" },
-  // { title: "Guest 4", imageUrl: "https://via.placeholder.com/300" },
+  { title: "Anantha Krishnan", imageUrl: "/guests/Anantha Krishnan_.jpg" },
+  { title: "Ankur Debnath", imageUrl: "/guests/Ankur Debnath_.jpg" },
+  { title: "Bhalovashi", imageUrl: "/guests/Bhalovashi_.png" },
+  { title: "Dhruv Sehgal", imageUrl: "/guests/Dhruv Sehgal.jpg" },
+  { title: "Dhwalika Singh", imageUrl: "/guests/Dhwalika Singh_.jpg" },
+  { title: "Satyam Bhuyan", imageUrl: "/guests/Satyam Bhuyan.jpg" },
+  { title: "Saurabh Shukla", imageUrl: "/guests/Saurabh Shukla.jpg" },
+  { title: "Shubhajeet Dey", imageUrl: "/guests/Shubhajeet Dey.png" },
+  { title: "Subhash Nair", imageUrl: "/guests/Subhash Nair.jpg" },
+  { title: "Sumaira Khan", imageUrl: "/guests/Sumaira Khan.png" },
+  { title: "Yash Rathi", imageUrl: "/guests/Yash Rathi.jpg" },
   // { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
   // { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
 ];
