@@ -35,7 +35,7 @@ const guestData = [
 
 const Guests = () => {
   return (
-    <div className="bg-black mt-[20px]">
+    <div className=" mt-[20px]">
       <h1
         className="text-5xl lg:text-7xl text-white font-extrabold  text-center mb-0"
         style={{ fontFamily: "'Clash Display', sans-serif" }}
@@ -44,16 +44,16 @@ const Guests = () => {
       </h1>
       <div
         className={`flex flex-col items-center left-0 right-0 w-full pointer-events-none mt-5`}
-        style={{
-          height: "900px",
-          backgroundImage: `url(/assets/images/Frame.svg)`,
-          backgroundSize: "110%",
-          backgroundPosition: "top",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-          scale: "100%",
-          objectFit: "contain",
-        }}
+        // style={{
+        //   height: "900px",
+        //   backgroundImage: `url(/assets/images/Frame.svg)`,
+        //   backgroundSize: "110%",
+        //   backgroundPosition: "top",
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundAttachment: "fixed",
+        //   scale: "100%",
+        //   objectFit: "contain",
+        // }}
       >
         <div className="flex flex-wrap justify-evenly gap-5 md:gap-8 mr-4 ml-4">
           {guestData.map((card, index) => (
