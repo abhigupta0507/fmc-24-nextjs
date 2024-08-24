@@ -145,6 +145,7 @@ export default function UnleashPotential() {
 
   return (
     <div className="max-w-[1400px] m-auto py-16 px-4">
+      <div className="w-full hidden md:flex justify-center items-center py-10 text-7xl font-bold font-clash text-white text-center">Unleash Your Potential Through Thrilling Competitive Events!</div>
       <Slider {...settings}>
         {ClubData.map((ClubData, index) => (
           <div key={index} className="px-2 ">
