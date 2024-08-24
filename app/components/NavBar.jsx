@@ -16,7 +16,7 @@ const NavBar = () => {
   //css of this navbar will be changed later currently the rough work
   return (
     <>
-      <div className="w-full h-20 bg-black-800 sticky top-0 z-10">
+      <div className="w-full h-20 bg-black-800 sticky top-0 z-20">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             <Link href="/">
