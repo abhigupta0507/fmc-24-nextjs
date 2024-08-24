@@ -25,17 +25,17 @@ const guestData = [
   { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
   { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
   { title: "Guest 7", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 1", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 2", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 3", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 4", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 1", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 2", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 3", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 4", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
 ];
 
 const Guests = () => {
   return (
-    <div className=" mt-[20px]  w-full h-full overflow-hidden">
+    <div className=" mt-[20px]  w-full h-full overflow-hidden flex flex-col justify-center">
       <h1
         className="text-5xl lg:text-7xl text-white font-extrabold  text-center mb-0"
         style={{ fontFamily: "'Clash Display', sans-serif" }}
