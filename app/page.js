@@ -17,11 +17,11 @@ export default function Home() {
       </div>
       <div className="w-full h-[300px]">
         <Wrapper grid={true}>
-          <NavBar />
+          
         </Wrapper>
       </div>
       <Wrapper>
-        <NavBar />
+        
       </Wrapper>
       <HeroSection />
       <Events />
