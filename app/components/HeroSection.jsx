@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 const HeroSection = () => {
   return (
-    <div className="w-full h-full px-12 md:px-24 py-[40px] transition-opacity flex flex-col overflow-visible">
+    <div className="w-full h-full px-12 md:px-24 py-[40px] transition-opacity flex flex-col overflow-clip">
       <h1 className="text-white left-2 text-7xl font-clash font-bold opacity-0 animate-fade animate-fill-forwards">
         Asia's Largest <br /> Digital Arts <br /> Festival{" "}
       </h1>

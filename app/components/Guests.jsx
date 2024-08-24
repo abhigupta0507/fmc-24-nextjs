@@ -25,12 +25,12 @@ const guestData = [
   { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
   { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
   { title: "Guest 7", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 1", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 2", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 3", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 4", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
-  { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 1", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 2", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 3", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 4", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
+  // { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
 ];
 
 const Guests = () => {
