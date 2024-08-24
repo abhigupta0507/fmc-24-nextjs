@@ -23,18 +23,15 @@ export default function Home() {
         <Section>
           <HeroSection />
         </Section>
-        {/* <Section>
-          <Events />
-        </Section> */}
-        <Section>
-          <ArtIsNotAThing />
-        </Section>
         <Section>
           <Guests />
         </Section>
         <Section>
-          <Events />
+          <ArtIsNotAThing />
         </Section>
+        {/* <Section>
+          <Events />
+        </Section> */}
         <Section>
           <UnleashPotential />
         </Section>

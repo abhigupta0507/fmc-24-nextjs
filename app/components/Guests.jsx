@@ -35,7 +35,7 @@ const guestData = [
 
 const Guests = () => {
   return (
-    <div className=" mt-[20px]">
+    <div className=" mt-[20px]  w-full h-full overflow-hidden">
       <h1
         className="text-5xl lg:text-7xl text-white font-extrabold  text-center mb-0"
         style={{ fontFamily: "'Clash Display', sans-serif" }}

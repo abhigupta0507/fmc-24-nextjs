@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'clash': ['Clash Display', 'sans-serif'],
+        'manrope':["Manrope", "sans-serif"]
       },
       backgroundImage: {
         wrapperImg: "url(/assets/images/Frame.svg)",
