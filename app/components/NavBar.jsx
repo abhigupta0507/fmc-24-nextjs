@@ -40,7 +40,7 @@ const NavBar = () => {
               </li>
               <li>
                 <Link href="/sponsors">
-                  <p>sponsors</p>
+                  <p>Sponsors</p>
                 </Link>
               </li>
               <li>
