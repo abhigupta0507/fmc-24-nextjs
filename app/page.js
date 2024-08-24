@@ -24,10 +24,10 @@ export default function Home() {
           <HeroSection />
         </Section>
         <Section>
-          <ArtIsNotAThing />
+          <Guests />
         </Section>
         <Section>
-          <Guests />
+          <ArtIsNotAThing />
         </Section>
         {/* <Section>
           <Events />
