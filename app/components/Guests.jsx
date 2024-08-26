@@ -1,21 +1,9 @@
-import React from "react";
-
-const Guest = ({ title, imageUrl }) => {
-  return (
-    <div className="flex flex-col items-center mb-4">
-      <div className="border rounded-full overflow-hidden w-[180px] h-[180px] flex items-center justify-center">
-        <img
-          src={imageUrl}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className="mt-2 text-center h-[34px] flex items-center justify-center">
-        <h2 className="text-lg text-white">{title}</h2>
-      </div>
-    </div>
-  );
-};
+"use client";
+import React, { useRef } from "react";
+import Slider from "react-slick";
+import { motion, useInView } from "framer-motion";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const guestData = [
   { title: "Anantha Krishnan", imageUrl: "/guests/Anantha Krishnan_.jpg" },
@@ -29,37 +17,89 @@ const guestData = [
   { title: "Subhash Nair", imageUrl: "/guests/Subhash Nair.jpg" },
   { title: "Sumaira Khan", imageUrl: "/guests/Sumaira Khan.png" },
   { title: "Yash Rathi", imageUrl: "/guests/Yash Rathi.jpg" },
-  // { title: "Guest 5", imageUrl: "https://via.placeholder.com/300" },
-  // { title: "Guest 6", imageUrl: "https://via.placeholder.com/300" },
 ];
 
 const Guests = () => {
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  };
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  };
+
+  const Guest = ({ title, imageUrl }) => {
+    const ref = useRef(null);
+    const inView = useInView(ref, { triggerOnce: false });
+
+    return (
+      <motion.div
+        ref={ref}
+        className="flex flex-col items-center"
+        variants={fadeIn}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="border rounded-full overflow-hidden w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 flex items-center justify-center">
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="mt-2 text-center h-12 flex items-center justify-center">
+          <h2 className="text-sm sm:text-base md:text-lg text-white">{title}</h2>
+        </div>
+      </motion.div>
+    );
+  };
+
   return (
-    <div className=" mt-[20px]  w-full h-full overflow-hidden flex flex-col md:justify-center justify-start md:px-32">
+    <div className="mt-1 mb-4 w-full overflow-hidden">
       <h1
-        className="text-5xl lg:text-7xl text-white font-extrabold  text-center mb-0"
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-white font-extrabold text-center mb-8"
         style={{ fontFamily: "'Clash Display', sans-serif" }}
       >
         Our Previous Guests
       </h1>
-      <div
-        className={`flex flex-col items-center left-0 right-0 w-full pointer-events-none mt-5`}
-        // style={{
-        //   height: "900px",
-        //   backgroundImage: `url(/assets/images/Frame.svg)`,
-        //   backgroundSize: "110%",
-        //   backgroundPosition: "top",
-        //   backgroundRepeat: "no-repeat",
-        //   backgroundAttachment: "fixed",
-        //   scale: "100%",
-        //   objectFit: "contain",
-        // }}
-      >
-        <div className="flex flex-wrap justify-evenly gap-5 md:gap-8 mr-4 ml-4">
+      <div className="px-4 md:px-8 lg:px-16">
+        <Slider {...settings}>
           {guestData.map((card, index) => (
             <Guest key={index} title={card.title} imageUrl={card.imageUrl} />
           ))}
-        </div>
+        </Slider>
       </div>
     </div>
   );
