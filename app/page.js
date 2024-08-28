@@ -38,9 +38,8 @@ export default function Home() {
         <Section>
           <Sponsors />
         </Section>
-        {/* <Section>
           <Footer />
-        </Section> */}
+        
       </div>
     </>
   );

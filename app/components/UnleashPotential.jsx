@@ -1,9 +1,12 @@
 "use client";
-import React from "react";
+"use client";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
+import { motion, useInView} from "framer-motion";
+import Link from "next/link";
 
 const ClubData = [
   {
@@ -33,98 +36,17 @@ const ClubData = [
   },
 ];
 
-const slides = [
-  {
-    title: "CINEMATOGRAPHY",
-    image:
-      "https://s3-alpha-sig.figma.com/img/faa9/c12d/8496267aac82785aa860c496137cdd4a?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Fodq6L~8BmXEotuJqgnC7F7Q88qP-OUVPlDABL2iEONGaMbdMgXg2JE02zWM2Lj2qJWeMypLdOR7jTevZQUS8b~L7II4GArO9OcQg2rZY6hl2lcJX41i4SxzVM9vMlvkig709IvPdteoo~94dE9BCRxCGWLUHttReaWx0t8UdbTbbaBqlqxg1aQUUs31BLWFf1SJS3JkrogOPFpd53G58U3GmgMsUYnAtEQhqrapzw61th4pVsJBKjUFRORg2C1qmNgAV8lnqoe9fQHwq5sTTCn6v2bmnsCsQtzvUx9zKLe3IBU2AKICd5rKL48vFvfkBEr5HlJ5kThp0xo2uodx~g__",
-    button: null,
-  },
-  {
-    title: "PHOTOGRAPHY",
-    img: "https://s3-alpha-sig.figma.com/img/faa9/c12d/8496267aac82785aa860c496137cdd4a?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Fodq6L~8BmXEotuJqgnC7F7Q88qP-OUVPlDABL2iEONGaMbdMgXg2JE02zWM2Lj2qJWeMypLdOR7jTevZQUS8b~L7II4GArO9OcQg2rZY6hl2lcJX41i4SxzVM9vMlvkig709IvPdteoo~94dE9BCRxCGWLUHttReaWx0t8UdbTbbaBqlqxg1aQUUs31BLWFf1SJS3JkrogOPFpd53G58U3GmgMsUYnAtEQhqrapzw61th4pVsJBKjUFRORg2C1qmNgAV8lnqoe9fQHwq5sTTCn6v2bmnsCsQtzvUx9zKLe3IBU2AKICd5rKL48vFvfkBEr5HlJ5kThp0xo2uodx~g__",
-    button: "Explore More",
-  },
-  {
-    title: "ANIMATION",
-    img: "https://s3-alpha-sig.figma.com/img/faa9/c12d/8496267aac82785aa860c496137cdd4a?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Fodq6L~8BmXEotuJqgnC7F7Q88qP-OUVPlDABL2iEONGaMbdMgXg2JE02zWM2Lj2qJWeMypLdOR7jTevZQUS8b~L7II4GArO9OcQg2rZY6hl2lcJX41i4SxzVM9vMlvkig709IvPdteoo~94dE9BCRxCGWLUHttReaWx0t8UdbTbbaBqlqxg1aQUUs31BLWFf1SJS3JkrogOPFpd53G58U3GmgMsUYnAtEQhqrapzw61th4pVsJBKjUFRORg2C1qmNgAV8lnqoe9fQHwq5sTTCn6v2bmnsCsQtzvUx9zKLe3IBU2AKICd5rKL48vFvfkBEr5HlJ5kThp0xo2uodx~g__",
-    button: null,
-  },
-];
-
-// export const UnleashPotential = () => {
-//   var settings={
-//     className: "center",
-//     dots: true,
-//     infinte: true,
-//     centerMode: true,
-//     centerPadding: "60px",
-//     speed: 500,
-//     autoplay: true,
-//     autoplaySpeed: 1000,
-//     pauseOnHover: true,
-//     slidesToShow: 3,
-//     slidesToScroll: 1,
-//     responsive: [
-//       {
-//         breakpoint: 1024,
-//         settings: {
-//           slidesToShow: 1,
-//           slidesToScroll: 1,
-//         },
-//       },
-//       {
-//         breakpoint: 600,
-//         settings: {
-//           slidesToShow: 1,
-//           slidesToScroll: 1,
-//         },
-//       },
-//     ],
-
-//   }
-//   return (
-//     <>
-//     {/* <h1 className="header font-clash text-5xl lg:text-7xl text-white font-extrabold  text-center mb-10">Unleash Your Potential Through Thrilling Competitive Events!</h1>
-//         <Slider {...settings}>
-//             {ClubData.map((i)=>(
-//               <div>
-//               <div key={i.id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-center items-center p-2 m-2">
-//                 <div className="border overflow-hidden w-[300px] h-[300px] flex items-center justify-center">
-//                   <Image src={`${i.img}`}
-//                 alt="image"
-//                 width={400}
-//                 height={400}
-//                 unoptimized={true}
-//                  />
-//                 </div>
-//                 <div className="p-5 flex flex-col items-center">
-//                   <h5 className="mb-10 text-2xl font-bold  text-gray-900 dark:text-white">{i.name}</h5>
-//                   <button><a href="#" className="bg-gray-600 px-10 rounded-md hover:bg-gray-700 py-2 text-white font-semibold">EXPLORE MORE</a></button>
-//                 </div>
-//               </div>
-//               </div>
-//             ))}
-//         </Slider>  */}
-
-//       </>
-
-//   )
-// }
-
-// export default UnleashPotential;
-
 export default function UnleashPotential() {
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     centerMode: true,
-    infinte: true,
     centerPadding: "0",
     speed: 500,
+    arrows: false,
     autoplay: true,
     autoplaySpeed: 1000,
     responsive: [
@@ -142,35 +64,69 @@ export default function UnleashPotential() {
       },
     ],
   };
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  };
 
+
+  const Club = ({ img, name }) => {
+    const ref = useRef(null);
+    const inView = useInView(ref, { triggerOnce: false });
+
+    return (
+      <motion.div
+        className="bg-slate-950 border border-gray-200 p-2 rounded-lg overflow-hidden shadow-lg"
+        ref={ref}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={fadeIn}
+        whileHover={{ scale: 1.0 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Image
+          src={`${img}`}
+          alt="image"
+          className="w-full h-64 object-cover rounded-md"
+          width={400}
+          height={400}
+          unoptimized={true}
+        />
+        <motion.div
+          className="p-5 flex flex-col items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          
+        >
+          <h5 className="mb-10 text-2xl font-bold text-gray-200">
+            {name}
+          </h5>
+          <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.9 }}>
+            <Link
+              href="#"
+              className="bg-gray-400/90 px-10 rounded-2xl hover:bg-gray-500 py-2 text-white font-semibold"
+            >
+              EXPLORE MORE
+            </Link>
+          </motion.button>
+        </motion.div>
+      </motion.div>
+    );
+  };
   return (
     <div className="max-w-[1400px] m-auto py-16 px-4">
+      <motion.div
+        className="w-full hidden md:flex justify-center items-center py-10 text-7xl font-bold font-clash text-white text-center"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        Unleash Your Potential Through Thrilling Competitive Events!
+      </motion.div>
       <Slider {...settings}>
-        {ClubData.map((ClubData, index) => (
-          <div key={index} className="px-2 ">
-            <div className=" bg-slate-950 border border-gray-200 p-2 rounded-lg overflow-hidden shadow-lg">
-              <Image
-                src={`${ClubData.img}`}
-                alt="image"
-                className="w-full h-64 object-cover rounded-md"
-                width={400}
-                height={400}
-                unoptimized={true}
-              />
-              <div className="p-5 flex flex-col items-center">
-                <h5 className="mb-10 text-2xl font-bold  text-gray-200">
-                  {ClubData.name}
-                </h5>
-                <button>
-                  <a
-                    href="#"
-                    className="bg-gray-400/90 px-10 rounded-2xl hover:bg-gray-500 py-2 text-white font-semibold"
-                  >
-                    EXPLORE MORE
-                  </a>
-                </button>
-              </div>
-            </div>
+        {ClubData.map((club, index) => (
+          <div key={index} className="px-2">
+            <Club  key={club.id} img={club.img} name={club.name}/>
           </div>
         ))}
       </Slider>
