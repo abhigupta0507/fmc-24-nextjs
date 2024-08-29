@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import Image from 'next/image';
 import logo from '../components/logo.jpeg';
 import { FacebookIcon,TwitterIcon,InstagramIcon } from 'lucide-react';
-import { sendContactForm } from '@/utils/api';
+import { sendContactForm } from  '../../utils/api'
 
 const Alert = ({ type, message, onClose }) => {
   return (
@@ -22,9 +22,11 @@ const Alert = ({ type, message, onClose }) => {
 
 const Footer = () => {
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
+  const[sending,setSending]=useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSending(true);
     const formData = new FormData(e.target);
     const name = formData.get('name');
     const email = formData.get('email');
@@ -33,6 +35,7 @@ const Footer = () => {
     try {
       await sendContactForm({ name, email, message });
       e.target.reset(); 
+      setSending(false);
       setAlert({ show: true, message: 'Form submitted successfully!', type: 'success' });
     } catch (error) {
       setAlert({ show: true, message: 'Error submitting form. Please try again.', type: 'error' });
@@ -93,6 +96,7 @@ const Footer = () => {
             <button
               type="submit"
               className="bg-red-500 p-3 rounded-lg text-white font-semibold hover:bg-red-600"
+              disabled={sending}
             >
               Send Message
             </button>
