@@ -30,7 +30,7 @@ const HeroSection = () => {
     <div className="w-full h-full px-12 md:px-24 py-[40px] transition-opacity flex flex-col overflow-visible">
       <motion.h1 
         ref={headingRef}
-        className="text-white left-2 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-clash font-bold"
+        className="text-white left-2 text-7xl font-clash font-bold"
         variants={fadeIn}
         initial="hidden"
         animate={headingInView ? "visible" : "hidden"}
