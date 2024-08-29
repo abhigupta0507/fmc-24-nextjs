@@ -6,58 +6,7 @@ import logoImage from "../components/logo.jpeg";
 import Image from "next/image";
 import "/styles/navbar.css";
 import { useState } from "react";
-
-function Profile() {
-  const [showDetails, setShowDetails] = useState(false);
-  const [userData, setUserData] = useState(null);
-  useEffect(function () {
-    setUserData({ name: "abhishek", events: ["Event1", "Event2", "Event3"] });
-  }, []);
-
-  // useEffect(() => {
-  //   // Fetch the user data from the API
-  //   fetch('/api/user')
-  //     .then(response => response.json())
-  //     .then(data => setUserData(data))
-  //     .catch(error => console.error('Error fetching user data:', error));
-  // }, []);
-
-  const handleProfileClick = () => {
-    setShowDetails(!showDetails);
-  };
-
-  return (
-    <div className="relative">
-      <button
-        onClick={handleProfileClick}
-        className="text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
-      >
-        My Profile
-      </button>
-      {showDetails && userData && (
-        <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-4">
-          <p className="font-bold">
-            Welcome,{" "}
-            {userData.name.charAt(0).toUpperCase() + userData.name.slice(1)}
-          </p>
-          <Events events={userData.events} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function Events({ events }) {
-  return (
-    <div className="grid grid-cols-1 gap-4">
-      {events.map((event, index) => (
-        <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <p className="font-semibold">{event}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
+import Cookies from "js-cookie";
 
 function Logo() {
   return (
@@ -67,13 +16,17 @@ function Logo() {
   );
 }
 
-function Button({ children }) {
-  return <button>{children}</button>;
-}
-
-function handleRegisteration() {}
 
 const NavBar = () => {
+  const [isRegistered, setIsRegistered] = useState(true);
+
+  useEffect(() => {
+    // Check if the cookie exists
+    const userToken = Cookies.get("userToken"); // Replace 'userToken' with your actual cookie name
+    if (userToken) {
+      setIsRegistered(true);
+    }
+  }, []);
   return (
     <>
       <div className="w-full h-20 bg-black sticky top-0 z-10">
@@ -115,8 +68,21 @@ const NavBar = () => {
               Purple to pink
               </span>
             </button> */}
-            {/* <Link href="/register" className="text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Register</Link> */}
-            <Profile />
+            {isRegistered ? (
+              <Link
+                href="/dashboard"
+                className="text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+              >
+                My Profile
+              </Link>
+            ) : (
+              <Link
+                href="/register"
+                className="text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+              >
+                Register
+              </Link>
+            )}
           </div>
         </div>
       </div>
