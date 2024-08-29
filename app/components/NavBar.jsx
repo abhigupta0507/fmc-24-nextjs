@@ -17,7 +17,7 @@ function Logo() {
 }
 
 const NavBar = () => {
-  const [isRegistered, setIsRegistered] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
     // Check if the cookie exists
