@@ -5,7 +5,7 @@ import { FacebookIcon,TwitterIcon,InstagramIcon } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="relative bg-black text-white py-8">
+    <footer className="relative bg-black text-white py-8 w-[90vw] mx-auto justify-between rounded-2xl flex flex-col p-6 md:p-12 backdrop-blur-md bg-gray-400/10 overflow-hidden">
       <div className="container mx-auto flex flex-wrap justify-between items-center px-4">
         {/* Company Details */}
         <div className="w-full lg:w-1/2 mb-6 lg:mb-0">

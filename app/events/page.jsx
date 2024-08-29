@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Photography from './photography.png';
-import Cinematography from './cinematography.png';
-import Animation from './animation.png';
-import Outreach from './outreach.png';
-import Design from './design.png';
-import sample from './sculpture.png';
-import bg from './bg.png'; 
+import Photography from '../../public/Img/EventImages/photography.png';
+import Cinematography from '../../public/Img/EventImages/cinematography.png';
+import Animation from '../../public/Img/EventImages/animation.png';
+import Outreach from '../../public/Img/EventImages/outreach.png';
+import Design from '../../public/Img/EventImages/design.png';
+import sample from '../../public/Img/EventImages/sculpture.png';
+import bg from '../../public/Img/EventImages/bg.png';
 
 
 const EventsPage = ({ cardTextSize = 'text-lg' }) => {
@@ -73,189 +73,298 @@ const EventsPage = ({ cardTextSize = 'text-lg' }) => {
 
       {/*PHOTOGRAPHY Section*/}
       <section className="relative z-10 py-16">
-        <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">PHOTOGRAPHY</h2>
-        <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-        </div>
-      </section>
+  <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">PHOTOGRAPHY</h2>
+  <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+  </div>
+</section>
+
 
       {/*CINEMATOGRAPHY Section*/}
       <section className="relative z-10 py-16">
-        <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">CINEMATOGRAPHY</h2>
-        <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-        </div>
-      </section>
+  <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">CINEMATOGRAPHY</h2>
+  <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+  </div>
+</section>
 
       {/*DESIGN Section*/}
       <section className="relative z-10 py-16">
-        <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">DESIGN</h2>
-        <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-        </div>
-      </section>
+  <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">DESIGN</h2>
+  <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+  </div>
+</section>
 
       {/*ANIMATION Section*/}
       <section className="relative z-10 py-16">
-        <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">ANIMATION</h2>
-        <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-        </div>
-      </section>
+  <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">ANIMATION</h2>
+  <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>  
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+  </div>
+</section>
 
       {/*OUTREACH Section*/}
       <section className="relative z-10 py-16">
-        <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">OUTREACH</h2>
-        <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-        </div>
-      </section>
+  <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">OUTREACH</h2>
+  <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+  </div>
+</section>
 
       {/*MEDIA Section*/}
       <section className="relative z-10 py-16">
-        <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">MEDIA</h2>
-        <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-          </div>
-          <div className="bg-black rounded-lg p-2 text-white flex items-center border border-white">
-            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-          </div>
-        </div>
-      </section>
+  <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">MEDIA</h2>
+  <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+      <div className="flex items-center">
+        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+      </div>
+      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+    </div>
+  </div>
+</section>
 
     </div>
   );
