@@ -1,10 +1,41 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  AlertCircle,
+  User,
+  Mail,
+  Phone,
+  Calendar,
+  University,
+} from "lucide-react";
 import bg from "./bg.png";
 
-function BackgroundMaker() {
-  return (
+const Dashboard = () => {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    // Simulating API call with setTimeout
+    setTimeout(() => {
+      setUserData({
+        name: "John Doe",
+        email: "john.doe@example.com",
+        mobile: "+1234567890",
+        age: "18",
+        university: "Indian Institute of Technology, Bombay",
+        events: [
+          { id: 1, type: "Design", name: "Event of design" },
+          { id: 2, type: "Cinematography", name: "Event of cinematography" },
+          { id: 3, type: "Photography", name: "Event of photography" },
+          { id: 4, type: "Animation", name: "Event of animation" },
+          { id: 5, type: "Outreach", name: "Event of outreach" },
+        ],
+      });
+    }, 1500);
+  }, []);
+
+  const BackgroundMaker = () => (
     <div
       className="absolute inset-0"
       style={{
@@ -16,87 +47,93 @@ function BackgroundMaker() {
       }}
     ></div>
   );
-}
 
-function DisplayInfo({ dataType, value }) {
-  return (
-    <p className="text-lg md:text-xl max-w-md mx-auto mb-8">
-      {dataType} <span className="font-semibold">{value}</span>
-    </p>
-  );
-}
-
-function EventCardOfUser({ eventCard }) {
-  return (
-    <li
-      key={eventCard.id}
-      className="mt-2 bg-black rounded-lg p-4 text-white flex flex-col items-center justify-center border border-white"
+  const DisplayInfo = ({ icon, dataType, value }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex items-center space-x-2 text-gray-300"
     >
-      <h3 className="text-2xl md:text-3xl font-semibold text-center">
-        {eventCard.type}
-      </h3>
-      <p className="text-lg md:text-xl font-normal text-center mt-2">
-        {eventCard.name}
-      </p>
-    </li>
+      {icon}
+      <span className="font-semibold">{dataType}:</span>
+      <span>{value}</span>
+    </motion.div>
   );
-}
 
-function Loader() {
-  return <p className="relative text-lg">Loading...</p>;
-}
+  const EventCard = ({ event }) => (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className=" bg-slate-400 border border-white bg-opacity-30 p-4 rounded-lg shadow-lg"
+    >
+      <h3 className="text-xl font-bold text-white mb-2">{event.type}</h3>
+      <p className="text-gray-300">{event.name}</p>
+    </motion.div>
+  );
 
-const Dashboard = () => {
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    setUserData({
-      name: "John Doe",
-      email: "john.doe@example.com",
-      mobile: "+1234567890",
-      age: "18",
-      events: [
-        { id: 1, type: "Design", name: "Event of design" },
-        { id: 2, type: "Cinematography", name: "Event of cinematography" },
-        { id: 3, type: "Photography", name: "Event of photography" },
-        { id: 4, type: "Animation", name: "Event of animation" },
-        { id: 5, type: "Outreach", name: "Event of outreach" },
-      ],
-    });
-  }, []);
+  const Loader = () => (
+    <div className="flex items-center justify-center h-screen">
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        className="w-16 h-16 border-t-4 border-red-500 rounded-full"
+      />
+    </div>
+  );
 
   return (
-    <div className="relative bg-black text-white font-sans min-h-screen">
+    <div className=" relative min-h-screen font-sans text-white">
       <BackgroundMaker />
-      <section
-        className="relative flex flex-col items-center justify-center min-h-screen text-center px-4 pt-16"
-        style={{ paddingTop: "5rem" }}
-      >
+      <div className="container backdrop-blur-md bg-gray-400/10 rounded-md mx-auto px-8 py-8">
         {userData ? (
-          <>
-            <div className="relative mb-8">
-              <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-                Welcome, {userData.name}
-              </h1>
-              <DisplayInfo dataType="Mobile Number" value={userData.mobile} />
-              <DisplayInfo dataType="Age" value={userData.age} />
-
-              <p className="text-lg md:text-xl max-w-md mx-auto">
-                Here are the events you are registered for:
-              </p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <h1 className="text-4xl font-bold mb-8">
+              Welcome, {userData.name}
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <DisplayInfo
+                icon={<User />}
+                dataType="Name"
+                value={userData.name}
+              />
+              <DisplayInfo
+                icon={<Mail />}
+                dataType="Email"
+                value={userData.email}
+              />
+              <DisplayInfo
+                icon={<Phone />}
+                dataType="Mobile"
+                value={userData.mobile}
+              />
+              <DisplayInfo
+                icon={<Calendar />}
+                dataType="Age"
+                value={userData.age}
+              />
+              <DisplayInfo
+                icon={<University />}
+                dataType="University"
+                value={userData.university}
+              />
             </div>
-
-            <ul>
+            <h2 className="text-2xl font-semibold mb-4">Registered Events:</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {userData.events.map((event) => (
-                <EventCardOfUser eventCard={event} />
+                <EventCard key={event.id} event={event} />
               ))}
-            </ul>
-            <section className="mb-20"></section>
-          </>
+            </div>
+          </motion.div>
         ) : (
           <Loader />
         )}
-      </section>
+      </div>
     </div>
   );
 };

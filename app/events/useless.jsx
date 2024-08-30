@@ -1,12 +1,10 @@
 //This page is just to store previous events page code as i fear the changes i make
-//might distort the functionality of add to cart therefore i am storing the code 
+//might distort the functionality of add to cart therefore i am storing the code
 //in this page.
-
-
 
 // "use client";
 // import React from 'react';
-// import { FaShoppingCart } from 'react-icons/fa'; 
+// import { FaShoppingCart } from 'react-icons/fa';
 
 // import Photography from '../../public/Img/EventImages/photography.png';
 // import Cinematography from '../../public/Img/EventImages/cinematography.png';
@@ -16,9 +14,8 @@
 // import sample from '../../public/Img/EventImages/sculpture.png';
 // import bg from '../../public/Img/EventImages/bg.png';
 
-
 // const EventsPage = ({ cardTextSize = 'text-lg' }) => {
-  
+
 //   const handleAddToCart = () => {
 //     const selectedEvents = [];
 //     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
@@ -29,14 +26,14 @@
 //     alert('Selected Events: ' + selectedEvents.join(', '));
 //   };
 //   return (
-    
+
 //     <div className="relative bg-black text-white font-sans min-h-screen">
 //       <div className="absolute inset-0" style={{
 //          backgroundImage: `url(${bg.src})`,
 //          backgroundRepeat: 'repeat',
-//          backgroundSize: 'contain', 
-//          backgroundPosition: 'center', 
-//          backgroundColor: 'black' 
+//          backgroundSize: 'contain',
+//          backgroundPosition: 'center',
+//          backgroundColor: 'black'
 //       }}></div>
 
 //       <section className="relative flex flex-col items-center justify-center h-screen text-center px-4">
@@ -108,12 +105,11 @@
 //             <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
 //             <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600 mt-2 ml-4" />
 //           </div>
-          
+
 //           <div className="text-sm text-center align-text-bottom ml-8 mt-2">
-//            <pre> <big> Price  XXXXX  </big></pre> 
+//            <pre> <big> Price  XXXXX  </big></pre>
 //           </div>
 //         </div>
-
 
 //         <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
 //           <div className="flex items-center">
@@ -155,7 +151,6 @@
 //     </div>
 //   </div>
 // </section>
-
 
 //       {/*CINEMATOGRAPHY Section*/}
 //       <section className="relative z-10 py-16">
@@ -269,7 +264,7 @@
 //     <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
 //       <div className="flex items-center">
 //         <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-//         <h3 className="text-4xl font-semibold ml-24">Photoart</h3>  
+//         <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
 //       </div>
 //       <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
 //     </div>

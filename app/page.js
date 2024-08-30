@@ -39,8 +39,7 @@ export default function Home() {
         <Section>
           <Sponsors />
         </Section>
-          <Footer />
-        
+        <Footer />
       </div>
     </>
   );
