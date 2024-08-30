@@ -17,6 +17,7 @@ function Logo() {
 }
 
 const NavBar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [isRegistered, setIsRegistered] = useState(true);
 
   useEffect(() => {
@@ -32,8 +33,7 @@ const NavBar = () => {
 
   return (
     <>
-      
-      <div className="w-full h-20 bg-black sticky top-0 z-10">
+      <div className="w-full h-full py-4 bg-black sticky top-0 z-10">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             <Link href="/">
@@ -59,6 +59,16 @@ const NavBar = () => {
               <li>
                 <Link href="/events">
                   <p>Events</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/sponsors">
+                  <p>Sponsors</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/contactUs">
+                  <p>Contact Us</p>
                 </Link>
               </li>
             </ul>
