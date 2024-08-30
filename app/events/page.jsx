@@ -1,4 +1,6 @@
+"use client";
 import React from 'react';
+import { FaShoppingCart } from 'react-icons/fa'; 
 
 import Photography from '../../public/Img/EventImages/photography.png';
 import Cinematography from '../../public/Img/EventImages/cinematography.png';
@@ -10,6 +12,16 @@ import bg from '../../public/Img/EventImages/bg.png';
 
 
 const EventsPage = ({ cardTextSize = 'text-lg' }) => {
+  
+  const handleAddToCart = () => {
+    const selectedEvents = [];
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    checkboxes.forEach((checkbox) => {
+      const eventName = checkbox.closest('.flex').querySelector('h3').innerText;
+      selectedEvents.push(eventName);
+    });
+    alert('Selected Events: ' + selectedEvents.join(', '));
+  };
   return (
     
     <div className="relative bg-black text-white font-sans min-h-screen">
@@ -71,38 +83,56 @@ const EventsPage = ({ cardTextSize = 'text-lg' }) => {
         </div>
       </section>
 
+      <button
+      onClick={handleAddToCart}
+      className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg flex items-center space-x-2 z-50"
+    >
+      <FaShoppingCart />
+      <span>Add to Cart</span>
+    </button>
+
       {/*PHOTOGRAPHY Section*/}
       <section className="relative z-10 py-16">
   <h2 className="text-6xl md:text-4x1 font-bold text-center mb-16">PHOTOGRAPHY</h2>
   <div className="grid grid-cols-2 gap-8 px-4 md:px-72">
-    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
-      <div className="flex items-center">
-        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-      </div>
-      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-    </div>
-    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
-      <div className="flex items-center">
-        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-      </div>
-      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-    </div>
-    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
-      <div className="flex items-center">
-        <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
-        <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
-      </div>
-      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-    </div>
-    <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
-      <div className="flex items-center">
-        <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
-        <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
-      </div>
-      <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-    </div>
+
+          <div className="bg-black rounded-lg p-2 text-white flex flex-col justify-between border border-white ">
+          <div className="flex items-center">
+            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+            <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600 mt-2 ml-4" />
+          </div>
+          
+          <div className="text-sm text-center align-text-bottom ml-8 mt-2">
+           <pre> <big> Price  XXXXX  </big></pre> 
+          </div>
+        </div>
+
+
+        <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+          <div className="flex items-center">
+            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+          </div>
+          <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+        </div>
+
+        <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+          <div className="flex items-center">
+            <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
+            <h3 className="text-4xl font-semibold ml-24">Snapchase</h3>
+          </div>
+          <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+        </div>
+
+        <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
+          <div className="flex items-center">
+            <img src={sample.src} alt="Photoart" className="w-1/4 h-auto object-cover rounded-lg" />
+            <h3 className="text-4xl font-semibold ml-24">Photoart</h3>
+          </div>
+          <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+        </div>
+
     <div className="bg-black rounded-lg p-2 text-white flex items-center justify-between border border-white">
       <div className="flex items-center">
         <img src={sample.src} alt="Snapchase" className="w-1/4 h-auto object-cover rounded-lg" />
@@ -366,6 +396,13 @@ const EventsPage = ({ cardTextSize = 'text-lg' }) => {
   </div>
 </section>
 
+      <button
+        onClick={handleAddToCart}
+        className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg flex items-center space-x-2"
+      >
+        <FaShoppingCart />
+        <span>Add to Cart</span>
+      </button>
     </div>
   );
 };
