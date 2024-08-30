@@ -17,7 +17,7 @@ function Logo() {
 }
 
 const NavBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isRegistered, setIsRegistered] = useState(true);
 
   useEffect(() => {
@@ -59,16 +59,6 @@ const NavBar = () => {
               <li>
                 <Link href="/events">
                   <p>Events</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/sponsors">
-                  <p>Sponsors</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/contactUs">
-                  <p>Contact Us</p>
                 </Link>
               </li>
             </ul>
