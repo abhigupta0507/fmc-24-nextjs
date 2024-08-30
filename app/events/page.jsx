@@ -1,8 +1,8 @@
-'use client'
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaShoppingCart, FaPlus, FaMinus, FaTimes } from 'react-icons/fa';
-import Image from 'next/image';
+"use client";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaShoppingCart, FaPlus, FaMinus, FaTimes } from "react-icons/fa";
+import Image from "next/image";
 import eventsImg from "./events.svg";
 import Photography from "../../public/Img/EventImages/photography.png";
 import Cinematography from "../../public/Img/EventImages/cinematography.png";
@@ -46,8 +46,8 @@ const EventCard = ({ name, photo, price, onToggle, isSelected }) => (
             onClick={onToggle}
             className={`py-2 px-4 rounded-full text-sm transition-colors duration-300 ${
               isSelected
-                ? 'bg-red-600 hover:bg-red-700'
-                : 'bg-blue-600 hover:bg-blue-700'
+                ? "bg-red-600 hover:bg-red-700"
+                : "bg-blue-600 hover:bg-blue-700"
             }`}
           >
             {isSelected ? (
@@ -106,7 +106,10 @@ const CartModal = ({ cart, onClose, onRemove }) => (
       ) : (
         <>
           {cart.map((item) => (
-            <div key={item.name} className="flex justify-between items-center mb-2">
+            <div
+              key={item.name}
+              className="flex justify-between items-center mb-2"
+            >
               <span>{item.name}</span>
               <div>
                 <span className="mr-4">Rs {item.price}</span>
@@ -130,7 +133,7 @@ const CartModal = ({ cart, onClose, onRemove }) => (
           <div>
             <button
               className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full"
-              onClick={() => alert('Payment successful!')}
+              onClick={() => alert("Payment successful!")}
             >
               Proceed to Checkout
             </button>
@@ -164,18 +167,38 @@ const EventsPage = () => {
         { name: "Snapchase", price: 500, photo: Photography },
         { name: "Portrait Workshop", price: 300, photo: Photography },
         { name: "Street Photography Walk", price: 250, photo: Photography },
-        { name: "Night Photography Masterclass", price: 400, photo: Photography },
-        { name: "Landscape Photography Expedition", price: 600, photo: Photography },
-      ]
+        {
+          name: "Night Photography Masterclass",
+          price: 400,
+          photo: Photography,
+        },
+        {
+          name: "Landscape Photography Expedition",
+          price: 600,
+          photo: Photography,
+        },
+      ],
     },
     {
       name: "Cinematography",
       events: [
         { name: "Short Film Challenge", price: 750, photo: Cinematography },
-        { name: "Documentary Filmmaking Workshop", price: 800, photo: Cinematography },
-        { name: "Lighting for Film Seminar", price: 500, photo: Cinematography },
-        { name: "Drone Cinematography Course", price: 900, photo: Cinematography },
-      ]
+        {
+          name: "Documentary Filmmaking Workshop",
+          price: 800,
+          photo: Cinematography,
+        },
+        {
+          name: "Lighting for Film Seminar",
+          price: 500,
+          photo: Cinematography,
+        },
+        {
+          name: "Drone Cinematography Course",
+          price: 900,
+          photo: Cinematography,
+        },
+      ],
     },
     {
       name: "Design",
@@ -183,25 +206,41 @@ const EventsPage = () => {
         { name: "Graphic Design Bootcamp", price: 550, photo: Design },
         { name: "UI/UX Design Workshop", price: 650, photo: Design },
         { name: "Branding Strategy Masterclass", price: 700, photo: Design },
-      ]
+      ],
     },
     {
       name: "Animation",
       events: [
         { name: "2D Animation Fundamentals", price: 450, photo: Animation },
         { name: "3D Modeling and Rigging", price: 800, photo: Animation },
-        { name: "Stop Motion Animation Workshop", price: 350, photo: Animation },
-        { name: "Character Design for Animation", price: 500, photo: Animation },
-      ]
+        {
+          name: "Stop Motion Animation Workshop",
+          price: 350,
+          photo: Animation,
+        },
+        {
+          name: "Character Design for Animation",
+          price: 500,
+          photo: Animation,
+        },
+      ],
     },
     {
       name: "Outreach",
       events: [
         { name: "Community Art Project", price: 200, photo: Outreach },
         { name: "Digital Literacy Workshop", price: 150, photo: Outreach },
-        { name: "Youth Media Empowerment Program", price: 300, photo: Outreach },
-        { name: "Environmental Storytelling Initiative", price: 250, photo: Outreach },
-      ]
+        {
+          name: "Youth Media Empowerment Program",
+          price: 300,
+          photo: Outreach,
+        },
+        {
+          name: "Environmental Storytelling Initiative",
+          price: 250,
+          photo: Outreach,
+        },
+      ],
     },
     {
       name: "Media",
@@ -209,7 +248,7 @@ const EventsPage = () => {
         { name: "Social Media Marketing Seminar", price: 400, photo: Design },
         { name: "Podcast Production Workshop", price: 350, photo: Design },
         { name: "Digital Journalism Bootcamp", price: 500, photo: Design },
-      ]
+      ],
     },
   ];
 
@@ -227,14 +266,22 @@ const EventsPage = () => {
       >
         <div className="relative mb-8">
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-            Participate in<br />exciting events
+            Participate in
+            <br />
+            exciting events
           </h1>
           <p className="text-2xl md:text-3xl max-w-2xl mx-auto text-gray-300">
             Explore a world of creativity through photography, cinematography,
             animation, media, design, and outreach!
           </p>
         </div>
-        <Image src={eventsImg} alt="Events" height={1000} width={1000} className="mt-8" />
+        <Image
+          src={eventsImg}
+          alt="Events"
+          height={1000}
+          width={1000}
+          className="mt-8"
+        />
       </motion.section>
 
       <motion.button
