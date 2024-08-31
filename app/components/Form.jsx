@@ -1,14 +1,14 @@
-'use client';
-import React, { useState } from 'react';
-import Image from 'next/image';
-import logo from '../components/logo.jpeg';
-import { sendContactForm } from '../../utils/api';
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import logo from "../components/logo.png";
+import { sendContactForm } from "../../utils/api";
 
 const Alert = ({ type, message, onClose }) => {
   return (
     <div
       className={`mt-3 p-4 rounded-lg shadow-lg ${
-        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+        type === "success" ? "bg-green-500" : "bg-red-500"
       } text-white`}
     >
       <p>{message}</p>
@@ -20,29 +20,37 @@ const Alert = ({ type, message, onClose }) => {
 };
 
 const Form = () => {
-  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
+  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const [sending, setSending] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
     const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const message = formData.get('message');
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const message = formData.get("message");
 
     try {
       await sendContactForm({ name, email, message });
       e.target.reset();
       setSending(false);
-      setAlert({ show: true, message: 'Form submitted successfully!', type: 'success' });
+      setAlert({
+        show: true,
+        message: "Form submitted successfully!",
+        type: "success",
+      });
     } catch (error) {
-      setAlert({ show: true, message: 'Error submitting form. Please try again.', type: 'error' });
+      setAlert({
+        show: true,
+        message: "Error submitting form. Please try again.",
+        type: "error",
+      });
     }
   };
 
   const closeAlert = () => {
-    setAlert({ show: false, message: '', type: '' });
+    setAlert({ show: false, message: "", type: "" });
   };
 
   return (
@@ -51,13 +59,13 @@ const Form = () => {
         {/* Left section with Logo and QR Code */}
         <div className="w-full lg:w-1/2 mb-6 lg:mb-0">
           <div className="flex flex-col items-center mb-4">
-          <div className="flex items-center mb-4">
-            <Image src={logo} alt="Company Logo" width={350} height={250} />
-          </div>
+            <div className="flex items-center mb-4">
+              <Image src={logo} alt="Company Logo" width={170} height={110} />
+            </div>
             {/* QR Code */}
             <div className="mt-4 bg-gray-200 w-[400px] h-[400px]">
               {/* <Image src={qrCode} alt="QR Code" width={400} height={400} /> */}
-              <p className='text-black'>QR HERE</p>
+              <p className="text-black">QR HERE</p>
             </div>
           </div>
         </div>
@@ -114,7 +122,13 @@ const Form = () => {
               Submit
             </button>
           </form>
-          {alert.show && <Alert type={alert.type} message={alert.message} onClose={closeAlert} />}
+          {alert.show && (
+            <Alert
+              type={alert.type}
+              message={alert.message}
+              onClose={closeAlert}
+            />
+          )}
         </div>
       </div>
     </div>
