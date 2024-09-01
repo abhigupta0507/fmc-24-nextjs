@@ -315,7 +315,7 @@ const EventsPage = () => {
               name={event}
               price={details.price}
               onToggle={() => toggleEvent(details)}
-              isSelected={cart.some((item) => item.name === event)}
+              isSelected={cart.some((item) => item.name === details.name)}
             />
           ))}
         </SectionBlock>
