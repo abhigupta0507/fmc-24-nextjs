@@ -19,52 +19,67 @@ function BackgroundMaker() {
       style={{
         backgroundImage: `url(${bg.src})`,
         backgroundRepeat: "repeat",
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "black",
       }}
     ></div>
   );
 }
-const EventCard = ({ name, photo, price, onToggle, isSelected }) => (
-  <motion.div
-    className="bg-black rounded-lg p-4 text-white flex flex-col justify-between border border-white"
-    whileHover={{ scale: 1.05 }}
-    transition={{ duration: 0.1 }}
-  >
-    <div className="flex items-center mb-4">
-      <img
-        src={sample.src}
-        alt={name}
-        className="w-fit h-fit  rounded-lg shadow-md"
-      />
-      <div className="ml-4 flex-grow">
-        <h3 className="text-xl font-semibold mb-1">{name}</h3>
-        <p className="text-gray-400 mb-4">Price: Rs {price}</p>
-        <div className="flex justify-between items-center">
-          <button
-            onClick={onToggle}
-            className={`py-2 px-4 rounded-full text-sm transition-colors duration-300 ${
-              isSelected
-                ? "bg-red-600 hover:bg-red-700"
-                : "bg-blue-600 hover:bg-blue-700"
-            }`}
-          >
-            {isSelected ? (
-              <>
-                <FaMinus className="inline-block mr-2" /> Remove
-              </>
-            ) : (
-              <>
-                <FaPlus className="inline-block mr-2" /> Add
-              </>
-            )}
-          </button>
+
+const purchasedEvents = ["fmc_1", "fmc_2"]; // Replace with actual event IDs
+
+const EventCard = ({ id, name, photo, price, onToggle, isSelected }) => {
+  const isPurchased = purchasedEvents.includes(id);
+
+  return (
+    <motion.div
+      className={`rounded-lg p-4 flex flex-col justify-between border transition duration-300 ${
+        isPurchased
+          ? "bg-gray-800 border-gray-700 opacity-50 cursor-not-allowed"
+          : "bg-black border-white"
+      }`}
+      whileHover={!isPurchased ? { scale: 1.05 } : {}}
+    >
+      <div className="flex items-center mb-4">
+        <img
+          src={photo || sample.src}
+          alt={name}
+          className="w-20 h-20 rounded-lg shadow-md"
+        />
+        <div className="ml-4 flex-grow">
+          <h3 className="text-xl font-semibold mb-1">{name}</h3>
+          <p className="text-gray-400 mb-4">Price: Rs {price}</p>
+          {isPurchased ? (
+            <div className="text-green-500 font-semibold">Registered</div>
+          ) : (
+            <div className="flex justify-start items-center">
+              <button
+                onClick={onToggle}
+                className={`py-2 px-4 rounded-full text-sm font-medium transition-colors duration-300 ${
+                  isSelected
+                    ? "bg-red-600 hover:bg-red-700"
+                    : "bg-blue-600 hover:bg-blue-700"
+                }`}
+              >
+                {isSelected ? (
+                  <>
+                    <FaMinus className="inline-block mr-2" /> Remove
+                  </>
+                ) : (
+                  <>
+                    <FaPlus className="inline-block mr-2" /> Add
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  );
+};
+
 
 const SectionBlock = ({ name, children }) => (
   <section className="py-16">
@@ -107,14 +122,14 @@ const CartModal = ({ cart, onClose, onRemove }) => (
         <>
           {cart.map((item) => (
             <div
-              key={item.name}
+              key={item.id}
               className="flex justify-between items-center mb-2"
             >
               <span>{item.name}</span>
               <div>
                 <span className="mr-4">Rs {item.price}</span>
                 <button
-                  onClick={() => onRemove(item.name)}
+                  onClick={() => onRemove(item.id)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <FaMinus size={16} />
@@ -132,8 +147,8 @@ const CartModal = ({ cart, onClose, onRemove }) => (
           </div>
           <div>
             <button
-              className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full"
-              onClick={() => alert("Payment successful!")}
+              className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full hover:bg-blue-700 transition-colors duration-300"
+              onClick={() => alert("Proceeding to checkout...")}
             >
               Proceed to Checkout
             </button>
@@ -147,124 +162,38 @@ const CartModal = ({ cart, onClose, onRemove }) => (
 const EventsPage = () => {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState({});
+
   useEffect(() => {
     (async () => {
-      let res = await fetch("https://fmcw2024-backend.onrender.com/api/events");
-      // let res = await fetch("http://localhost:8080/api/events");
-      res =await res.json();
-      setCategories(res)
-      // console.log(res);
-    })()
+      try {
+        const res = await fetch(
+          "https://fmcw2024-backend.onrender.com/api/events"
+        );
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+      }
+    })();
   }, []);
+
   const toggleEvent = (event) => {
     setCart((prev) =>
-      prev.some((item) => item.name === event.name)
-        ? prev.filter((item) => item.name !== event.name)
+      prev.some((item) => item.id === event.id)
+        ? prev.filter((item) => item.id !== event.id)
         : [...prev, event]
     );
   };
 
-  const removeFromCart = (eventName) => {
-    setCart((prev) => prev.filter((item) => item.name !== eventName));
+  const removeFromCart = (eventId) => {
+    setCart((prev) => prev.filter((item) => item.id !== eventId));
   };
-
-  // const eventCategories = [
-  //   {
-  //     name: "Photography",
-  //     events: [
-  //       { name: "Snapchase", price: 500, photo: Photography },
-  //       { name: "Portrait Workshop", price: 300, photo: Photography },
-  //       { name: "Street Photography Walk", price: 250, photo: Photography },
-  //       {
-  //         name: "Night Photography Masterclass",
-  //         price: 400,
-  //         photo: Photography,
-  //       },
-  //       {
-  //         name: "Landscape Photography Expedition",
-  //         price: 600,
-  //         photo: Photography,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Cinematography",
-  //     events: [
-  //       { name: "Short Film Challenge", price: 750, photo: Cinematography },
-  //       {
-  //         name: "Documentary Filmmaking Workshop",
-  //         price: 800,
-  //         photo: Cinematography,
-  //       },
-  //       {
-  //         name: "Lighting for Film Seminar",
-  //         price: 500,
-  //         photo: Cinematography,
-  //       },
-  //       {
-  //         name: "Drone Cinematography Course",
-  //         price: 900,
-  //         photo: Cinematography,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Design",
-  //     events: [
-  //       { name: "Graphic Design Bootcamp", price: 550, photo: Design },
-  //       { name: "UI/UX Design Workshop", price: 650, photo: Design },
-  //       { name: "Branding Strategy Masterclass", price: 700, photo: Design },
-  //     ],
-  //   },
-  //   {
-  //     name: "Animation",
-  //     events: [
-  //       { name: "2D Animation Fundamentals", price: 450, photo: Animation },
-  //       { name: "3D Modeling and Rigging", price: 800, photo: Animation },
-  //       {
-  //         name: "Stop Motion Animation Workshop",
-  //         price: 350,
-  //         photo: Animation,
-  //       },
-  //       {
-  //         name: "Character Design for Animation",
-  //         price: 500,
-  //         photo: Animation,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Outreach",
-  //     events: [
-  //       { name: "Community Art Project", price: 200, photo: Outreach },
-  //       { name: "Digital Literacy Workshop", price: 150, photo: Outreach },
-  //       {
-  //         name: "Youth Media Empowerment Program",
-  //         price: 300,
-  //         photo: Outreach,
-  //       },
-  //       {
-  //         name: "Environmental Storytelling Initiative",
-  //         price: 250,
-  //         photo: Outreach,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Media",
-  //     events: [
-  //       { name: "Social Media Marketing Seminar", price: 400, photo: Design },
-  //       { name: "Podcast Production Workshop", price: 350, photo: Design },
-  //       { name: "Digital Journalism Bootcamp", price: 500, photo: Design },
-  //     ],
-  //   },
-  // ];
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   return (
-    <div className="relative text-white font-clash min-h-screen">
+    <div className="relative text-white font-sans min-h-screen">
       <BackgroundMaker />
 
       <motion.section
@@ -277,24 +206,23 @@ const EventsPage = () => {
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
             Participate in
             <br />
-            exciting events
+            Exciting Events
           </h1>
           <p className="text-2xl md:text-3xl max-w-2xl mx-auto text-gray-300">
-            Explore a world of creativity through photography, cinematography,
-            animation, media, design, and outreach!
+            Explore a world of creativity through various engaging events!
           </p>
         </div>
         <Image
           src={eventsImg}
           alt="Events"
-          height={1000}
-          width={1000}
+          height={500}
+          width={500}
           className="mt-8"
         />
       </motion.section>
 
       <motion.button
-        className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg z-50 flex items-center"
+        className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg z-50 flex items-center hover:bg-blue-700 transition-colors duration-300"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsCartOpen(true)}
@@ -302,20 +230,22 @@ const EventsPage = () => {
         <FaShoppingCart size={24} />
         {cart.length > 0 && (
           <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
-            Rs {totalPrice}
+            {cart.length}
           </span>
         )}
       </motion.button>
 
-      {Object.entries(categories).map(([category, events], i) => (
-        <SectionBlock key={category} name={category}>
-          {Object.entries(events).map(([event, details], i) => (
+      {Object.entries(categories).map(([categoryName, events]) => (
+        <SectionBlock key={categoryName} name={categoryName}>
+          {Object.values(events).map((event) => (
             <EventCard
-              key={details.id}
-              name={event}
-              price={details.price}
-              onToggle={() => toggleEvent(details)}
-              isSelected={cart.some((item) => item.name === details.name)}
+              key={event.id}
+              id={event.id}
+              name={event.name}
+              photo={event.photo}
+              price={event.price}
+              onToggle={() => toggleEvent(event)}
+              isSelected={cart.some((item) => item.id === event.id)}
             />
           ))}
         </SectionBlock>
