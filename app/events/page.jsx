@@ -149,14 +149,13 @@ const EventsPage = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    const load_events = async () => {
+    (async () => {
       let res = await fetch("https://fmcw2024-backend.onrender.com/api/events");
       // let res = await fetch("http://localhost:8080/api/events");
       res =await res.json();
       setCategories(res)
       // console.log(res);
-    };
-    load_events()
+    })()
   }, []);
   const toggleEvent = (event) => {
     setCart((prev) =>
