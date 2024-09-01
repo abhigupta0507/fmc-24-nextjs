@@ -5,7 +5,7 @@ import React from "react";
 // Import the background image
 import backgroundImage from "../components/bg.jpeg";
 // Import the logo image
-import logoImage from "../components/logo.jpeg";
+import logoImage from "../components/logo.png";
 
 function Login() {
   const handleGoogleSignInClick = () => {
