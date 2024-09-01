@@ -61,8 +61,9 @@ const NavBar = () => {
                 <Link href="/aboutUs">
                   <p
                     className={`opacity-${
-                      isActiveLink("/aboutUs") ? "100" : "70"
-                    } hover:opacity-100`}
+                      isActiveLink("/aboutUs") ? "100 underline" : "70"
+                    } hover:opacity-100` 
+                     }
                   >
                     About Us
                   </p>
@@ -72,7 +73,7 @@ const NavBar = () => {
                 <Link href="/events">
                   <p
                     className={`opacity-${
-                      isActiveLink("/events") ? "100" : "70"
+                      isActiveLink("/events") ? "100 underline" : "70"
                     } hover:opacity-100`}
                   >
                     Events
