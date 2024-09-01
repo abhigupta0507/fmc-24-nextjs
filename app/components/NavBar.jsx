@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react"; // Import hamburger and cross icons
+import { Menu, X } from "lucide-react";
 import Cookies from "js-cookie";
 import logoImage from "../components/logo.png";
 import "/styles/navbar.css";
+import { usePathname } from "next/navigation";
 
 function Logo() {
   return (
@@ -18,18 +19,23 @@ function Logo() {
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const pathName = usePathname();
 
   useEffect(() => {
-    const userToken = Cookies.get("userToken"); // Replace 'userToken' with your actual cookie name
+    const userToken = Cookies.get("userToken");
     if (userToken) {
-      setIsRegistered(true);
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
     }
   }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const isActiveLink = (path) => pathName === path;
+  console.log(pathName);
 
   return (
     <>
@@ -53,28 +59,26 @@ const NavBar = () => {
             <ul className={`hidden md:flex gap-x-6 text-white`}>
               <li>
                 <Link href="/aboutUs">
-                  <p>About Us</p>
+                  <p
+                     style={isActiveLink("/aboutUs")?{opacity:1,textDecoration:"underline"}:{opacity:0.7}}   
+                  >
+                    About Us
+                  </p>
                 </Link>
               </li>
               <li>
                 <Link href="/events">
-                  <p>Events</p>
+                  <p
+                    style={isActiveLink("/events")?{opacity:1,textDecoration:"underline"}:{opacity:0.7}}      
+                  >
+                    Events
+                  </p>
                 </Link>
               </li>
             </ul>
-            {/* <Button>
-              <Link className="text-white" href="/register">
-                Register
-              </Link>
-            </Button> */}
-            {/* <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-              <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-              Purple to pink
-              </span>
-            </button> */}
 
-            {/* User Profile/Registration Button */}
-            {isRegistered ? (
+            {/* User Profile/Authentication Button */}
+            {isAuthenticated ? (
               <Link
                 href="/dashboard"
                 className="hidden md:block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
@@ -83,10 +87,10 @@ const NavBar = () => {
               </Link>
             ) : (
               <Link
-                href="/register"
+                href="/login"
                 className="hidden md:block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
               >
-                Register
+                Login
               </Link>
             )}
           </div>
@@ -96,25 +100,23 @@ const NavBar = () => {
             <ul className="md:hidden mt-4 text-white space-y-4">
               <li>
                 <Link href="/aboutUs">
-                  <p>About Us</p>
+                  <p
+                     style={isActiveLink("/aboutUs")?{opacity:1}:{opacity:0.7}}   
+                  >
+                    About Us
+                  </p>
                 </Link>
               </li>
               <li>
                 <Link href="/events">
-                  <p>Events</p>
+                  <p
+                    style={isActiveLink("/events")?{opacity:1}:{opacity:0.7}}   
+                  >
+                    Events
+                  </p>
                 </Link>
               </li>
-              <li>
-                <Link href="/sponsors">
-                  <p>Sponsors</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/contactUs">
-                  <p>Contact Us</p>
-                </Link>
-              </li>
-              {isRegistered ? (
+              {isAuthenticated ? (
                 <Link
                   href="/dashboard"
                   className="block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
@@ -123,10 +125,10 @@ const NavBar = () => {
                 </Link>
               ) : (
                 <Link
-                  href="/register"
+                  href="/login"
                   className="block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
                 >
-                  Register
+                  Login
                 </Link>
               )}
             </ul>
