@@ -47,7 +47,7 @@ const NavBar = () => {
             </Link>
 
             {/* Hamburger Menu Icon */}
-            <div className="md:hidden" onClick={toggleMenu}>
+            <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
               {isMenuOpen ? (
                 <X size={28} className="text-white" />
               ) : (
@@ -60,7 +60,9 @@ const NavBar = () => {
               <li>
                 <Link href="/aboutUs">
                   <p
-                     style={isActiveLink("/aboutUs")?{opacity:1,textDecoration:"underline"}:{opacity:0.7}}   
+                    className={`opacity-${
+                      isActiveLink("/aboutUs") ? "100" : "70"
+                    } hover:opacity-100`}
                   >
                     About Us
                   </p>
@@ -69,7 +71,9 @@ const NavBar = () => {
               <li>
                 <Link href="/events">
                   <p
-                    style={isActiveLink("/events")?{opacity:1,textDecoration:"underline"}:{opacity:0.7}}      
+                    className={`opacity-${
+                      isActiveLink("/events") ? "100" : "70"
+                    } hover:opacity-100`}
                   >
                     Events
                   </p>
@@ -97,20 +101,24 @@ const NavBar = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <ul className="md:hidden mt-4 text-white space-y-4">
+            <ul className="md:hidden mt-4 text-white space-y-4 cursor-pointer">
               <li>
-                <Link href="/aboutUs">
+                <Link href="/aboutUs" onClick={toggleMenu}>
                   <p
-                     style={isActiveLink("/aboutUs")?{opacity:1}:{opacity:0.7}}   
+                    className={`opacity-${
+                      isActiveLink("/aboutUs") ? "100" : "70"
+                    } hover:opacity-100`}
                   >
                     About Us
                   </p>
                 </Link>
               </li>
               <li>
-                <Link href="/events">
+                <Link href="/events" onClick={toggleMenu}>
                   <p
-                    style={isActiveLink("/events")?{opacity:1}:{opacity:0.7}}   
+                    className={`opacity-${
+                      isActiveLink("/events") ? "100" : "70"
+                    } hover:opacity-100`}
                   >
                     Events
                   </p>
@@ -119,6 +127,7 @@ const NavBar = () => {
               {isAuthenticated ? (
                 <Link
                   href="/dashboard"
+                  onClick={toggleMenu}
                   className="block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
                 >
                   My Profile
@@ -126,6 +135,7 @@ const NavBar = () => {
               ) : (
                 <Link
                   href="/login"
+                  onClick={toggleMenu}
                   className="block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
                 >
                   Login
