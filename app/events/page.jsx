@@ -1,4 +1,5 @@
 'use client'
+'use client'
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaShoppingCart, FaPlus, FaMinus, FaTimes } from "react-icons/fa";
@@ -22,6 +23,48 @@ function BackgroundMaker() {
   );
 }
 
+const EventCard = ({ name, price, onToggle, isInCart, isRegistered, isSelected }) => (
+  <motion.div
+    className="bg-black rounded-lg p-4 text-white flex flex-col justify-between border border-white"
+    whileHover={{ scale: 1.05 }}
+    transition={{ duration: 0.1 }}
+  >
+    <div className="flex items-center mb-4">
+      <img
+        src={sample.src}
+        alt={name}
+        className="w-fit h-fit rounded-lg shadow-md"
+      />
+      <div className="ml-4 flex-grow">
+        <h3 className="text-xl font-semibold mb-1">{name}</h3>
+        <p className="text-gray-400 mb-4">Price: Rs {price}</p>
+        <div className="flex justify-between items-center">
+          <button
+            onClick={onToggle}
+            className={`py-2 px-4 rounded-full text-sm transition-colors duration-300 ${
+              isRegistered
+                ? "bg-gray-600 cursor-not-allowed"
+                : isInCart
+                ? "bg-blue-600 cursor-not-allowed"
+                : isSelected
+                ? "bg-green-600 hover:bg-green-700"
+                : "bg-blue-600 hover:bg-blue-700"
+            }`}
+            disabled={isRegistered || isInCart}
+          >
+            {isRegistered
+              ? "Registered"
+              : isInCart
+              ? "In Cart"
+              : isSelected
+              ? "Selected"
+              : "Select"}
+          </button>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+);
 const EventCard = ({ name, price, onToggle, isInCart, isRegistered, isSelected }) => (
   <motion.div
     className="bg-black rounded-lg p-4 text-white flex flex-col justify-between border border-white"
@@ -135,6 +178,12 @@ const CartModal = ({ cart, onClose, onRemove }) => (
           >
             Proceed to Checkout
           </button>
+          <button
+            className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full"
+            onClick={() => alert("Payment successful!")}
+          >
+            Proceed to Checkout
+          </button>
         </>
       )}
     </motion.div>
@@ -143,7 +192,10 @@ const CartModal = ({ cart, onClose, onRemove }) => (
 
 const EventsPage = () => {
   const [categories, setCategories] = useState({});
+  const [categories, setCategories] = useState({});
   const [cart, setCart] = useState([]);
+  const [registeredEvents, setRegisteredEvents] = useState([]);
+  const [selectedEvents, setSelectedEvents] = useState([]);
   const [registeredEvents, setRegisteredEvents] = useState([]);
   const [selectedEvents, setSelectedEvents] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -162,7 +214,22 @@ const EventsPage = () => {
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
+    const fetchData = async () => {
+      setIsLoading(true);
+      setError(null);
       try {
+        const eventsRes = await fetch("https://fmcw2024-backend.onrender.com/api/events");
+        const events = await eventsRes.json();
+        //const registeredEventsRes = await fetch(`https://fmcw2024-backend.onrender.com/${userid}/registered-events`);
+        //const registeredEvents = await registeredEventsRes.json();
+        //const cartRes = await fetch(`https://fmcw2024-backend.onrender.com/${userid}/cart`);
+        //const cart = await cartRes.json();
+        console.log("Events:", events);
+
+        setCategories(events);
+        // Currently using dummy data for cart and registered events
+        setCart(dummyCart);
+        setRegisteredEvents(dummyRegisteredEvents);
         const eventsRes = await fetch("https://fmcw2024-backend.onrender.com/api/events");
         const events = await eventsRes.json();
         //const registeredEventsRes = await fetch(`https://fmcw2024-backend.onrender.com/${userid}/registered-events`);
@@ -180,12 +247,21 @@ const EventsPage = () => {
         setError("Failed to load events. Please try again later.");
       } finally {
         setIsLoading(false);
+        console.error("Error fetching events:", error);
+        setError("Failed to load events. Please try again later.");
+      } finally {
+        setIsLoading(false);
       }
+    };
+
+    fetchData();
     };
 
     fetchData();
   }, []);
 
+  const toggleEventSelection = (event) => {
+    setSelectedEvents((prev) =>
   const toggleEventSelection = (event) => {
     setSelectedEvents((prev) =>
       prev.some((item) => item.id === event.id)
@@ -194,6 +270,15 @@ const EventsPage = () => {
     );
   };
 
+  const addSelectedToCart = () => {
+    //api call to add selected events to cart
+    
+    setCart([...cart, ...selectedEvents]);
+    setSelectedEvents([]);
+  };
+
+  const removeFromCart = (eventName) => {
+    setCart((prev) => prev.filter((item) => item.name !== eventName));
   const addSelectedToCart = () => {
     //api call to add selected events to cart
     
@@ -216,12 +301,24 @@ const EventsPage = () => {
   }
 
 
+  if (isLoading) {
+    return <div className="text-white text-center mt-20">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-center mt-20">{error}</div>;
+  }
+
+
   return (
     <div className="relative text-white font-sans min-h-screen">
       <BackgroundMaker />
 
       <motion.section
         className="relative flex flex-col items-center justify-center h-screen text-center px-4"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: 'easeInOut' }}
@@ -238,8 +335,45 @@ const EventsPage = () => {
             animate={{ scale: 1, rotate: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}
           >
+        <motion.div
+          className="relative mb-8"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+        >
+          <motion.h1
+            className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
+            initial={{ scale: 0.5, rotate: -10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          >
             Participate in
             <br />
+            exciting events
+          </motion.h1>
+          <motion.p
+            className="text-2xl md:text-3xl max-w-2xl mx-auto text-gray-300"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+          >
+            Explore a world of creativity through photography, cinematography,
+            animation, media, design, and outreach!
+          </motion.p>
+        </motion.div>
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8, ease: 'easeOut' }}
+        >
+          <Image
+            src={eventsImg}
+            alt="Events"
+            height={1000}
+            width={1000}
+            className="mt-8"
+          />
+        </motion.div>
             exciting events
           </motion.h1>
           <motion.p
@@ -281,6 +415,36 @@ const EventsPage = () => {
         )}
       </motion.button>
 
+      {selectedEvents.length > 0 && (
+        <motion.button
+          className="fixed bottom-4 left-4 bg-green-600 text-white p-4 rounded-full shadow-lg z-50"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={addSelectedToCart}
+        >
+          Add {selectedEvents.length} to Cart
+        </motion.button>
+      )}
+
+      {Object.entries(categories).length > 0 ? (
+        Object.entries(categories).map(([category, events]) => (
+          <SectionBlock key={category} name={category}>
+            {Object.entries(events).map(([event, details]) => (
+              <EventCard
+                key={details.id}
+                name={event}
+                price={details.price}
+                onToggle={() => toggleEventSelection(details)}
+                isInCart={cart.some(item => item.id === details.id)}
+                isRegistered={registeredEvents.includes(details.id)}
+                isSelected={selectedEvents.some(item => item.id === details.id)}
+              />
+            ))}
+          </SectionBlock>
+        ))
+      ) : (
+        <div className="text-white text-center mt-20">No events available</div>
+      )}
       {selectedEvents.length > 0 && (
         <motion.button
           className="fixed bottom-4 left-4 bg-green-600 text-white p-4 rounded-full shadow-lg z-50"
