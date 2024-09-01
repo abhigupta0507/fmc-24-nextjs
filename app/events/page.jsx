@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaShoppingCart, FaPlus, FaMinus, FaTimes } from "react-icons/fa";
+import { FaShoppingCart, FaPlus, FaMinus, FaTimes, FaSpinner } from "react-icons/fa";
 import Image from "next/image";
 import eventsImg from "./events.svg";
 import sample from "../../public/Img/EventImages/sculpture.png";
@@ -152,8 +152,8 @@ const EventsPage = () => {
 
   // Dummy data for cart and registered events
   const dummyCart = [
-    { id: "fmc_1", name: "Photography Workshop", price: 500 },
-    { id: "fmc_2", name: "Animation Contest", price: 750 },
+    { id: "fmc_1", name: "Snapchase", price: 199 },
+    { id: "fmc_3", name: "PhotoArt", price: 199 },
   ];
 
   const dummyRegisteredEvents = ["fmc_2", "fmc_4"]; // Assuming these are event IDs
@@ -208,7 +208,11 @@ const EventsPage = () => {
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   if (isLoading) {
-    return <div className="text-white text-center mt-20">Loading...</div>;
+    return (
+      <div className="mx-auto h-48 w-48 justify-center mt-40">
+      <FaSpinner className="text-white mx-auto text-5xl animate-spin" />
+    </div>
+    )
   }
 
   if (error) {
