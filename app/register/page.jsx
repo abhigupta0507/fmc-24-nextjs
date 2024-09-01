@@ -1,6 +1,6 @@
 import React from "react";
 import backgroundImage from "../components/bg.jpeg";
-import logoImage from "../components/logo.jpeg";
+import logoImage from "../components/logo.png";
 
 export default function Register() {
   return (
