@@ -1,14 +1,9 @@
-"use client";
+'use client'
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaShoppingCart, FaPlus, FaMinus, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 import eventsImg from "./events.svg";
-import Photography from "../../public/Img/EventImages/photography.png";
-import Cinematography from "../../public/Img/EventImages/cinematography.png";
-import Animation from "../../public/Img/EventImages/animation.png";
-import Outreach from "../../public/Img/EventImages/outreach.png";
-import Design from "../../public/Img/EventImages/design.png";
 import sample from "../../public/Img/EventImages/sculpture.png";
 import bg from "../../public/Img/EventImages/bg.png";
 
@@ -26,7 +21,8 @@ function BackgroundMaker() {
     ></div>
   );
 }
-const EventCard = ({ name, photo, price, onToggle, isInCart, isRegistered }) => (
+
+const EventCard = ({ name, price, onToggle, isInCart, isRegistered, isSelected }) => (
   <motion.div
     className="bg-black rounded-lg p-4 text-white flex flex-col justify-between border border-white"
     whileHover={{ scale: 1.05 }}
@@ -48,22 +44,20 @@ const EventCard = ({ name, photo, price, onToggle, isInCart, isRegistered }) => 
               isRegistered
                 ? "bg-gray-600 cursor-not-allowed"
                 : isInCart
-                ? "bg-red-600 hover:bg-red-700"
+                ? "bg-blue-600 cursor-not-allowed"
+                : isSelected
+                ? "bg-green-600 hover:bg-green-700"
                 : "bg-blue-600 hover:bg-blue-700"
             }`}
-            disabled={isRegistered}
+            disabled={isRegistered || isInCart}
           >
-            {isRegistered ? (
-              "Registered"
-            ) : isInCart ? (
-              <>
-                <FaMinus className="inline-block mr-2" /> Remove
-              </>
-            ) : (
-              <>
-                <FaPlus className="inline-block mr-2" /> Add
-              </>
-            )}
+            {isRegistered
+              ? "Registered"
+              : isInCart
+              ? "In Cart"
+              : isSelected
+              ? "Selected"
+              : "Select"}
           </button>
         </div>
       </div>
@@ -135,189 +129,145 @@ const CartModal = ({ cart, onClose, onRemove }) => (
               </span>
             </div>
           </div>
-          <div>
-            <button
-              className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full"
-              onClick={() => alert("Payment successful!")}
-            >
-              Proceed to Checkout
-            </button>
-          </div>
+          <button
+            className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full"
+            onClick={() => alert("Payment successful!")}
+          >
+            Proceed to Checkout
+          </button>
         </>
       )}
     </motion.div>
   </motion.div>
 );
+
 const EventsPage = () => {
+  const [categories, setCategories] = useState({});
   const [cart, setCart] = useState([]);
+  const [registeredEvents, setRegisteredEvents] = useState([]);
+  const [selectedEvents, setSelectedEvents] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Dummy data for cart and registered events
+  const dummyCart = [
+    { id: "fmc_1", name: "Photography Workshop", price: 500 },
+    { id: "fmc_2", name: "Animation Contest", price: 750 },
+  ];
+
+  const dummyRegisteredEvents = ["fmc_2", "fmc_4"]; // Assuming these are event IDs
+
   useEffect(() => {
-    (async () => {
-      let res = await fetch("https://fmcw2024-backend.onrender.com/api/events");
-      // let res = await fetch("http://localhost:8080/api/events");
-      res =await res.json();
-      setCategories(res)
-      // console.log(res);
-    })()
+    const fetchData = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const eventsRes = await fetch("https://fmcw2024-backend.onrender.com/api/events");
+        const events = await eventsRes.json();
+        //const registeredEventsRes = await fetch(`https://fmcw2024-backend.onrender.com/${userid}/registered-events`);
+        //const registeredEvents = await registeredEventsRes.json();
+        //const cartRes = await fetch(`https://fmcw2024-backend.onrender.com/${userid}/cart`);
+        //const cart = await cartRes.json();
+        console.log("Events:", events);
+
+        setCategories(events);
+        // Currently using dummy data for cart and registered events
+        setCart(dummyCart);
+        setRegisteredEvents(dummyRegisteredEvents);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+        setError("Failed to load events. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
-  const toggleEvent = (event) => {
-    setCart((prev) =>
-      prev.some((item) => item.name === event.name)
-        ? prev.filter((item) => item.name !== event.name)
+
+  const toggleEventSelection = (event) => {
+    setSelectedEvents((prev) =>
+      prev.some((item) => item.id === event.id)
+        ? prev.filter((item) => item.id !== event.id)
         : [...prev, event]
     );
+  };
+
+  const addSelectedToCart = () => {
+    //api call to add selected events to cart
+    
+    setCart([...cart, ...selectedEvents]);
+    setSelectedEvents([]);
   };
 
   const removeFromCart = (eventName) => {
     setCart((prev) => prev.filter((item) => item.name !== eventName));
   };
 
-  // const eventCategories = [
-  //   {
-  //     name: "Photography",
-  //     events: [
-  //       { name: "Snapchase", price: 500, photo: Photography },
-  //       { name: "Portrait Workshop", price: 300, photo: Photography },
-  //       { name: "Street Photography Walk", price: 250, photo: Photography },
-  //       {
-  //         name: "Night Photography Masterclass",
-  //         price: 400,
-  //         photo: Photography,
-  //       },
-  //       {
-  //         name: "Landscape Photography Expedition",
-  //         price: 600,
-  //         photo: Photography,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Cinematography",
-  //     events: [
-  //       { name: "Short Film Challenge", price: 750, photo: Cinematography },
-  //       {
-  //         name: "Documentary Filmmaking Workshop",
-  //         price: 800,
-  //         photo: Cinematography,
-  //       },
-  //       {
-  //         name: "Lighting for Film Seminar",
-  //         price: 500,
-  //         photo: Cinematography,
-  //       },
-  //       {
-  //         name: "Drone Cinematography Course",
-  //         price: 900,
-  //         photo: Cinematography,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Design",
-  //     events: [
-  //       { name: "Graphic Design Bootcamp", price: 550, photo: Design },
-  //       { name: "UI/UX Design Workshop", price: 650, photo: Design },
-  //       { name: "Branding Strategy Masterclass", price: 700, photo: Design },
-  //     ],
-  //   },
-  //   {
-  //     name: "Animation",
-  //     events: [
-  //       { name: "2D Animation Fundamentals", price: 450, photo: Animation },
-  //       { name: "3D Modeling and Rigging", price: 800, photo: Animation },
-  //       {
-  //         name: "Stop Motion Animation Workshop",
-  //         price: 350,
-  //         photo: Animation,
-  //       },
-  //       {
-  //         name: "Character Design for Animation",
-  //         price: 500,
-  //         photo: Animation,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Outreach",
-  //     events: [
-  //       { name: "Community Art Project", price: 200, photo: Outreach },
-  //       { name: "Digital Literacy Workshop", price: 150, photo: Outreach },
-  //       {
-  //         name: "Youth Media Empowerment Program",
-  //         price: 300,
-  //         photo: Outreach,
-  //       },
-  //       {
-  //         name: "Environmental Storytelling Initiative",
-  //         price: 250,
-  //         photo: Outreach,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Media",
-  //     events: [
-  //       { name: "Social Media Marketing Seminar", price: 400, photo: Design },
-  //       { name: "Podcast Production Workshop", price: 350, photo: Design },
-  //       { name: "Digital Journalism Bootcamp", price: 500, photo: Design },
-  //     ],
-  //   },
-  // ];
-
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+
+  if (isLoading) {
+    return <div className="text-white text-center mt-20">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-center mt-20">{error}</div>;
+  }
+
 
   return (
     <div className="relative text-white font-clash min-h-screen">
       <BackgroundMaker />
 
       <motion.section
-      className="relative flex flex-col items-center justify-center h-screen text-center px-4"
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.2, ease: 'easeInOut' }}
-    >
-      <motion.div
-        className="relative mb-8"
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
+        className="relative flex flex-col items-center justify-center h-screen text-center px-4"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
       >
-        <motion.h1
-          className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
-          initial={{ scale: 0.5, rotate: -10 }}
-          animate={{ scale: 1, rotate: 0 }}
+        <motion.div
+          className="relative mb-8"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, ease: 'easeOut' }}
         >
-          Participate in
-          <br />
-          exciting events
-        </motion.h1>
-        <motion.p
-          className="text-2xl md:text-3xl max-w-2xl mx-auto text-gray-300"
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+          <motion.h1
+            className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
+            initial={{ scale: 0.5, rotate: -10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          >
+            Participate in
+            <br />
+            exciting events
+          </motion.h1>
+          <motion.p
+            className="text-2xl md:text-3xl max-w-2xl mx-auto text-gray-300"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+          >
+            Explore a world of creativity through photography, cinematography,
+            animation, media, design, and outreach!
+          </motion.p>
+        </motion.div>
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8, ease: 'easeOut' }}
         >
-          Explore a world of creativity through photography, cinematography,
-          animation, media, design, and outreach!
-        </motion.p>
-      </motion.div>
-      <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, delay: 0.8, ease: 'easeOut' }}
-      >
-        <Image
-          src={eventsImg}
-          alt="Events"
-          height={1000}
-          width={1000}
-          className="mt-8"
-        />
-      </motion.div>
-    </motion.section>
-    <motion.button
+          <Image
+            src={eventsImg}
+            alt="Events"
+            height={1000}
+            width={1000}
+            className="mt-8"
+          />
+        </motion.div>
+      </motion.section>
+
+      <motion.button
         className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg z-50 flex items-center"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -331,19 +281,36 @@ const EventsPage = () => {
         )}
       </motion.button>
 
-      {Object.entries(categories).map(([category, events], i) => (
-        <SectionBlock key={category} name={category}>
-          {Object.entries(events).map(([event, details], i) => (
-            <EventCard
-              key={details.id}
-              name={event}
-              price={details.price}
-              onToggle={() => toggleEvent(details)}
-              isSelected={cart.some((item) => item.name === event)}
-            />
-          ))}
-        </SectionBlock>
-      ))}
+      {selectedEvents.length > 0 && (
+        <motion.button
+          className="fixed bottom-4 left-4 bg-green-600 text-white p-4 rounded-full shadow-lg z-50"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={addSelectedToCart}
+        >
+          Add {selectedEvents.length} to Cart
+        </motion.button>
+      )}
+
+      {Object.entries(categories).length > 0 ? (
+        Object.entries(categories).map(([category, events]) => (
+          <SectionBlock key={category} name={category}>
+            {Object.entries(events).map(([event, details]) => (
+              <EventCard
+                key={details.id}
+                name={event}
+                price={details.price}
+                onToggle={() => toggleEventSelection(details)}
+                isInCart={cart.some(item => item.id === details.id)}
+                isRegistered={registeredEvents.includes(details.id)}
+                isSelected={selectedEvents.some(item => item.id === details.id)}
+              />
+            ))}
+          </SectionBlock>
+        ))
+      ) : (
+        <div className="text-white text-center mt-20">No events available</div>
+      )}
 
       <AnimatePresence>
         {isCartOpen && (
