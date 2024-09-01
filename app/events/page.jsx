@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaShoppingCart, FaPlus, FaMinus, FaTimes } from "react-icons/fa";
 import Image from "next/image";
@@ -26,7 +26,7 @@ function BackgroundMaker() {
     ></div>
   );
 }
-const EventCard = ({ name, photo, price, onToggle, isSelected }) => (
+const EventCard = ({ name, photo, price, onToggle, isInCart, isRegistered }) => (
   <motion.div
     className="bg-black rounded-lg p-4 text-white flex flex-col justify-between border border-white"
     whileHover={{ scale: 1.05 }}
@@ -36,7 +36,7 @@ const EventCard = ({ name, photo, price, onToggle, isSelected }) => (
       <img
         src={sample.src}
         alt={name}
-        className="w-fit h-fit  rounded-lg shadow-md"
+        className="w-fit h-fit rounded-lg shadow-md"
       />
       <div className="ml-4 flex-grow">
         <h3 className="text-xl font-semibold mb-1">{name}</h3>
@@ -45,12 +45,17 @@ const EventCard = ({ name, photo, price, onToggle, isSelected }) => (
           <button
             onClick={onToggle}
             className={`py-2 px-4 rounded-full text-sm transition-colors duration-300 ${
-              isSelected
+              isRegistered
+                ? "bg-gray-600 cursor-not-allowed"
+                : isInCart
                 ? "bg-red-600 hover:bg-red-700"
                 : "bg-blue-600 hover:bg-blue-700"
             }`}
+            disabled={isRegistered}
           >
-            {isSelected ? (
+            {isRegistered ? (
+              "Registered"
+            ) : isInCart ? (
               <>
                 <FaMinus className="inline-block mr-2" /> Remove
               </>
@@ -143,22 +148,68 @@ const CartModal = ({ cart, onClose, onRemove }) => (
     </motion.div>
   </motion.div>
 );
-
 const EventsPage = () => {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [userEvents, setUserEvents] = useState([]);
 
-  const toggleEvent = (event) => {
-    setCart((prev) =>
-      prev.some((item) => item.name === event.name)
-        ? prev.filter((item) => item.name !== event.name)
-        : [...prev, event]
-    );
+  useEffect(() => {
+    // Fetch user's cart and registered events from the backend
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/user-data'); // Replace with your actual API endpoint
+        const data = await response.json();
+        setCart(data.cart);
+        setUserEvents(data.registeredEvents);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const toggleEvent = async (event) => {
+    try {
+      const isInCart = cart.some(item => item.name === event.name);
+      const endpoint = isInCart ? '/api/cart/remove' : '/api/cart/add';
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventName: event.name })
+      });
+
+      if (response.ok) {
+        setCart(prevCart =>
+          isInCart
+            ? prevCart.filter(item => item.name !== event.name)
+            : [...prevCart, event]
+        );
+      } else {
+        console.error('Failed to update cart');
+      }
+    } catch (error) {
+      console.error('Error updating cart:', error);
+    }
+  };
+  const removeFromCart = async (eventName) => {
+    try {
+      const response = await fetch('/api/cart/remove', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventName })
+      });
+
+      if (response.ok) {
+        setCart(prevCart => prevCart.filter(item => item.name !== eventName));
+      } else {
+        console.error('Failed to remove item from cart');
+      }
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+    }
   };
 
-  const removeFromCart = (eventName) => {
-    setCart((prev) => prev.filter((item) => item.name !== eventName));
-  };
 
   const eventCategories = [
     {
@@ -259,22 +310,42 @@ const EventsPage = () => {
       <BackgroundMaker />
 
       <motion.section
-        className="relative flex flex-col items-center justify-center h-screen text-center px-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+      className="relative flex flex-col items-center justify-center h-screen text-center px-4"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1.2, ease: 'easeInOut' }}
+    >
+      <motion.div
+        className="relative mb-8"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: 'easeOut' }}
       >
-        <div className="relative mb-8">
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-            Participate in
-            <br />
-            exciting events
-          </h1>
-          <p className="text-2xl md:text-3xl max-w-2xl mx-auto text-gray-300">
-            Explore a world of creativity through photography, cinematography,
-            animation, media, design, and outreach!
-          </p>
-        </div>
+        <motion.h1
+          className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
+          initial={{ scale: 0.5, rotate: -10 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+        >
+          Participate in
+          <br />
+          exciting events
+        </motion.h1>
+        <motion.p
+          className="text-2xl md:text-3xl max-w-2xl mx-auto text-gray-300"
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+        >
+          Explore a world of creativity through photography, cinematography,
+          animation, media, design, and outreach!
+        </motion.p>
+      </motion.div>
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 0.8, ease: 'easeOut' }}
+      >
         <Image
           src={eventsImg}
           alt="Events"
@@ -282,9 +353,9 @@ const EventsPage = () => {
           width={1000}
           className="mt-8"
         />
-      </motion.section>
-
-      <motion.button
+      </motion.div>
+    </motion.section>
+    <motion.button
         className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg z-50 flex items-center"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -305,7 +376,8 @@ const EventsPage = () => {
               key={event.name}
               {...event}
               onToggle={() => toggleEvent(event)}
-              isSelected={cart.some((item) => item.name === event.name)}
+              isInCart={cart.some(item => item.name === event.name)}
+              isRegistered={userEvents.includes(event.name)}
             />
           ))}
         </SectionBlock>
