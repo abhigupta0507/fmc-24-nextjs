@@ -14,7 +14,7 @@ function BackgroundMaker() {
       style={{
         backgroundImage: `url(${bg.src})`,
         backgroundRepeat: "repeat",
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "black",
       }}
@@ -106,14 +106,14 @@ const CartModal = ({ cart, onClose, onRemove }) => (
         <>
           {cart.map((item) => (
             <div
-              key={item.name}
+              key={item.id}
               className="flex justify-between items-center mb-2"
             >
               <span>{item.name}</span>
               <div>
                 <span className="mr-4">Rs {item.price}</span>
                 <button
-                  onClick={() => onRemove(item.name)}
+                  onClick={() => onRemove(item.id)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <FaMinus size={16} />
@@ -217,7 +217,7 @@ const EventsPage = () => {
 
 
   return (
-    <div className="relative text-white font-clash min-h-screen">
+    <div className="relative text-white font-sans min-h-screen">
       <BackgroundMaker />
 
       <motion.section
@@ -268,7 +268,7 @@ const EventsPage = () => {
       </motion.section>
 
       <motion.button
-        className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg z-50 flex items-center"
+        className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-full shadow-lg z-50 flex items-center hover:bg-blue-700 transition-colors duration-300"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsCartOpen(true)}
@@ -276,7 +276,7 @@ const EventsPage = () => {
         <FaShoppingCart size={24} />
         {cart.length > 0 && (
           <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
-            Rs {totalPrice}
+            {cart.length}
           </span>
         )}
       </motion.button>

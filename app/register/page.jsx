@@ -1,8 +1,49 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import backgroundImage from "../components/bg.jpeg";
 import logoImage from "../components/logo.png";
 
+
 export default function Register() {
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    phone: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Replace 'https://example.com/submit' with your actual URL
+    const url = "https://fmcw2024-backend.onrender.com/api/user/new";
+    
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    
+    if (response.ok) {
+      // Handle successful submission
+      console.log(response);
+      console.log("Form submitted successfully!");
+    } else {
+      // Handle submission error
+      console.error("Form submission failed!");
+    }
+  };
+
   return (
     <section
       className="bg-fixed bg-cover bg-center overflow-y-hidden"
@@ -20,7 +61,7 @@ export default function Register() {
             <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-white md:text-2xl">
               Register
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -34,6 +75,8 @@ export default function Register() {
                   id="name"
                   className="bg-gray-200 border border-[#A52A2A] text-black text-sm rounded-lg focus:ring-red-500 focus:border-[#A52A2A] block w-full p-2.5"
                   placeholder="Username"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -51,6 +94,8 @@ export default function Register() {
                   className="bg-gray-200 border border-[#A52A2A] text-black text-sm rounded-lg focus:ring-red-500 focus:border-[#A52A2A] block w-full p-2.5"
                   placeholder="18"
                   min="15"
+                  value={formData.age}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -66,39 +111,9 @@ export default function Register() {
                   name="phone"
                   id="phone"
                   className="bg-gray-200 border border-[#A52A2A] text-black text-sm rounded-lg focus:ring-red-500 focus:border-[#A52A2A] block w-full p-2.5"
-                  placeholder="+91 XXX-XXX-XXXX"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="college"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
-                  College
-                </label>
-                <input
-                  type="text"
-                  name="college"
-                  id="college"
-                  className="bg-gray-200 border border-[#A52A2A] text-black text-sm rounded-lg focus:ring-red-500 focus:border-[#A52A2A] block w-full p-2.5"
-                  placeholder="Your College"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-200 border border-[#A52A2A] text-black text-sm rounded-lg focus:ring-red-500 focus:border-[#A52A2A] block w-full p-2.5"
-                  placeholder="name@company.com"
+                  placeholder="+91-XXX-XXX-XXXX"
+                  value={formData.phone}
+                  onChange={handleChange}
                   required
                 />
               </div>
