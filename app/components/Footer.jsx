@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import logo from "../components/logo.jpeg";
+import logo from "../components/logo_withdate.png";
 import { FacebookIcon, TwitterIcon, InstagramIcon } from "lucide-react";
 import { sendContactForm } from "../../utils/api";
 

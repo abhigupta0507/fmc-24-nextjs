@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaShoppingCart, FaPlus, FaMinus, FaTimes } from "react-icons/fa";
 import Image from "next/image";
@@ -151,157 +151,119 @@ const CartModal = ({ cart, onClose, onRemove }) => (
 const EventsPage = () => {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [userEvents, setUserEvents] = useState([]);
-
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
-    // Fetch user's cart and registered events from the backend
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch('/api/user-data'); // Replace with your actual API endpoint
-        const data = await response.json();
-        setCart(data.cart);
-        setUserEvents(data.registeredEvents);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
+    (async () => {
+      let res = await fetch("https://fmcw2024-backend.onrender.com/api/events");
+      // let res = await fetch("http://localhost:8080/api/events");
+      res =await res.json();
+      setCategories(res)
+      // console.log(res);
+    })()
   }, []);
-
-  const toggleEvent = async (event) => {
-    try {
-      const isInCart = cart.some(item => item.name === event.name);
-      const endpoint = isInCart ? '/api/cart/remove' : '/api/cart/add';
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventName: event.name })
-      });
-
-      if (response.ok) {
-        setCart(prevCart =>
-          isInCart
-            ? prevCart.filter(item => item.name !== event.name)
-            : [...prevCart, event]
-        );
-      } else {
-        console.error('Failed to update cart');
-      }
-    } catch (error) {
-      console.error('Error updating cart:', error);
-    }
-  };
-  const removeFromCart = async (eventName) => {
-    try {
-      const response = await fetch('/api/cart/remove', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventName })
-      });
-
-      if (response.ok) {
-        setCart(prevCart => prevCart.filter(item => item.name !== eventName));
-      } else {
-        console.error('Failed to remove item from cart');
-      }
-    } catch (error) {
-      console.error('Error removing item from cart:', error);
-    }
+  const toggleEvent = (event) => {
+    setCart((prev) =>
+      prev.some((item) => item.name === event.name)
+        ? prev.filter((item) => item.name !== event.name)
+        : [...prev, event]
+    );
   };
 
+  const removeFromCart = (eventName) => {
+    setCart((prev) => prev.filter((item) => item.name !== eventName));
+  };
 
-  const eventCategories = [
-    {
-      name: "Photography",
-      events: [
-        { name: "Snapchase", price: 500, photo: Photography },
-        { name: "Portrait Workshop", price: 300, photo: Photography },
-        { name: "Street Photography Walk", price: 250, photo: Photography },
-        {
-          name: "Night Photography Masterclass",
-          price: 400,
-          photo: Photography,
-        },
-        {
-          name: "Landscape Photography Expedition",
-          price: 600,
-          photo: Photography,
-        },
-      ],
-    },
-    {
-      name: "Cinematography",
-      events: [
-        { name: "Short Film Challenge", price: 750, photo: Cinematography },
-        {
-          name: "Documentary Filmmaking Workshop",
-          price: 800,
-          photo: Cinematography,
-        },
-        {
-          name: "Lighting for Film Seminar",
-          price: 500,
-          photo: Cinematography,
-        },
-        {
-          name: "Drone Cinematography Course",
-          price: 900,
-          photo: Cinematography,
-        },
-      ],
-    },
-    {
-      name: "Design",
-      events: [
-        { name: "Graphic Design Bootcamp", price: 550, photo: Design },
-        { name: "UI/UX Design Workshop", price: 650, photo: Design },
-        { name: "Branding Strategy Masterclass", price: 700, photo: Design },
-      ],
-    },
-    {
-      name: "Animation",
-      events: [
-        { name: "2D Animation Fundamentals", price: 450, photo: Animation },
-        { name: "3D Modeling and Rigging", price: 800, photo: Animation },
-        {
-          name: "Stop Motion Animation Workshop",
-          price: 350,
-          photo: Animation,
-        },
-        {
-          name: "Character Design for Animation",
-          price: 500,
-          photo: Animation,
-        },
-      ],
-    },
-    {
-      name: "Outreach",
-      events: [
-        { name: "Community Art Project", price: 200, photo: Outreach },
-        { name: "Digital Literacy Workshop", price: 150, photo: Outreach },
-        {
-          name: "Youth Media Empowerment Program",
-          price: 300,
-          photo: Outreach,
-        },
-        {
-          name: "Environmental Storytelling Initiative",
-          price: 250,
-          photo: Outreach,
-        },
-      ],
-    },
-    {
-      name: "Media",
-      events: [
-        { name: "Social Media Marketing Seminar", price: 400, photo: Design },
-        { name: "Podcast Production Workshop", price: 350, photo: Design },
-        { name: "Digital Journalism Bootcamp", price: 500, photo: Design },
-      ],
-    },
-  ];
+  // const eventCategories = [
+  //   {
+  //     name: "Photography",
+  //     events: [
+  //       { name: "Snapchase", price: 500, photo: Photography },
+  //       { name: "Portrait Workshop", price: 300, photo: Photography },
+  //       { name: "Street Photography Walk", price: 250, photo: Photography },
+  //       {
+  //         name: "Night Photography Masterclass",
+  //         price: 400,
+  //         photo: Photography,
+  //       },
+  //       {
+  //         name: "Landscape Photography Expedition",
+  //         price: 600,
+  //         photo: Photography,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Cinematography",
+  //     events: [
+  //       { name: "Short Film Challenge", price: 750, photo: Cinematography },
+  //       {
+  //         name: "Documentary Filmmaking Workshop",
+  //         price: 800,
+  //         photo: Cinematography,
+  //       },
+  //       {
+  //         name: "Lighting for Film Seminar",
+  //         price: 500,
+  //         photo: Cinematography,
+  //       },
+  //       {
+  //         name: "Drone Cinematography Course",
+  //         price: 900,
+  //         photo: Cinematography,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Design",
+  //     events: [
+  //       { name: "Graphic Design Bootcamp", price: 550, photo: Design },
+  //       { name: "UI/UX Design Workshop", price: 650, photo: Design },
+  //       { name: "Branding Strategy Masterclass", price: 700, photo: Design },
+  //     ],
+  //   },
+  //   {
+  //     name: "Animation",
+  //     events: [
+  //       { name: "2D Animation Fundamentals", price: 450, photo: Animation },
+  //       { name: "3D Modeling and Rigging", price: 800, photo: Animation },
+  //       {
+  //         name: "Stop Motion Animation Workshop",
+  //         price: 350,
+  //         photo: Animation,
+  //       },
+  //       {
+  //         name: "Character Design for Animation",
+  //         price: 500,
+  //         photo: Animation,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Outreach",
+  //     events: [
+  //       { name: "Community Art Project", price: 200, photo: Outreach },
+  //       { name: "Digital Literacy Workshop", price: 150, photo: Outreach },
+  //       {
+  //         name: "Youth Media Empowerment Program",
+  //         price: 300,
+  //         photo: Outreach,
+  //       },
+  //       {
+  //         name: "Environmental Storytelling Initiative",
+  //         price: 250,
+  //         photo: Outreach,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Media",
+  //     events: [
+  //       { name: "Social Media Marketing Seminar", price: 400, photo: Design },
+  //       { name: "Podcast Production Workshop", price: 350, photo: Design },
+  //       { name: "Digital Journalism Bootcamp", price: 500, photo: Design },
+  //     ],
+  //   },
+  // ];
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
@@ -369,15 +331,15 @@ const EventsPage = () => {
         )}
       </motion.button>
 
-      {eventCategories.map((category) => (
-        <SectionBlock key={category.name} name={category.name}>
-          {category.events.map((event) => (
+      {Object.entries(categories).map(([category, events], i) => (
+        <SectionBlock key={category} name={category}>
+          {Object.entries(events).map(([event, details], i) => (
             <EventCard
-              key={event.name}
-              {...event}
-              onToggle={() => toggleEvent(event)}
-              isInCart={cart.some(item => item.name === event.name)}
-              isRegistered={userEvents.includes(event.name)}
+              key={details.id}
+              name={event}
+              price={details.price}
+              onToggle={() => toggleEvent(details)}
+              isSelected={cart.some((item) => item.name === event)}
             />
           ))}
         </SectionBlock>

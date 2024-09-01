@@ -5,13 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react"; // Import hamburger and cross icons
 import Cookies from "js-cookie";
-import logoImage from "../components/logo.jpeg";
+import logoImage from "../components/logo.png";
 import "/styles/navbar.css";
 
 function Logo() {
   return (
     <div>
-      <Image src={logoImage} alt="Logo" width={200} height={100} />
+      <Image src={logoImage} alt="Logo" width={90} height={40} />
     </div>
   );
 }
