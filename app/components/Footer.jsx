@@ -124,16 +124,15 @@ const Footer = () => {
       </div>
       <div className="container mx-auto mt-8 px-4">
         <h3 className="text-2xl font-bold mb-4">Find Us</h3>
-        <div className="w-full h-64">
+        <div className="w-full h-fit">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.7593178811467!2d82.98760857437907!3d25.27335683707014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e24d2f077dbbf%3A0x787b6b5174898105!2sIIT%20BHU%2C%20Varanasi!5e0!3m2!1sen!2sin!4v1638294576308!5m2!1sen!2sin"
+            src="https://www.google.com/maps?q=IIT+BHU,+Varanasi,+Uttar+Pradesh&hl=es;z=14&output=embed"
             width="100%"
-            height="100%"
-            frameBorder="0"
-            style={{ border: 0 }}
-            allowFullScreen=""
+            height="450"
+            frameborder="0"
+            allowfullscreen=""
             aria-hidden="false"
-            tabIndex="0"
+            tabindex="0"
           ></iframe>
         </div>
       </div>
