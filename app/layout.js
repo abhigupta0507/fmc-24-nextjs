@@ -15,7 +15,6 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className=" font-clash bg-black overflow-x-hidden">
-        <NavBar />
         {children}
       </body>
     </html>

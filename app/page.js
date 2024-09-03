@@ -9,10 +9,11 @@ import UnleashPotential from "./components/UnleashPotential";
 import Section from "./components/Section";
 import Background from "./components/Background";
 import ArtIsNotAThing from "./components/ArtIsNotAThing";
-
+// import NavBar from "./components/NavBar";
 export default function Home() {
   return (
     <>
+      <NavBar />
       {/* wrap each wrapper in div for better optimisation */}
       {/* <div className="w-[100vw] md:h-[1120px] h-[70vh] pb-10"> */}
       {/* <Wrapper grid={true} height={"60vh"}> */}
