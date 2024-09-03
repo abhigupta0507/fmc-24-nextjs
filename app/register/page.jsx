@@ -1,46 +1,48 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import backgroundImage from "../components/bg.jpeg";
 import logoImage from "../components/logo.png";
-
+import { useRouter } from "next/navigation";
+import { setCookie } from "cookies-next";
+import axios from "axios";
 
 export default function Register() {
+  const router = useRouter();
+  const { searchParams } = new URL(window.location.href);
+  const token = searchParams.get("token");
   const [formData, setFormData] = useState({
     name: "",
     age: "",
-    phone: ""
+    phone: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Replace 'https://example.com/submit' with your actual URL
-    const url = "https://fmcw2024-backend.onrender.com/api/user/new";
-    
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    
-    if (response.ok) {
-      // Handle successful submission
-      console.log(response);
-      console.log("Form submitted successfully!");
-    } else {
-      // Handle submission error
-      console.error("Form submission failed!");
+    const url = "http://localhost:8080/api/user/new";
+
+    try {
+      const res = await axios.post(url, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
+      console.log(res);
+      setCookie("token", token);
+      router.push("/dashboard");
+    } catch (error) {
+      router.push("/login");
     }
   };
 
