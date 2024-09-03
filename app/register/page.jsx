@@ -5,7 +5,7 @@ import backgroundImage from "../components/bg.jpeg";
 import logoImage from "../components/logo.png";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setCookie } from "cookies-next";
-import {NavBar} from "../components/NavBar.jsx";
+import NavBar from "../components/NavBar.jsx";
 import axios from "axios";
 
 export default function Register() {
