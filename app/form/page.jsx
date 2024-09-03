@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import backgroundImage from "../components/bg.jpeg";
 import { sendContactForm } from "../../utils/api";
-import { NavBar } from "../components/Navbar.jsx";
+import NavBar from "../components/NavBar.jsx";
 
 const Alert = ({ type, message, onClose }) => {
   return (
@@ -19,7 +19,7 @@ const Alert = ({ type, message, onClose }) => {
   );
 };
 
-const Form = () => {
+export default function FormPage() {
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const [sending, setSending] = useState(false);
 
@@ -73,19 +73,11 @@ const Form = () => {
                 onSubmit={handleSubmit}
               >
                 <input
-                  type="text"
-                  name="upload screenshot"
-                  id="upload screenshot"
-                  className="bg-gray-200 border border-[#A52A2A] text-black text-sm rounded-lg focus:ring-red-500 focus:border-[#A52A2A] w-full p-2.5"
-                  placeholder="Upload Screenshot"
-                  required
-                />
-                <input
-                  type="text"
+                  type="file"
                   name="add file"
                   id="add file"
                   className="bg-gray-200 border border-[#A52A2A] text-black text-sm rounded-lg focus:ring-red-500 focus:border-[#A52A2A] w-full p-2.5"
-                  placeholder="Add File"
+                  placeholder=""
                   required
                 />
                 <button
@@ -109,6 +101,4 @@ const Form = () => {
       </section>
     </>
   );
-};
-
-export default Form;
+}
