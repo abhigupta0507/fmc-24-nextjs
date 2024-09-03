@@ -10,6 +10,7 @@ import logoImage from "../components/logo.png";
 
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { redirect } from "next/navigation";
 
 
 
@@ -17,18 +18,17 @@ import { jwtDecode } from "jwt-decode";
 function Login() {
   const [authData, setAuthData] = useState(null);
   const clientid=process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID;
-  const secret=process.env.NEXT_PUBLIC_JWT_SECRET;
+  // console.log(clientid);
 
   const handleLogin=async(user)=>{
-    // const res=await fetch("https://fmcw2024-backend.onrender.com/api/auth/login",{
-    //   method:"POST",
-    //   body:JSON.stringify({email:user.email}),
-    // })
-    // console.log(res);
-
+    const res=await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,{
+      method:"POST",
+      headers: {'Content-Type': 'application/json'},
+      body:JSON.stringify({email:user.email}),
+    }).then((res)=>res.json())
+    console.log(res);
     };
- 
-  // const token = generateToken({email:},)
+
   return (
     <div
       className="relative h-screen flex items-center justify-center overflow-hidden"
@@ -58,7 +58,7 @@ function Login() {
             <GoogleLogin
               onSuccess={(credentialResponse) => {
                 let decode = jwtDecode(credentialResponse.credential);
-                console.log(decode);
+                // console.log(decode);
                 let user = {
                   email: decode.email,
                 };
