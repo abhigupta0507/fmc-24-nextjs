@@ -7,6 +7,10 @@ import eventsImg from "./events.svg";
 import sample from "../../public/Img/EventImages/sculpture.png";
 import bg from "../../public/Img/EventImages/bg.png";
 import NavBar from "../components/NavBar";
+import { allEvents, getEventById } from "../../utils/events/events";
+import { useCookies } from "next-client-cookies";
+import { useRouter } from "next/navigation";
+let router,cookies;
 
 function BackgroundMaker() {
   return (
@@ -139,7 +143,7 @@ const CartModal = ({ cart, onClose, onRemove }) => (
           </div>
           <button
             className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full"
-            onClick={() => alert("Payment successful!")}
+            onClick={() => {router.push(cookies.get('authToken')?'/checkout':'/login')}}
           >
             Proceed to Checkout
           </button>
@@ -157,34 +161,46 @@ const EventsPage = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  cookies=useCookies()
+  router = useRouter()
 
   // Dummy data for cart and registered events
   const dummyCart = [
-    { id: "fmc_1", name: "Snapchase", price: 199 },
-    { id: "fmc_3", name: "PhotoArt", price: 199 },
+    { id: 1, name: "Snapchase", price: 199 },
+    { id: 3, name: "PhotoArt", price: 199 },
   ];
 
-  const dummyRegisteredEvents = ["fmc_2", "fmc_4"]; // Assuming these are event IDs
+  const dummyRegisteredEvents = [2,4]; // Assuming these are event IDs
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
       try {
-        const eventsRes = await fetch(
-          "https://fmcw2024-backend.onrender.com/api/events"
-        );
-        const events = await eventsRes.json();
-        //const registeredEventsRes = await fetch(`https://fmcw2024-backend.onrender.com/${userid}/registered-events`);
-        //const registeredEvents = await registeredEventsRes.json();
-        //const cartRes = await fetch(`https://fmcw2024-backend.onrender.com/${userid}/cart`);
-        //const cart = await cartRes.json();
-        // console.log("Events:", events);
-
+        const events=allEvents()
         setCategories(events);
-        // Currently using dummy data for cart and registered events
-        setCart(dummyCart);
-        setRegisteredEvents(dummyRegisteredEvents);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/cart`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${cookies.get("authToken")}`,
+            },
+          }
+        ).then((res) => res.json());
+        if(!res.message) setCart(res.map((id)=>getEventById(id)));
+        const res2 = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/registered`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${cookies.get("authToken")}`,
+            },
+          }
+        ).then((res2) => res2.json());
+        if(!res.message)setRegisteredEvents(res2);
       } catch (error) {
         console.error("Error fetching events:", error);
         setError("Failed to load events. Please try again later.");
@@ -204,15 +220,37 @@ const EventsPage = () => {
     );
   };
 
-  const addSelectedToCart = () => {
+  const addSelectedToCart =async () => {
     //api call to add selected events to cart
-
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/add_to_cart`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.get("authToken")}`,
+        },
+        body:JSON.stringify({events:selectedEvents.map((event)=>event.id)})
+      }
+    ).then((res) => res.json());
+    // console.log(selectedEvents.map((event)=>event.id));
     setCart([...cart, ...selectedEvents]);
     setSelectedEvents([]);
   };
 
-  const removeFromCart = (eventName) => {
-    setCart((prev) => prev.filter((item) => item.name !== eventName));
+  const removeFromCart =async (id) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/remove_from_cart`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.get("authToken")}`,
+        },
+        body:JSON.stringify({events:[id]})
+      }
+    ).then((res) => res.json());
+    setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);

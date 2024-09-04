@@ -9,6 +9,7 @@ import UnleashPotential from "./components/UnleashPotential";
 import Section from "./components/Section";
 import Background from "./components/Background";
 import ArtIsNotAThing from "./components/ArtIsNotAThing";
+import {allEvents} from './../utils/events/events'
 // import NavBar from "./components/NavBar";
 export default function Home() {
   return (

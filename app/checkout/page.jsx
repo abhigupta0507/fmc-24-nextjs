@@ -1,8 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import backgroundImage from "../components/bg.jpeg";
-import { sendContactForm } from "../../utils/api";
 import NavBar from "../components/NavBar.jsx";
+import { useCookies } from "next-client-cookies";
+import { getTotalPrice } from "../../utils/events/events.js";
+import upload_image from "../../utils/image_upload.js";
+import { useRouter } from "next/navigation";
 
 const Alert = ({ type, message, onClose }) => {
   return (
@@ -22,28 +25,48 @@ const Alert = ({ type, message, onClose }) => {
 export default function FormPage() {
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const [sending, setSending] = useState(false);
+  const [total, setTotal] = useState("fetching...");
+  const fileRef = useRef(null);
+  const cookies = useCookies();
+  const router=useRouter()
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/cart`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.get("authToken")}`,
+          },
+        }
+      ).then((res) => res.json());
+      setTotal("₹" + getTotalPrice(res));
+    })();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
-    const formData = new FormData(e.target);
-
-    try {
-      await sendContactForm(formData);
-      e.target.reset();
-      setSending(false);
-      setAlert({
-        show: true,
-        message: "Form submitted successfully!",
-        type: "success",
-      });
-    } catch (error) {
-      setAlert({
-        show: true,
-        message: "Error submitting form. Please try again.",
-        type: "error",
-      });
-    }
+    const raw_image = fileRef.current.files[0];
+    const image_url = await upload_image(raw_image);
+    // console.log(image_url);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/checkout`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.get("authToken")}`,
+        },
+        body:JSON.stringify({image_url:image_url,amount_paid:total.slice(1)})
+      }
+    ).then((res) => res.json());
+    // console.log(res);
+    e.target.reset();
+    setSending(false);
+    router.push('/')
   };
 
   const closeAlert = () => {
@@ -72,10 +95,12 @@ export default function FormPage() {
                 className="flex flex-col space-y-4 mt-4 w-[400px] max-w-full"
                 onSubmit={handleSubmit}
               >
+                <div className="bg-transparent text-decoration-none text-lg font-extrabold w-full p-2.5">{`subtotal : ${total}`}</div>
                 <input
                   type="file"
-                  name="add file"
-                  id="add file"
+                  name="add_file"
+                  id="add_file"
+                  ref={fileRef}
                   className="bg-gray-200 border border-[#A52A2A] text-black text-sm rounded-lg focus:ring-red-500 focus:border-[#A52A2A] w-full p-2.5"
                   placeholder=""
                   required

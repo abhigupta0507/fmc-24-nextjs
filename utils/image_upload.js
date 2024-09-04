@@ -1,14 +1,17 @@
+import axios from "axios"
 export default async function upload_image(file) {
   try {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", process.env.CLOUDINARY_PRESET);
-    formData.append("cloud_name", process.env.CLOUDINARY_NAME);
+    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_PRESET);
+    formData.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_NAME);
+    // console.log(process.env.NEXT_PUBLIC_CLOUDINARY_NAME);
     const response = await axios.post(
-      `http://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`,
+      `http://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
       formData
     );
     const image_url = response.data["secure_url"];
+    // console.log(image_url);
     return image_url;
   } catch (error) {
     console.log(error);

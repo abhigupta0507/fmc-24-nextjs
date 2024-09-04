@@ -42,7 +42,7 @@ export default function Register() {
           body: JSON.stringify(formData),
         }
       ).then((res) => res.json());
-      console.log(res);
+      // console.log(res);
       setCookie("authToken", authToken);
       router.push("/dashboard");
     } catch (error) {

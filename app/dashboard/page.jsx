@@ -13,9 +13,11 @@ import {
 import bg from "./bg.png";
 import NavBar from "../components/NavBar";
 import { useCookies } from "next-client-cookies";
+import { getEventById } from "../../utils/events/events";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
+  const [registeredEvents, setRegisteredEvents] = useState(null);
   const cookies = useCookies();
 
   useEffect(() => {
@@ -35,6 +37,20 @@ const Dashboard = () => {
         events: [{ id: 1, type: "anime", name: "clannad" }],
       });
     })();
+    (async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/registered`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cookies.get("authToken")}`,
+          },
+        }
+      ).then((res) => res.json());
+      setRegisteredEvents(res.map((res)=>getEventById(res)))
+    })();
+    
   }, []);
 
   const BackgroundMaker = () => (
@@ -122,7 +138,7 @@ const Dashboard = () => {
                   value={userData.age}
                 />
               </div>
-              {userData.events.length ? (
+              {registeredEvents ? (
                 <h2 className="text-2xl font-semibold mb-4">
                   Registered Events:
                 </h2>
@@ -130,9 +146,9 @@ const Dashboard = () => {
                 <></>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {userData.events.map((event) => (
+                {registeredEvents ?(registeredEvents.map((event) => (
                   <EventCard key={event.id} event={event} />
-                ))}
+                ))):<></>}
               </div>
             </motion.div>
           ) : (
