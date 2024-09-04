@@ -6,7 +6,7 @@ import { useCookies } from "next-client-cookies";
 import { getTotalPrice } from "../../utils/events/events.js";
 import upload_image from "../../utils/image_upload.js";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
 const Alert = ({ type, message, onClose }) => {
   return (
     <div
@@ -87,8 +87,8 @@ export default function FormPage() {
           <div className="container mx-auto flex flex-wrap justify-center items-center px-4">
             <div className="w-full flex flex-col items-center mb-6 lg:mb-0">
               <div className="bg-gray-200 w-[400px] h-[400px] flex items-center justify-center">
-                {/* <Image src={qrCode} alt="QR Code" width={400} height={400} /> */}
-                <p className="text-black">QR HERE</p>
+                <Image src="/qr_code.jpg" alt="QR Code" width={400} height={400} />
+                {/* <p className="text-black">QR HERE</p> */}
               </div>
 
               <form
@@ -110,7 +110,7 @@ export default function FormPage() {
                   className="bg-red-500 p-3 rounded-lg text-white font-semibold hover:bg-red-600"
                   disabled={sending}
                 >
-                  Submit
+                  Confirm
                 </button>
               </form>
               {alert.show && (
