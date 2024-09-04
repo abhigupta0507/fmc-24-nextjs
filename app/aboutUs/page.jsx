@@ -1,6 +1,7 @@
 import React from "react";
 import sample from "../../public/Img/EventImages/sculpture.png";
 import bg from "../../public/Img/EventImages/bg.png";
+import NavBar from "../components/NavBar";
 
 function BackgroundMaker() {
   return (
@@ -55,29 +56,32 @@ function MemberCard({ name = "unknown", photo = sample.src }) {
 
 const AboutUs = () => {
   return (
-    <div className="relative bg-black text-white font-sans min-h-screen">
-      <BackgroundMaker />
-      <Header>Meet the heroes who organised this event</Header>
-      <Teamblock teamName="Design">
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-      </Teamblock>
-      <Teamblock teamName="Technical">
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-      </Teamblock>
-      <Teamblock teamName="Marketing">
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
-      </Teamblock>
-    </div>
+    <>
+      <NavBar />
+      <div className="relative bg-black text-white font-sans min-h-screen">
+        <BackgroundMaker />
+        <Header>Meet the heroes who organised this event</Header>
+        <Teamblock teamName="Design">
+          <MemberCard />
+          <MemberCard />
+          <MemberCard />
+          <MemberCard />
+        </Teamblock>
+        <Teamblock teamName="Technical">
+          <MemberCard />
+          <MemberCard />
+          <MemberCard />
+          <MemberCard />
+          <MemberCard />
+        </Teamblock>
+        <Teamblock teamName="Marketing">
+          <MemberCard />
+          <MemberCard />
+          <MemberCard />
+          <MemberCard />
+        </Teamblock>
+      </div>
+    </>
   );
 };
 
