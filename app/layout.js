@@ -1,5 +1,5 @@
 import "./globals.css";
-import NavBar from "./components/NavBar";
+import { CookiesProvider } from 'next-client-cookies/server';
 export const metadata = {
   title: "FMC Weekend",
   description: "Asia's Largest Digital Arts Festival",
@@ -15,8 +15,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className=" font-clash bg-black overflow-x-hidden">
-        <NavBar />
-        {children}
+      <CookiesProvider>{children}</CookiesProvider>
       </body>
     </html>
   );
