@@ -165,10 +165,7 @@ const EventsPage = () => {
   router = useRouter()
 
   // Dummy data for cart and registered events
-  const dummyCart = [
-    { id: 1, name: "Snapchase", price: 199 },
-    { id: 3, name: "PhotoArt", price: 199 },
-  ];
+  const dummyCart = [];
 
   const dummyRegisteredEvents = [2,4]; // Assuming these are event IDs
 
@@ -343,7 +340,7 @@ const EventsPage = () => {
 
         {Object.entries(categories).length > 0 ? (
           Object.entries(categories).map(([category, events]) => (
-            <SectionBlock key={category} name={category}>
+            <SectionBlock key={category} name={category} id={category}>
               {Object.entries(events).map(([event, details]) => (
                 <EventCard
                   key={details.id}
