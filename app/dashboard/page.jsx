@@ -32,23 +32,8 @@ const Dashboard = () => {
           },
         }
       ).then((res) => res.json());
-      setUserData({
-        ...res,
-        events: [{ id: 1, type: "anime", name: "clannad" }],
-      });
-    })();
-    (async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/registered`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${cookies.get("authToken")}`,
-          },
-        }
-      ).then((res) => res.json());
-      setRegisteredEvents(res.map((res)=>getEventById(res)))
+      setUserData(res);
+      setRegisteredEvents(res.registered.map((res)=>getEventById(res)))
     })();
     
   }, []);
