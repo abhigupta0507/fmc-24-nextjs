@@ -77,8 +77,8 @@ const EventCard = ({
   </motion.div>
 );
 
-const SectionBlock = ({ name, children }) => (
-  <section className="py-16">
+const SectionBlock = ({ name, children,id }) => (
+  <section className="py-16" id={id}>
     <motion.h2
       className="text-4xl md:text-6xl font-bold text-center mb-12"
       initial={{ opacity: 0, y: 50 }}
