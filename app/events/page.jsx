@@ -77,8 +77,8 @@ const EventCard = ({
   </motion.div>
 );
 
-const SectionBlock = ({ name, children }) => (
-  <section className="py-16">
+const SectionBlock = ({ name, children,id }) => (
+  <section className="py-16" id={id}>
     <motion.h2
       className="text-4xl md:text-6xl font-bold text-center mb-12"
       initial={{ opacity: 0, y: 50 }}
@@ -165,10 +165,7 @@ const EventsPage = () => {
   router = useRouter()
 
   // Dummy data for cart and registered events
-  const dummyCart = [
-    { id: 1, name: "Snapchase", price: 199 },
-    { id: 3, name: "PhotoArt", price: 199 },
-  ];
+  const dummyCart = [];
 
   const dummyRegisteredEvents = [2,4]; // Assuming these are event IDs
 
@@ -180,7 +177,7 @@ const EventsPage = () => {
         const events=allEvents()
         setCategories(events);
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/cart`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/cart_and_reg`,
           {
             method: "GET",
             headers: {
@@ -189,18 +186,8 @@ const EventsPage = () => {
             },
           }
         ).then((res) => res.json());
-        if(!res.message) setCart(res.map((id)=>getEventById(id)));
-        const res2 = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/registered`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${cookies.get("authToken")}`,
-            },
-          }
-        ).then((res2) => res2.json());
-        if(!res.message)setRegisteredEvents(res2);
+        if(!res.message) setCart(res.cart.map((id)=>getEventById(id)));
+        if(!res.message) setRegisteredEvents(res.registered);
       } catch (error) {
         console.error("Error fetching events:", error);
         setError("Failed to load events. Please try again later.");
@@ -347,7 +334,7 @@ const EventsPage = () => {
 
         {Object.entries(categories).length > 0 ? (
           Object.entries(categories).map(([category, events]) => (
-            <SectionBlock key={category} name={category}>
+            <SectionBlock key={category} name={category} id={category}>
               {Object.entries(events).map(([event, details]) => (
                 <EventCard
                   key={details.id}
