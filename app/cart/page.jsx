@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Trash2, Plus, Minus } from "lucide-react";
 import bg from "../dashboard/bg.png";
+import NavBar from "../components/NavBar";
 
 // Alert Component
 const Alert = ({ children }) => (
@@ -95,6 +96,7 @@ const Cart = () => {
 
   return (
     <>
+    <NavBar />
       <div
         className="absolute inset-0 -z-20"
         style={{

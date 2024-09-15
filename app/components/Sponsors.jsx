@@ -36,20 +36,20 @@ const Sponsors = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         
-        <motion.div className="grid justify-center justify-items-center content-center items-center grid-cols-4 md:grid-cols-6 gap-2 mx-3 rounded-2xl backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-5" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.5 }}> 
-          <div className="col-span-4 md:col-span-6"><Image src={group} width={650} height={100} alt="Sponsors"/></div>
-          <Image src={sponser1} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser2} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser3} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser4} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser5} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser6} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser7} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser8} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser9} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser10} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser11} width={100} height={50} alt="Sponsors" />
-          <Image src={sponser12} width={100} height={50} alt="Sponsors" />
+        <motion.div className="grid justify-center justify-items-center content-center items-center col-span grid-cols-4 md:grid-cols-4 gap-2 mx-3 rounded-2xl  p-5" initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.5 }}> 
+          <div className="col-span-4 md:col-span-6 backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl"><Image src={group} width={700} height={100} alt="Sponsors"/></div>
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser1} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser2} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser3} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser4} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser5} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser6} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser7} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser8} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser9} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser10} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser11} width={130} height={50} alt="Sponsors" />
+          <Image className="backdrop-blur-md bg-gray-400/10 relative overflow-hidden p-2 rounded-2xl" src={sponser12} width={130} height={50} alt="Sponsors" />
         </motion.div>
     </motion.div>
     </div>

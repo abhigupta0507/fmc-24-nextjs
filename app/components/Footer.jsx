@@ -129,10 +129,10 @@ const Footer = () => {
             src="https://www.google.com/maps?q=IIT+BHU,+Varanasi,+Uttar+Pradesh&hl=es;z=14&output=embed"
             width="100%"
             height="450"
-            frameborder="0"
-            allowfullscreen=""
+            frameBorder="0"
+            allowFullScreen=""
             aria-hidden="false"
-            tabindex="0"
+            tabIndex="0"
           ></iframe>
         </div>
       </div>

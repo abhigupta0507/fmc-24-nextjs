@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import Cookies from "js-cookie";
+import { useCookies } from "next-client-cookies";
 import logoImage from "../components/logo.png";
 import "/styles/navbar.css";
 import { usePathname } from "next/navigation";
@@ -21,10 +21,11 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const pathName = usePathname();
+  const cookies = useCookies();
 
   useEffect(() => {
-    const userToken = Cookies.get("userToken");
-    if (userToken) {
+    const authToken = cookies.get("authToken");
+    if (authToken) {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
@@ -35,7 +36,7 @@ const NavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const isActiveLink = (path) => pathName === path;
-  console.log(pathName);
+  // console.log(pathName);
 
   return (
     <>
@@ -62,8 +63,7 @@ const NavBar = () => {
                   <p
                     className={`opacity-${
                       isActiveLink("/aboutUs") ? "100 underline" : "70"
-                    } hover:opacity-100` 
-                     }
+                    } hover:opacity-100`}
                   >
                     About Us
                   </p>
@@ -80,6 +80,21 @@ const NavBar = () => {
                   </p>
                 </Link>
               </li>
+              {isAuthenticated ? (
+                <li>
+                  <Link href="/logout">
+                    <p
+                      className={`opacity-${
+                        isActiveLink("/logout") ? "100 underline" : "70"
+                      } hover:opacity-100 text-red-600`}
+                    >
+                      Logout
+                    </p>
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
             </ul>
 
             {/* User Profile/Authentication Button */}
@@ -125,6 +140,21 @@ const NavBar = () => {
                   </p>
                 </Link>
               </li>
+              {isAuthenticated ? (
+                <li>
+                  <Link href="/logout" onClick={toggleMenu}>
+                    <p
+                      className={`opacity-${
+                        isActiveLink("/logout") ? "100" : "70"
+                      } hover:opacity-100 text-red-600`}
+                    >
+                      Logout
+                    </p>
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
               {isAuthenticated ? (
                 <Link
                   href="/dashboard"
