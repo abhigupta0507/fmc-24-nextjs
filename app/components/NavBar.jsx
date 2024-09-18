@@ -85,7 +85,7 @@ const NavBar = () => {
                   <Link href="/accommodation">
                     <p
                       className={`opacity-${
-                        isActiveLink("/logout") ? "100 underline" : "70"
+                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
                       } hover:opacity-100 text-red-600`}
                     >
                       Accomodation
