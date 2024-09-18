@@ -82,7 +82,7 @@ const NavBar = () => {
               </li>
               {isAuthenticated ? (
                 <li>
-                  <Link href="/accommodation">
+                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
                     <p
                       className={`opacity-${
                         isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
