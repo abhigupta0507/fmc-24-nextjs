@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ExternalLink, X, Download } from 'lucide-react';
 
 const addDummyData = (payment) => {
-  const dummyItems = ['Laptop', 'Smartphone', 'Headphones', 'Tablet', 'Smartwatch'];
+  const dummyItems = ['Cine', 'Photog', 'Media', 'Outreach', 'Animation'];
   return {
     ...payment,
     name: `Customer ${Math.floor(Math.random() * 1000)}`,
