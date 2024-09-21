@@ -8,7 +8,7 @@ const addDummyData = (payment) => {
     ...payment,
     name: `Customer ${Math.floor(Math.random() * 1000)}`,
     mobile: `+1 ${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 10000)}`,
-    ordered_items: Array.from({ length: Math.floor(Math.random() * 3) + 1 }, () => dummyItems[Math.floor(Math.random() * dummyItems.length)])
+    ordered_items: Array.from({ length: Math.floor(Math.random() * 3) + 1 }, () => dummyItems[Math.floor(Math.random() * dummyItems.length)]),
   };
 };
 
@@ -20,7 +20,7 @@ const ImageModal = ({ imageUrl, onClose }) => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'payment_screenshot.jpg'; // You can generate a more specific name if needed
+      link.download = 'payment_screenshot.jpg'; 
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -40,9 +40,9 @@ const ImageModal = ({ imageUrl, onClose }) => {
           </button>
         </div>
         <div className="flex-grow overflow-auto p-4">
-          <img 
-            src={imageUrl} 
-            alt="Payment Screenshot" 
+          <img
+            src={imageUrl}
+            alt="Payment Screenshot"
             className="max-w-full h-auto max-h-full object-contain mx-auto"
           />
         </div>
@@ -62,7 +62,7 @@ const ImageModal = ({ imageUrl, onClose }) => {
 export default function PaymentPage() {
   const [data, setData] = useState([]);
   const [modalImage, setModalImage] = useState(null);
-
+  const [searchEmail, setSearchEmail] = useState(''); 
   useEffect(() => {
     (async () => {
       try {
@@ -89,9 +89,26 @@ export default function PaymentPage() {
     setModalImage(null);
   };
 
+  //filter data based on search email
+  const filteredData = data.filter(payment => 
+    payment.email.toLowerCase().includes(searchEmail.toLowerCase())
+  );
+
   return (
     <div className="container mx-auto p-6 bg-gray-900 text-white">
       <h1 className="text-3xl font-bold mb-6">Payment Records</h1>
+
+      {/* Search bar for email search*/}
+      <div className="mb-4">
+        <input
+          type="text"
+          value={searchEmail}
+          onChange={(e) => setSearchEmail(e.target.value)}
+          placeholder="Search by email"
+          className="p-2 rounded bg-gray-800 text-white border border-gray-700 w-full"
+        />
+      </div>
+
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
@@ -106,7 +123,7 @@ export default function PaymentPage() {
             </tr>
           </thead>
           <tbody>
-            {data.map((payment, i) => (
+            {filteredData.map((payment, i) => (
               <tr key={i} className="border-b border-gray-700 hover:bg-gray-800">
                 <td className="p-3">{new Date(payment.timestamp).toLocaleString()}</td>
                 <td className="p-3">{payment.name}</td>
@@ -127,6 +144,7 @@ export default function PaymentPage() {
           </tbody>
         </table>
       </div>
+
       {modalImage && <ImageModal imageUrl={modalImage} onClose={closeModal} />}
     </div>
   );
