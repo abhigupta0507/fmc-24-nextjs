@@ -39,16 +39,17 @@ const HeroSection = () => {
         Asia's Largest <br /> Digital Arts <br /> Festival{" "}
       </motion.h1>
       
-      <motion.button 
+      <motion.a 
         ref={buttonRef}
-        className="text-white bg-red-600 mt-[20px] mb-[10px] px-4 py-2 rounded-full border-none outline-none w-fit sm:w-[150px] md-w[180px] lg:w-[194px] h-[56px] sm:text-sm md:text-lg"
+        href="/events"
+        className="text-white bg-red-600 mt-[20px] mb-[10px] px-4 py-2 rounded-full border-none outline-none w-fit sm:w-[150px] md-w[180px] lg:w-[194px] h-[56px] sm:text-sm md:text-lg flex justify-center items-center"
         variants={slideUp}
         initial="hidden"
         animate={buttonInView ? "visible" : "hidden"}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
         Explore More
-      </motion.button>
+      </motion.a>
       
       <motion.div 
         ref={imageRef}

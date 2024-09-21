@@ -30,6 +30,7 @@ function BackgroundMaker() {
 const EventCard = ({
   name,
   price,
+  ps_link,
   onToggle,
   isInCart,
   isRegistered,
@@ -48,7 +49,7 @@ const EventCard = ({
       />
       <div className="ml-4 flex-grow">
         <h3 className="text-xl font-semibold mb-1">{name}</h3>
-        <p className="text-gray-400 mb-4">Price: Rs {price}</p>
+        <p className="text-gray-400 mb-2">Price: Rs {price}</p>
         <div className="flex justify-between items-center">
           <button
             onClick={onToggle}
@@ -60,7 +61,7 @@ const EventCard = ({
                 : isSelected
                 ? "bg-green-600 hover:bg-green-700"
                 : "bg-blue-600 hover:bg-blue-700"
-            }`}
+              }`}
             disabled={isRegistered || isInCart}
           >
             {isRegistered
@@ -72,6 +73,7 @@ const EventCard = ({
               : "Select"}
           </button>
         </div>
+        <a href={ps_link} className="inline-block mt-4 underline text-sm text-gray-400">View Problem Statement</a>
       </div>
     </div>
   </motion.div>
@@ -336,6 +338,7 @@ const EventsPage = () => {
                   key={details.id}
                   name={event}
                   price={details.price}
+                  ps_link={details.link}
                   onToggle={() => toggleEventSelection(details)}
                   isInCart={cart.some((item) => item.id === details.id)}
                   isRegistered={registeredEvents.includes(details.id)}

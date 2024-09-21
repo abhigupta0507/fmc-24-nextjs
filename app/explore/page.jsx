@@ -48,7 +48,7 @@ const Explore = () => {
 
 function CardContainer({ cards }) {
   return (
-    <div className="relative h-full overflow-x-hidden overflow-y-scroll snap-y snap-mandatory">
+    <div className="relative h-full overflow-x-hidden overflow-y-scroll snap-y snap-mandatory no-scrollbar">
       <div className="space-y-1000 h-full">
         {cards.map((card, index) => (
           <ExploreCard key={card.id} card={card} index={index} />
