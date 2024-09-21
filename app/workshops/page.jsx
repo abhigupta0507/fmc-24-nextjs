@@ -8,15 +8,60 @@ import animation from "./animation.png";
 
 // Sample data for cards
 const cardData = [
-  { id: 1, title: "Card 1", description: "This is the first card", img: `${animation.src}` },
-  { id: 2, title: "Card 2", description: "This is the second card", img: `${animation.src}` },
-  { id: 3, title: "Card 3", description: "This is the third card", img: `${animation.src}` },
-  { id: 4, title: "Card 4", description: "This is the fourth card", img: `${animation.src}` },
-  { id: 5, title: "Card 5", description: "This is the fifth card", img: `${animation.src}` },
-  { id: 6, title: "Card 6", description: "This is the sixth card", img: `${animation.src}` },
-  { id: 7, title: "Card 7", description: "This is the seventh card", img: `${animation.src}` },
-  { id: 8, title: "Card 8", description: "This is the eighth card", img: `${animation.src}` },
-  { id: 9, title: "Card 9", description: "This is the ninth card", img: `${animation.src}` }
+  {
+    id: 1,
+    title: "Card 1",
+    description: "This is the first card",
+    img: `${animation.src}`,
+  },
+  {
+    id: 2,
+    title: "Card 2",
+    description: "This is the second card",
+    img: `${animation.src}`,
+  },
+  {
+    id: 3,
+    title: "Card 3",
+    description: "This is the third card",
+    img: `${animation.src}`,
+  },
+  {
+    id: 4,
+    title: "Card 4",
+    description: "This is the fourth card",
+    img: `${animation.src}`,
+  },
+  {
+    id: 5,
+    title: "Card 5",
+    description: "This is the fifth card",
+    img: `${animation.src}`,
+  },
+  {
+    id: 6,
+    title: "Card 6",
+    description: "This is the sixth card",
+    img: `${animation.src}`,
+  },
+  {
+    id: 7,
+    title: "Card 7",
+    description: "This is the seventh card",
+    img: `${animation.src}`,
+  },
+  {
+    id: 8,
+    title: "Card 8",
+    description: "This is the eighth card",
+    img: `${animation.src}`,
+  },
+  {
+    id: 9,
+    title: "Card 9",
+    description: "This is the ninth card",
+    img: `${animation.src}`,
+  },
 ];
 
 const Explore = () => {
@@ -48,8 +93,16 @@ const Explore = () => {
 
 function CardContainer({ cards }) {
   return (
-    <div className="relative h-full overflow-x-hidden overflow-y-scroll snap-y snap-mandatory">
+    <div className="relative h-full overflow-x-hidden overflow-y-scroll snap-y snap-mandatory no-scrollbar">
       <div className="space-y-1000 h-full">
+        <motion.h2
+          className="text-4xl md:text-6xl font-bold text-center mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Workshops
+        </motion.h2>
         {cards.map((card, index) => (
           <ExploreCard key={card.id} card={card} index={index} />
         ))}
@@ -93,4 +146,3 @@ function ExploreCard({ card, index }) {
 }
 
 export default Explore;
-

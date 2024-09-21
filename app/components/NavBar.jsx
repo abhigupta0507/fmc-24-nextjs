@@ -91,6 +91,81 @@ const NavBar = () => {
             <NavLink href="/events">Events</NavLink>
             {isAuthenticated && <NavLink href="/accommodation">Accommodation</NavLink>}
           </ul>
+            {/* Hamburger Menu Icon */}
+            <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
+              {isMenuOpen ? (
+                <X size={28} className="text-white" />
+              ) : (
+                <Menu size={28} className="text-white" />
+              )}
+            </div>
+
+            {/* Desktop Menu */}
+            <ul className={`hidden md:flex gap-x-6 text-white`}>
+              <li>
+                <Link href="/aboutUs">
+                  <p
+                    className={`opacity-${
+                      isActiveLink("/aboutUs") ? "100 underline" : "70"
+                    } hover:opacity-100`}
+                  >
+                    About Us
+                  </p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/events">
+                  <p
+                    className={`opacity-${
+                      isActiveLink("/events") ? "100 underline" : "70"
+                    } hover:opacity-100`}
+                  >
+                    Events
+                  </p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/workshops">
+                  <p
+                    className={`opacity-${
+                      isActiveLink("/workshops") ? "100 underline" : "70"
+                    } hover:opacity-100`}
+                  >
+                    Workshops
+                  </p>
+                </Link>
+              </li>
+              {isAuthenticated ? (
+                <li>
+                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
+                    <p
+                      className={`opacity-${
+                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
+                      } hover:opacity-100 text-red-600`}
+                    >
+                      Accomodation
+                    </p>
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
+              {isAuthenticated ? (
+                <li>
+                  <Link href="/logout">
+                    <p
+                      className={`opacity-${
+                        isActiveLink("/logout") ? "100 underline" : "70"
+                      } hover:opacity-100 text-red-600`}
+                    >
+                      Logout
+                    </p>
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
+            </ul>
 
           {/* User Menu / Login Button */}
           <div className="hidden md:flex items-center space-x-4">
@@ -138,6 +213,68 @@ const NavBar = () => {
             )}
           </div>
         )}
+              </li>
+              <li>
+                <Link href="/workshops" onClick={toggleMenu}>
+                  <p
+                    className={`opacity-${
+                      isActiveLink("/workshops") ? "100" : "70"
+                    } hover:opacity-100`}
+                  >
+                    Workshops
+                  </p>
+                </Link>
+              </li>
+              {isAuthenticated ? (
+                <li>
+                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
+                    <p
+                      className={`opacity-${
+                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
+                      } hover:opacity-100 text-red-600`}
+                    >
+                      Accommodation
+                    </p>
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
+              {isAuthenticated ? (
+                <li>
+                  <Link href="/logout" onClick={toggleMenu}>
+                    <p
+                      className={`opacity-${
+                        isActiveLink("/logout") ? "100" : "70"
+                      } hover:opacity-100 text-red-600`}
+                    >
+                      Logout
+                    </p>
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
+              {isAuthenticated ? (
+                <Link
+                  href="/dashboard"
+                  onClick={toggleMenu}
+                  className="block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+                >
+                  My Profile
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={toggleMenu}
+                  className="block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+                >
+                  Login
+                </Link>
+              )}
+            </ul>
+          )}
+        </div>
       </div>
     </nav>
   );

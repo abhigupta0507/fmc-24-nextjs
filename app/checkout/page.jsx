@@ -107,7 +107,7 @@ export default function FormPage() {
                 />
                 <button
                   type="submit"
-                  className="bg-red-500 p-3 rounded-lg text-white font-semibold hover:bg-red-600"
+                  className={`bg-red-500 p-3 rounded-lg text-white font-semibold hover:bg-red-600 ${sending?"cursor-not-allowed":""}`}
                   disabled={sending}
                 >
                   Confirm
