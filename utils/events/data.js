@@ -112,7 +112,7 @@ module.exports.jsonString = `{
   "Design": {
     "Swap The Canvas": {
       "id": 14,
-      "price": 199,
+      "price": 499,
       "name": "Swap The Canvas",
       "type":"Design",
       "link":"https://drive.google.com/file/d/1Ipcm3kqGYuXm4xOqZei4FgUZPWIexLCO/view?usp=sharing",
