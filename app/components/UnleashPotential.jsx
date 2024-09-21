@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
-import { motion, useInView} from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 
 const ClubData = [
@@ -44,6 +44,13 @@ const ClubData = [
     name: "PHOTOGRAPHY",
     href: "https://drive.google.com/file/d/1xWtG5kHBnDHhJRF37mkpZnA4tDf4hyCl/view?usp=drive_link",
   },
+  {
+    id: "6",
+    // img: "https://s3-alpha-sig.figma.com/img/faa9/c12d/8496267aac82785aa860c496137cdd4a?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Fodq6L~8BmXEotuJqgnC7F7Q88qP-OUVPlDABL2iEONGaMbdMgXg2JE02zWM2Lj2qJWeMypLdOR7jTevZQUS8b~L7II4GArO9OcQg2rZY6hl2lcJX41i4SxzVM9vMlvkig709IvPdteoo~94dE9BCRxCGWLUHttReaWx0t8UdbTbbaBqlqxg1aQUUs31BLWFf1SJS3JkrogOPFpd53G58U3GmgMsUYnAtEQhqrapzw61th4pVsJBKjUFRORg2C1qmNgAV8lnqoe9fQHwq5sTTCn6v2bmnsCsQtzvUx9zKLe3IBU2AKICd5rKL48vFvfkBEr5HlJ5kThp0xo2uodx~g__",
+    img: "/unleash_potential/media.jpg",
+    name: "MEDIA",
+    href: "https://drive.google.com/file/d/1zohmb4d4TMX2mB4djjaIR79CbbudMg_3/view?usp=drive_link",
+  },
 ];
 
 export default function UnleashPotential() {
@@ -76,51 +83,51 @@ export default function UnleashPotential() {
   };
   const fadeIn = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1 }
+    visible: { opacity: 1 },
   };
 
-
-  const Club = ({ img, name,href }) => {
+  const Club = ({ img, name, href }) => {
     const ref = useRef(null);
     const inView = useInView(ref, { triggerOnce: false });
 
     return (
-      <motion.div
-        className="bg-slate-950 border border-gray-200 p-2 rounded-lg overflow-hidden shadow-lg"
-        ref={ref}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        variants={fadeIn}
-        whileHover={{ scale: 1.0 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <Image
-          src={`${img}`}
-          alt="image"
-          className="w-full h-64 object-cover rounded-md"
-          width={400}
-          height={400}
-          unoptimized={true}
-        />
+      <Link href={`${href}`} target="_blank">
         <motion.div
-          className="p-5 flex flex-col items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          
+          className="bg-slate-950 border border-gray-200 p-2 rounded-lg overflow-hidden shadow-lg"
+          ref={ref}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={fadeIn}
+          whileHover={{ scale: 1.0 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <h5 className="mb-10 text-2xl font-bold text-gray-200">
-            {name}
-          </h5>
-          <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.9 }}>
-            <Link
-              href={`${href}`}
-              className="bg-gray-400/90 px-10 rounded-2xl hover:bg-gray-500 py-2 text-white font-semibold"
+          <Image
+            src={`${img}`}
+            alt="image"
+            className="w-full h-64 object-cover rounded-md"
+            width={400}
+            height={400}
+            unoptimized={true}
+          />
+          <motion.div
+            className="p-5 flex flex-col items-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <h5 className="mb-10 text-2xl font-bold text-gray-200">{name}</h5>
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.9 }}
             >
-              EXPLORE MORE
-            </Link>
-          </motion.button>
+              <div
+                className="bg-gray-400/90 px-10 rounded-2xl hover:bg-gray-500 py-2 text-white font-semibold"
+              >
+                EXPLORE MORE
+              </div>
+            </motion.button>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </Link>
     );
   };
   return (
@@ -136,7 +143,12 @@ export default function UnleashPotential() {
       <Slider {...settings}>
         {ClubData.map((club, index) => (
           <div key={index} className="px-2">
-            <Club  key={club.id} img={club.img} name={club.name} href={club.href}/>
+            <Club
+              key={club.id}
+              img={club.img}
+              name={club.name}
+              href={club.href}
+            />
           </div>
         ))}
       </Slider>

@@ -80,12 +80,23 @@ const NavBar = () => {
                   </p>
                 </Link>
               </li>
+              <li>
+                <Link href="/workshops">
+                  <p
+                    className={`opacity-${
+                      isActiveLink("/workshops") ? "100 underline" : "70"
+                    } hover:opacity-100`}
+                  >
+                    Workshops
+                  </p>
+                </Link>
+              </li>
               {isAuthenticated ? (
                 <li>
-                  <Link href="/accommodation">
+                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
                     <p
                       className={`opacity-${
-                        isActiveLink("/logout") ? "100 underline" : "70"
+                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
                       } hover:opacity-100 text-red-600`}
                     >
                       Accomodation
@@ -155,12 +166,23 @@ const NavBar = () => {
                   </p>
                 </Link>
               </li>
+              <li>
+                <Link href="/workshops" onClick={toggleMenu}>
+                  <p
+                    className={`opacity-${
+                      isActiveLink("/workshops") ? "100" : "70"
+                    } hover:opacity-100`}
+                  >
+                    Workshops
+                  </p>
+                </Link>
+              </li>
               {isAuthenticated ? (
                 <li>
-                  <Link href="/accommodation">
+                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
                     <p
                       className={`opacity-${
-                        isActiveLink("/logout") ? "100 underline" : "70"
+                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
                       } hover:opacity-100 text-red-600`}
                     >
                       Accommodation
