@@ -129,7 +129,7 @@ export default function PaymentPage() {
                 <td className="p-3">{payment.name}</td>
                 <td className="p-3">{payment.email}</td>
                 <td className="p-3">{payment.mobile}</td>
-                <td className="p-3">${parseFloat(payment.amount_paid).toFixed(2)}</td>
+                <td className="p-3">₹{parseFloat(payment.amount_paid).toFixed(2)}</td>
                 <td className="p-3">{payment.ordered_items.join(', ')}</td>
                 <td className="p-3">
                   <button
