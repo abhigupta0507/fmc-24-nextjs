@@ -1,44 +1,133 @@
-"use client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+'use client'
+import React, { useEffect, useState } from 'react';
+import { ExternalLink, X, Download } from 'lucide-react';
 
-export default function paymentPage() {
-  const [payments, setPayments] = useState([]);
+const addDummyData = (payment) => {
+  const dummyItems = ['Laptop', 'Smartphone', 'Headphones', 'Tablet', 'Smartwatch'];
+  return {
+    ...payment,
+    name: `Customer ${Math.floor(Math.random() * 1000)}`,
+    mobile: `+1 ${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 10000)}`,
+    ordered_items: Array.from({ length: Math.floor(Math.random() * 3) + 1 }, () => dummyItems[Math.floor(Math.random() * dummyItems.length)])
+  };
+};
+
+const ImageModal = ({ imageUrl, onClose }) => {
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'payment_screenshot.jpg'; // You can generate a more specific name if needed
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert('Failed to download the image. Please try again.');
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col">
+        <div className="flex justify-end p-2">
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+        <div className="flex-grow overflow-auto p-4">
+          <img 
+            src={imageUrl} 
+            alt="Payment Screenshot" 
+            className="max-w-full h-auto max-h-full object-contain mx-auto"
+          />
+        </div>
+        <div className="p-4 flex justify-center">
+          <button
+            onClick={handleDownload}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+          >
+            <Download className="mr-2 h-4 w-4" /> Download
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default function PaymentPage() {
   const [data, setData] = useState([]);
+  const [modalImage, setModalImage] = useState(null);
+
   useEffect(() => {
     (async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/payments`,
-        {
-          method: "GET",
-        }
-      ).then((res) => res.json());
-      setData(res.reverse());
-    //   console.log(res);
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/payments`,
+          {
+            method: "GET",
+          }
+        );
+        const payments = await res.json();
+        const enhancedPayments = payments.map(addDummyData);
+        setData(enhancedPayments.reverse());
+      } catch (error) {
+        console.error("Error fetching payments:", error);
+      }
     })();
   }, []);
+
+  const openModal = (imageUrl) => {
+    setModalImage(imageUrl);
+  };
+
+  const closeModal = () => {
+    setModalImage(null);
+  };
+
   return (
-    <>
-      <table className="text-white p-4">
-        <tbody>
-          <tr>
-            <th>Timestamp</th>
-            <th>email</th>
-            <th>amount paid</th>
-            <th>screenshot</th>
-          </tr>
-          {data.map((payment, i) => (
-            <tr key={i}>
-              <td className="pl-12 pr-12">{payment.timestamp}</td>
-              <td className="pl-12 pr-12">{payment.email}</td>
-              <td className="pl-12 pr-12">{payment.amount_paid}</td>
-              <td className="pl-12 pr-12">
-                <Link href={payment.image_url}>Link</Link>
-              </td>
+    <div className="container mx-auto p-6 bg-gray-900 text-white">
+      <h1 className="text-3xl font-bold mb-6">Payment Records</h1>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="bg-gray-800">
+              <th className="p-3 text-left">Timestamp</th>
+              <th className="p-3 text-left">Name</th>
+              <th className="p-3 text-left">Email</th>
+              <th className="p-3 text-left">Mobile</th>
+              <th className="p-3 text-left">Amount Paid</th>
+              <th className="p-3 text-left">Ordered Items</th>
+              <th className="p-3 text-left">Screenshot</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+          </thead>
+          <tbody>
+            {data.map((payment, i) => (
+              <tr key={i} className="border-b border-gray-700 hover:bg-gray-800">
+                <td className="p-3">{new Date(payment.timestamp).toLocaleString()}</td>
+                <td className="p-3">{payment.name}</td>
+                <td className="p-3">{payment.email}</td>
+                <td className="p-3">{payment.mobile}</td>
+                <td className="p-3">${parseFloat(payment.amount_paid).toFixed(2)}</td>
+                <td className="p-3">{payment.ordered_items.join(', ')}</td>
+                <td className="p-3">
+                  <button
+                    onClick={() => openModal(payment.image_url)}
+                    className="text-blue-400 hover:text-blue-300 flex items-center"
+                  >
+                    View <ExternalLink size={16} className="ml-1" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {modalImage && <ImageModal imageUrl={modalImage} onClose={closeModal} />}
+    </div>
   );
 }
