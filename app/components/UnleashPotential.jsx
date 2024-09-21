@@ -44,6 +44,13 @@ const ClubData = [
     name: "PHOTOGRAPHY",
     href: "https://drive.google.com/file/d/1xWtG5kHBnDHhJRF37mkpZnA4tDf4hyCl/view?usp=drive_link",
   },
+  {
+    id: "6",
+    // img: "https://s3-alpha-sig.figma.com/img/faa9/c12d/8496267aac82785aa860c496137cdd4a?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Fodq6L~8BmXEotuJqgnC7F7Q88qP-OUVPlDABL2iEONGaMbdMgXg2JE02zWM2Lj2qJWeMypLdOR7jTevZQUS8b~L7II4GArO9OcQg2rZY6hl2lcJX41i4SxzVM9vMlvkig709IvPdteoo~94dE9BCRxCGWLUHttReaWx0t8UdbTbbaBqlqxg1aQUUs31BLWFf1SJS3JkrogOPFpd53G58U3GmgMsUYnAtEQhqrapzw61th4pVsJBKjUFRORg2C1qmNgAV8lnqoe9fQHwq5sTTCn6v2bmnsCsQtzvUx9zKLe3IBU2AKICd5rKL48vFvfkBEr5HlJ5kThp0xo2uodx~g__",
+    img: "/unleash_potential/media.jpg",
+    name: "MEDIA",
+    href: "https://drive.google.com/file/d/1zohmb4d4TMX2mB4djjaIR79CbbudMg_3/view?usp=drive_link",
+  },
 ];
 
 export default function UnleashPotential() {
