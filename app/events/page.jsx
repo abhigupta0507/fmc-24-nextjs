@@ -73,7 +73,7 @@ const EventCard = ({
               : "Select"}
           </button>
         </div>
-        <a href={ps_link} className="inline-block mt-4 underline text-sm text-gray-400">View Problem Statement</a>
+        <a href={ps_link} target="_blank" className="inline-block mt-4 underline text-sm text-gray-400">View Problem Statement</a>
       </div>
     </div>
   </motion.div>

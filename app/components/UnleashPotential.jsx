@@ -121,6 +121,7 @@ export default function UnleashPotential() {
           <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.9 }}>
             <Link
               href={`${href}`}
+              target="_blank"
               className="bg-gray-400/90 px-10 rounded-2xl hover:bg-gray-500 py-2 text-white font-semibold"
             >
               EXPLORE MORE
