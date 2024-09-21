@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
-import { motion, useInView} from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 
 const ClubData = [
@@ -83,52 +83,51 @@ export default function UnleashPotential() {
   };
   const fadeIn = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1 }
+    visible: { opacity: 1 },
   };
 
-
-  const Club = ({ img, name,href }) => {
+  const Club = ({ img, name, href }) => {
     const ref = useRef(null);
     const inView = useInView(ref, { triggerOnce: false });
 
     return (
-      <motion.div
-        className="bg-slate-950 border border-gray-200 p-2 rounded-lg overflow-hidden shadow-lg"
-        ref={ref}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        variants={fadeIn}
-        whileHover={{ scale: 1.0 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <Image
-          src={`${img}`}
-          alt="image"
-          className="w-full h-64 object-cover rounded-md"
-          width={400}
-          height={400}
-          unoptimized={true}
-        />
+      <Link href={`${href}`} target="_blank">
         <motion.div
-          className="p-5 flex flex-col items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          
+          className="bg-slate-950 border border-gray-200 p-2 rounded-lg overflow-hidden shadow-lg"
+          ref={ref}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={fadeIn}
+          whileHover={{ scale: 1.0 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <h5 className="mb-10 text-2xl font-bold text-gray-200">
-            {name}
-          </h5>
-          <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.9 }}>
-            <Link
-              href={`${href}`}
-              target="_blank"
-              className="bg-gray-400/90 px-10 rounded-2xl hover:bg-gray-500 py-2 text-white font-semibold"
+          <Image
+            src={`${img}`}
+            alt="image"
+            className="w-full h-64 object-cover rounded-md"
+            width={400}
+            height={400}
+            unoptimized={true}
+          />
+          <motion.div
+            className="p-5 flex flex-col items-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <h5 className="mb-10 text-2xl font-bold text-gray-200">{name}</h5>
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.9 }}
             >
-              EXPLORE MORE
-            </Link>
-          </motion.button>
+              <div
+                className="bg-gray-400/90 px-10 rounded-2xl hover:bg-gray-500 py-2 text-white font-semibold"
+              >
+                EXPLORE MORE
+              </div>
+            </motion.button>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </Link>
     );
   };
   return (
@@ -144,7 +143,12 @@ export default function UnleashPotential() {
       <Slider {...settings}>
         {ClubData.map((club, index) => (
           <div key={index} className="px-2">
-            <Club  key={club.id} img={club.img} name={club.name} href={club.href}/>
+            <Club
+              key={club.id}
+              img={club.img}
+              name={club.name}
+              href={club.href}
+            />
           </div>
         ))}
       </Slider>
