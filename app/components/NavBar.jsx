@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, User, LogOut, Home, Info } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import logoImage from "../components/logo.png";
 import "/styles/navbar.css";
@@ -35,10 +35,12 @@ const NavBar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    if (isDropdownOpen) setIsDropdownOpen(false);
   };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+    if (isMenuOpen) setIsMenuOpen(false);
   };
 
   const isActiveLink = (path) => pathName === path;
@@ -52,55 +54,43 @@ const NavBar = () => {
               <Logo />
             </Link>
 
-            {/* Hamburger Menu Icon */}
-            <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
-              {isMenuOpen ? (
-                <X size={28} className="text-white" />
-              ) : (
-                <Menu size={28} className="text-white" />
-              )}
-            </div>
-
             {/* Desktop Menu */}
             <ul className={`hidden md:flex gap-x-6 text-white`}>
               <li>
                 <Link href="/aboutUs">
-                  <p
-                    className={`opacity-${
-                      isActiveLink("/aboutUs") ? "100 underline" : "70"
-                    } hover:opacity-100`}
-                  >
+                  <p className={`hover:opacity-100 ${isActiveLink("/aboutUs") ? "opacity-100 underline" : "opacity-70"}`}>
                     About Us
                   </p>
                 </Link>
               </li>
               <li>
                 <Link href="/events">
-                  <p
-                    className={`opacity-${
-                      isActiveLink("/events") ? "100 underline" : "70"
-                    } hover:opacity-100`}
-                  >
+                  <p className={`hover:opacity-100 ${isActiveLink("/events") ? "opacity-100 underline" : "opacity-70"}`}>
                     Events
                   </p>
                 </Link>
               </li>
               <li>
                 <Link href="/workshops">
-                  <p
-                    className={`opacity-${
-                      isActiveLink("/workshops") ? "100 underline" : "70"
-                    } hover:opacity-100`}
-                  >
+                  <p className={`hover:opacity-100 ${isActiveLink("/workshops") ? "opacity-100 underline" : "opacity-70"}`}>
                     Workshops
+                  </p>
+                </Link>
+              </li>
+              <li>
+                <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
+                  <p className={`hover:opacity-100 ${isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "opacity-100 underline" : "opacity-70"}`}>
+                    <span className="flex items-center">
+                      Accommodation
+                    </span>
                   </p>
                 </Link>
               </li>
             </ul>
 
-            {/* User Profile Dropdown */}
+            {/* User Profile Dropdown (Desktop) */}
             {isAuthenticated ? (
-              <div className="relative">
+              <div className="hidden md:block relative">
                 <button
                   onClick={toggleDropdown}
                   className="flex items-center text-white focus:outline-none"
@@ -113,12 +103,6 @@ const NavBar = () => {
                       <div className="flex items-center">
                         <User size={18} className="mr-2" />
                         My Profile
-                      </div>
-                    </Link>
-                    <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                      <div className="flex items-center">
-                        <Home size={18} className="mr-2" />
-                        Accommodation
                       </div>
                     </Link>
                     <Link href="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -139,6 +123,15 @@ const NavBar = () => {
                 Login
               </Link>
             )}
+
+            {/* Hamburger Menu Icon (Mobile) */}
+            <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
+              {isMenuOpen ? (
+                <X size={28} className="text-white" />
+              ) : (
+                <Menu size={28} className="text-white" />
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu */}
@@ -146,58 +139,45 @@ const NavBar = () => {
             <ul className="md:hidden mt-4 text-white space-y-4 cursor-pointer">
               <li>
                 <Link href="/aboutUs" onClick={toggleMenu}>
-                  <p
-                    className={`opacity-${
-                      isActiveLink("/aboutUs") ? "100" : "70"
-                    } hover:opacity-100`}
-                  >
+                  <p className={`hover:opacity-100 ${isActiveLink("/aboutUs") ? "opacity-100" : "opacity-70"}`}>
                     About Us
                   </p>
                 </Link>
               </li>
               <li>
                 <Link href="/events" onClick={toggleMenu}>
-                  <p
-                    className={`opacity-${
-                      isActiveLink("/events") ? "100" : "70"
-                    } hover:opacity-100`}
-                  >
+                  <p className={`hover:opacity-100 ${isActiveLink("/events") ? "opacity-100" : "opacity-70"}`}>
                     Events
                   </p>
                 </Link>
               </li>
               <li>
                 <Link href="/workshops" onClick={toggleMenu}>
-                  <p
-                    className={`opacity-${
-                      isActiveLink("/workshops") ? "100" : "70"
-                    } hover:opacity-100`}
-                  >
+                  <p className={`hover:opacity-100 ${isActiveLink("/workshops") ? "opacity-100" : "opacity-70"}`}>
                     Workshops
                   </p>
+                </Link>
+              </li>
+              <li>
+                <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" onClick={toggleMenu}>
+                  <div className="flex items-center hover:opacity-100 opacity-70">
+                    Accommodation
+                  </div>
                 </Link>
               </li>
               {isAuthenticated ? (
                 <>
                   <li>
                     <Link href="/dashboard" onClick={toggleMenu}>
-                      <div className="flex items-center">
+                      <div className="flex items-center hover:opacity-100 opacity-70">
                         <User size={18} className="mr-2" />
                         My Profile
                       </div>
                     </Link>
                   </li>
                   <li>
-                    <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" onClick={toggleMenu}>
-                      <div className="flex items-center">
-                        <Home size={18} className="mr-2" />
-                        Accommodation
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
                     <Link href="/logout" onClick={toggleMenu}>
-                      <div className="flex items-center">
+                      <div className="flex items-center hover:opacity-100 opacity-70">
                         <LogOut size={18} className="mr-2" />
                         Logout
                       </div>
