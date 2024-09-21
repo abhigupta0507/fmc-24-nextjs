@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaShoppingCart, FaPlus, FaMinus, FaTimes } from "react-icons/fa";
+import { FaShoppingCart, FaPlus, FaMinus, FaTimes, FaSpinner } from "react-icons/fa";
 import Image from "next/image";
 import eventsImg from "./events.svg";
 import sample from "../../public/Img/EventImages/sculpture.png";
@@ -245,7 +245,11 @@ const EventsPage = () => {
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   if (isLoading) {
-    return <div className="text-white text-center mt-20">Loading...</div>;
+    return (
+      <div className="mx-auto h-48 w-48 justify-center mt-40">
+      <FaSpinner className="text-white mx-auto text-5xl animate-spin" />
+    </div>
+    )
   }
 
   if (error) {
