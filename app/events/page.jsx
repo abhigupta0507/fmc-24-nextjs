@@ -302,6 +302,7 @@ const EventsPage = () => {
               width={1000}
               className="mt-8"
             />
+            <div className="flex w-full justify-center text-white mt-4">*Media club too</div>
           </motion.div>
         </motion.section>
 
