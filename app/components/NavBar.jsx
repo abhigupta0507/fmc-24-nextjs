@@ -82,6 +82,21 @@ const NavBar = () => {
               </li>
               {isAuthenticated ? (
                 <li>
+                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
+                    <p
+                      className={`opacity-${
+                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
+                      } hover:opacity-100 text-red-600`}
+                    >
+                      Accomodation
+                    </p>
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
+              {isAuthenticated ? (
+                <li>
                   <Link href="/logout">
                     <p
                       className={`opacity-${
@@ -140,6 +155,21 @@ const NavBar = () => {
                   </p>
                 </Link>
               </li>
+              {isAuthenticated ? (
+                <li>
+                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
+                    <p
+                      className={`opacity-${
+                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
+                      } hover:opacity-100 text-red-600`}
+                    >
+                      Accommodation
+                    </p>
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
               {isAuthenticated ? (
                 <li>
                   <Link href="/logout" onClick={toggleMenu}>
