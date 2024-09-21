@@ -7,7 +7,7 @@ module.exports.jsonString = `{
       "description": "Join us for an inspiring live podcast session with Deepak Pareek, where storytelling meets self-growth—get ready to chill, learn, and elevate your mindset."
     },
     {
-      "name": "Joey",
+      "name": "Joey", 
       "type": "Photog Event",
       "activity": "InstaMeet - Photowalk at Assi Ghat",
       "description": "Grab your camera and join us for a vibrant photowalk at Assi Ghat, where every snapshot tells a story and the beauty of Varanasi unfolds before your lens!"
