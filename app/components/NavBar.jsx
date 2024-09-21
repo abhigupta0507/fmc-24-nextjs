@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut, Home, Info } from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import logoImage from "../components/logo.png";
 import "/styles/navbar.css";
@@ -20,6 +20,7 @@ function Logo() {
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const pathName = usePathname();
   const cookies = useCookies();
 
@@ -35,8 +36,12 @@ const NavBar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   const isActiveLink = (path) => pathName === path;
-  // console.log(pathName);
 
   return (
     <>
@@ -91,51 +96,46 @@ const NavBar = () => {
                   </p>
                 </Link>
               </li>
-              {isAuthenticated ? (
-                <li>
-                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
-                    <p
-                      className={`opacity-${
-                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
-                      } hover:opacity-100 text-red-600`}
-                    >
-                      Accomodation
-                    </p>
-                  </Link>
-                </li>
-              ) : (
-                <></>
-              )}
-              {isAuthenticated ? (
-                <li>
-                  <Link href="/logout">
-                    <p
-                      className={`opacity-${
-                        isActiveLink("/logout") ? "100 underline" : "70"
-                      } hover:opacity-100 text-red-600`}
-                    >
-                      Logout
-                    </p>
-                  </Link>
-                </li>
-              ) : (
-                <></>
-              )}
             </ul>
 
-            {/* User Profile/Authentication Button */}
+            {/* User Profile Dropdown */}
             {isAuthenticated ? (
-              <Link
-                href="/dashboard"
-                className="hidden md:block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
-              >
-                My Profile
-              </Link>
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="flex items-center text-white focus:outline-none"
+                >
+                  <User size={24} />
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                    <Link href="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <div className="flex items-center">
+                        <User size={18} className="mr-2" />
+                        My Profile
+                      </div>
+                    </Link>
+                    <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <div className="flex items-center">
+                        <Home size={18} className="mr-2" />
+                        Accommodation
+                      </div>
+                    </Link>
+                    <Link href="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <div className="flex items-center">
+                        <LogOut size={18} className="mr-2" />
+                        Logout
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
                 href="/login"
-                className="hidden md:block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                className="hidden md:flex items-center text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
               >
+                <User size={18} className="mr-2" />
                 Login
               </Link>
             )}
@@ -178,51 +178,43 @@ const NavBar = () => {
                 </Link>
               </li>
               {isAuthenticated ? (
+                <>
+                  <li>
+                    <Link href="/dashboard" onClick={toggleMenu}>
+                      <div className="flex items-center">
+                        <User size={18} className="mr-2" />
+                        My Profile
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" onClick={toggleMenu}>
+                      <div className="flex items-center">
+                        <Home size={18} className="mr-2" />
+                        Accommodation
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/logout" onClick={toggleMenu}>
+                      <div className="flex items-center">
+                        <LogOut size={18} className="mr-2" />
+                        Logout
+                      </div>
+                    </Link>
+                  </li>
+                </>
+              ) : (
                 <li>
-                  <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
-                    <p
-                      className={`opacity-${
-                        isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "100 underline" : "70"
-                      } hover:opacity-100 text-red-600`}
-                    >
-                      Accommodation
-                    </p>
+                  <Link
+                    href="/login"
+                    onClick={toggleMenu}
+                    className="flex items-center text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+                  >
+                    <User size={18} className="mr-2" />
+                    Login
                   </Link>
                 </li>
-              ) : (
-                <></>
-              )}
-              {isAuthenticated ? (
-                <li>
-                  <Link href="/logout" onClick={toggleMenu}>
-                    <p
-                      className={`opacity-${
-                        isActiveLink("/logout") ? "100" : "70"
-                      } hover:opacity-100 text-red-600`}
-                    >
-                      Logout
-                    </p>
-                  </Link>
-                </li>
-              ) : (
-                <></>
-              )}
-              {isAuthenticated ? (
-                <Link
-                  href="/dashboard"
-                  onClick={toggleMenu}
-                  className="block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
-                >
-                  My Profile
-                </Link>
-              ) : (
-                <Link
-                  href="/login"
-                  onClick={toggleMenu}
-                  className="block text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-1 focus:ring-red-500 font-medium rounded-full text-sm px-5 py-2.5 text-center"
-                >
-                  Login
-                </Link>
               )}
             </ul>
           )}
