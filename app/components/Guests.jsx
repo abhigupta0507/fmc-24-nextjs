@@ -13,7 +13,7 @@ const guestData = [
   { title: "Dhwalika Singh", imageUrl: "/guests/Dhwalika Singh_.jpg" },
   { title: "Satyam Bhuyan", imageUrl: "/guests/Satyam Bhuyan.jpg" },
   { title: "Saurabh Shukla", imageUrl: "/guests/Saurabh Shukla.jpg" },
-  { title: "Shubhajeet Dey", imageUrl: "/guests/Shubhajeet Dey.png" },
+  // { title: "Shubhajeet Dey", imageUrl: "/guests/Shubhajeet Dey.png" },
   { title: "Subhash Nair", imageUrl: "/guests/Subhash Nair.jpg" },
   { title: "Sumaira Khan", imageUrl: "/guests/Sumaira Khan.png" },
   { title: "Yash Rathi", imageUrl: "/guests/Yash Rathi.jpg" },
