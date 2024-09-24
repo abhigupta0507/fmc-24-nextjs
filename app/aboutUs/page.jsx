@@ -4,6 +4,7 @@ import { motion,useInView } from "framer-motion";
 import sample from "../../public/Img/EventImages/sculpture.png";
 import bg from "../../public/Img/EventImages/bg.png";
 import NavBar from "../components/NavBar";
+import Image from "next/image";
 
 const helmTeamData = [
   { name: "Atmadeep Bhattacharya", post: "General Secretary" },
@@ -100,7 +101,7 @@ function MemberCard({
         scale: isInView ? 1 : 0.8,
       }}
       transition={{ duration: 0.5 }}
-      className="relative bg-black bg-opacity-70 rounded-lg p-6 text-white flex items-center justify-between border border-gray-400 shadow-lg hover:scale-105 transition-transform duration-300"
+      className="relative bg-black bg-opacity-70 rounded-lg p-6 text-white flex items-center justify-between border border-gray-400 shadow-lg "
     >
       <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-2 bg-red-500 text-white text-xs font-bold py-1 px-3 rounded-tr-lg rounded-bl-lg">
         {post}
@@ -108,7 +109,7 @@ function MemberCard({
       <img
         src={photo}
         alt={name}
-        className=" w-40 h-40 object-cover rounded-full border-2 border-white"
+        className=" h-32 w-32 object-cover rounded-full border-2 border-white"
       />
       <div className="flex-1 text-center ml-4">
         <h3 className="text-lg md:text-xl font-bold">{name}</h3>
