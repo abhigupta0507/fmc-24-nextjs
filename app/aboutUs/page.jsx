@@ -3,6 +3,15 @@ import sample from "../../public/Img/EventImages/sculpture.png";
 import bg from "../../public/Img/EventImages/bg.png";
 import NavBar from "../components/NavBar";
 
+const data = [
+  "Atmadeep Bhattacharya",
+  "Meet Kotadiya",
+  "Nandini Dhakaan",
+  "Suhani Garg",
+  "Suyash Vijay",
+  "Utkarsh raj",
+];
+
 function BackgroundMaker() {
   return (
     <div
@@ -61,6 +70,15 @@ const AboutUs = () => {
       <div className="relative bg-black text-white font-sans min-h-screen">
         <BackgroundMaker />
         <Header>Meet the heroes who organised this event</Header>
+        <Teamblock teamName="Helm">
+          {data.map((member, index) => (
+            <MemberCard
+              key={index}
+              name={member}
+              photo={`/helm/${index}.jpg`}
+            />
+          ))}
+        </Teamblock>
         <Teamblock teamName="Design">
           <MemberCard />
           <MemberCard />
