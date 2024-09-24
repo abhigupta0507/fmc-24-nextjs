@@ -78,7 +78,7 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="https://forms.gle/Qz5CcatCDGkCeWU36">
+                <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" target="_blank">
                   <p className={`hover:opacity-100 ${isActiveLink("https://forms.gle/Qz5CcatCDGkCeWU36") ? "opacity-100 underline" : "opacity-70"}`}>
                     <span className="flex items-center">
                       Accommodation
@@ -159,7 +159,7 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" onClick={toggleMenu}>
+                <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" onClick={toggleMenu} target="_blank">
                   <div className="flex items-center hover:opacity-100 opacity-70">
                     Accommodation
                   </div>
