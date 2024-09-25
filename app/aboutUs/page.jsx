@@ -95,7 +95,7 @@ function MemberCard({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={{ opacity: 0, scale: 1 }}
       animate={{
         opacity: isInView ? 1 : 0,
         scale: isInView ? 1 : 0.8,

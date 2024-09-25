@@ -49,7 +49,7 @@ const EventCard = ({
       />
       <div className="ml-4 flex-grow">
         <h3 className="text-xl font-semibold mb-1">{name}</h3>
-        <p className="text-gray-400 mb-2">Price: Rs {price}</p>
+        <p className="text-gray-400 mb-2">Price: ₹ {price}</p>
         <div className="flex justify-between items-center">
           <button
             onClick={onToggle}
@@ -125,7 +125,7 @@ const CartModal = ({ cart, onClose, onRemove }) => (
             >
               <span>{item.name}</span>
               <div>
-                <span className="mr-4">Rs {item.price}</span>
+                <span className="mr-4">₹ {item.price}</span>
                 <button
                   onClick={() => onRemove(item.id)}
                   className="text-red-500 hover:text-red-700"
@@ -139,7 +139,7 @@ const CartModal = ({ cart, onClose, onRemove }) => (
             <div className="flex justify-between items-center">
               <span className="font-bold">Total:</span>
               <span className="font-bold">
-                Rs {cart.reduce((total, item) => total + item.price, 0)}
+                ₹ {cart.reduce((total, item) => total + item.price, 0)}
               </span>
             </div>
           </div>
