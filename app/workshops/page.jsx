@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bg from "./bg.png";
 import NavBar from "../components/NavBar";
+import MatrixBackground from "../components/background/MatrixBackground";
 import animation from "./animation.png";
 import { allWorkshops } from './../../utils/workshops/workshops';
 import { Loader, Minus, ShoppingCart, X } from 'lucide-react';
@@ -79,20 +80,7 @@ const Explore = () => {
     return cart.workshops.some(item => item.id === workshopId);
   }, [cart]);
 
-  function BackgroundMaker() {
-    return (
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: `url(${bg.src})`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundColor: "black",
-        }}
-      ></div>
-    );
-  }
+  
 
   if (isLoading) {
     return (
@@ -110,7 +98,7 @@ const Explore = () => {
     <div className="mb-100px">
       <NavBar />
       <div className="relative min-h-screen font-sans text-white overflow-hidden">
-        <BackgroundMaker />
+        <MatrixBackground/>
         <div className="container mx-auto px-8 py-8 h-screen">
           <CardContainer cards={cardData} addToCart={addToCart} isInCart={isInCart} />
         </div>
@@ -123,7 +111,7 @@ const Explore = () => {
 
 function CardContainer({ cards, addToCart, isInCart }) {
   return (
-    <div className="relative h-full overflow-x-hidden overflow-y-scroll snap-y snap-mandatory no-scrollbar">
+    <div className="relative h-full overflow-x-hidden overflow-y-scroll snap-y no-scrollbar">
       <div className="space-y-1000 h-full">
         <motion.h2
           className="text-4xl md:text-6xl font-bold text-center mb-12"
