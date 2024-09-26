@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 let router,cookies;
 
 
+
 const EventCard = ({
   name,
   price,
@@ -24,7 +25,7 @@ const EventCard = ({
   isSelected,
 }) => (
   <motion.div
-    className="bg-black rounded-lg z-10 p-4 text-white flex flex-col justify-between border border-white"
+    className="bg-black rounded-lg p-4 text-white flex flex-col justify-between border border-white"
     whileHover={{ scale: 1.05 }}
     transition={{ duration: 0.1 }}
   >
@@ -246,8 +247,8 @@ const EventsPage = () => {
   return (
     <>
       <NavBar />
-      <div className="relative inset-0 -z-10" style={{ minHeight: '100%' }}>
-        <MatrixBackground/>
+      <div className="relative text-white font-sans min-h-screen">
+        <MatrixBackground />
 
         <motion.section
           className="relative flex flex-col items-center justify-center h-screen text-center px-4"
