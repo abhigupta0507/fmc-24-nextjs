@@ -45,19 +45,19 @@ const MatrixBackground = ({ squareSize = 60, lineColor = '#82817e', gradientColo
       ctx.stroke();
     }
 
-    // Draw radial gradient "splashes" with greatly increased vertical spacing
-    const splashRadius = Math.max(width, height) / 3; // Slightly larger splashes
-    const verticalSpacing = height * 1.5; // Greatly increase vertical spacing between gradients
+    
+    const splashRadius = Math.max(width, height) / 3; 
+    const verticalSpacing = height * 1.5; 
 
     for (let y = -splashRadius; y < height + splashRadius; y += verticalSpacing) {
-      // Left-side splash
+     //left
       const leftGradient = ctx.createRadialGradient(0, y, 0, 0, y, splashRadius);
       leftGradient.addColorStop(0, gradientColor);
       leftGradient.addColorStop(1, "rgba(255, 0, 0, 0)");
       ctx.fillStyle = leftGradient;
       ctx.fillRect(0, y - splashRadius, splashRadius, splashRadius * 2);
 
-      // Right-side splash (offset vertically)
+      // right
       const rightGradient = ctx.createRadialGradient(width, y + verticalSpacing / 3, 0, width, y + verticalSpacing / 3, splashRadius);
       rightGradient.addColorStop(0, gradientColor);
       rightGradient.addColorStop(1, "rgba(255, 0, 0, 0)");

@@ -7,10 +7,7 @@ import {
   Mail,
   Phone,
   Calendar,
-  Briefcase,
   Award,
-  Activity,
-  Settings,
   LogOutIcon,
   HomeIcon,
   LandPlot,
@@ -135,7 +132,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="lg:col-span-3">
-                <h2 className="text-2xl font-semibold mb-6">Dashboard Overview</h2>
+                <h2 className="text-2xl font-semibold mb-6">Dashboard</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <DisplayInfo
                     icon={<Mail className="text-red-500" size={24} />}
