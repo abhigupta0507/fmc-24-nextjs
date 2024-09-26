@@ -3,17 +3,21 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  AlertCircle,
   User,
   Mail,
   Phone,
   Calendar,
-  University,
+  Award,
+  LogOutIcon,
+  HomeIcon,
+  LandPlot,
 } from "lucide-react";
-import bg from "./bg.png";
 import NavBar from "../components/NavBar";
+import MatrixBackground from "../components/background/MatrixBackground";
 import { useCookies } from "next-client-cookies";
 import { getEventById } from "../../utils/events/events";
+import Link from "next/link";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -33,34 +37,22 @@ const Dashboard = () => {
         }
       ).then((res) => res.json());
       setUserData(res);
-      setRegisteredEvents(res.registered.map((res)=>getEventById(res)))
+      setRegisteredEvents(res.registered.map((res) => getEventById(res)));
     })();
-    
   }, []);
-
-  const BackgroundMaker = () => (
-    <div
-      className="absolute inset-0"
-      style={{
-        backgroundImage: `url(${bg.src})`,
-        backgroundRepeat: "repeat",
-        backgroundSize: "contain",
-        backgroundPosition: "center",
-        backgroundColor: "black",
-      }}
-    ></div>
-  );
 
   const DisplayInfo = ({ icon, dataType, value }) => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex items-center space-x-2 text-gray-300"
+      className="flex items-center space-x-3 bg-gray-800 p-4 rounded-lg"
     >
       {icon}
-      <span className="font-semibold">{dataType}:</span>
-      <span>{value}</span>
+      <div>
+        <span className="text-sm text-gray-400">{dataType}</span>
+        <p className="font-semibold text-white">{value}</p>
+      </div>
     </motion.div>
   );
 
@@ -69,10 +61,10 @@ const Dashboard = () => {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className=" bg-slate-400 border border-white bg-opacity-30 p-4 rounded-lg shadow-lg"
+      className="bg-gradient-to-br from-red-400 to-black p-4 rounded-lg shadow-lg"
     >
       <h3 className="text-xl font-bold text-white mb-2">{event.type}</h3>
-      <p className="text-gray-300">{event.name}</p>
+      <p className="text-gray-200">{event.name}</p>
     </motion.div>
   );
 
@@ -81,7 +73,7 @@ const Dashboard = () => {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-        className="w-16 h-16 border-t-4 border-red-500 rounded-full"
+        className="w-16 h-16 border-t-4 border-red-600 rounded-full"
       />
     </div>
   );
@@ -89,51 +81,90 @@ const Dashboard = () => {
   return (
     <>
       <NavBar />
-      <div className=" relative min-h-screen font-sans text-white">
-        <BackgroundMaker />
-        <div className="container backdrop-blur-md bg-gray-400/10 rounded-md mx-auto px-8 py-8">
+      <div className="relative min-h-screen font-sans text-white">
+        <MatrixBackground />
+        <div className="container mx-auto px-4 py-8">
           {userData ? (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
+              className="grid grid-cols-1 lg:grid-cols-4 gap-8"
             >
-              <h1 className="text-4xl font-bold mb-8">
-                Welcome, {userData.name}
-              </h1>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <DisplayInfo
-                  icon={<User />}
-                  dataType="Name"
-                  value={userData.name}
-                />
-                <DisplayInfo
-                  icon={<Mail />}
-                  dataType="Email"
-                  value={userData.email}
-                />
-                <DisplayInfo
-                  icon={<Phone />}
-                  dataType="Mobile"
-                  value={userData.phone}
-                />
-                <DisplayInfo
-                  icon={<Calendar />}
-                  dataType="Age"
-                  value={userData.age}
-                />
+              <div className="lg:col-span-1">
+                <div className="bg-gray-900 p-6 rounded-lg shadow-lg mb-8">
+                  <div className="flex justify-center mb-4">
+                    <User size={80} className="text-red-600" />
+                  </div>
+                  <h1 className="text-2xl font-bold text-center mb-2">
+                    {userData.name}
+                  </h1>
+                  <p className="text-gray-400 text-center">{userData.email}</p>
+                </div>
+                <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
+                  <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
+                  <ul className="space-y-2">
+                    <li>
+                      <Link href="/events" className="flex items-center text-gray-300 hover:text-gray-400">
+                        <LandPlot className="mr-2" size={18} />
+                        Events
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/workshops" className="flex items-center text-gray-300 hover:text-gray-400">
+                        <FaChalkboardTeacher className="mr-2" size={18} />
+                        Workshops
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" className="flex items-center text-gray-300 hover:text-gray-400">
+                        <HomeIcon className="mr-2" size={18} />
+                        Accomodation
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/logout" className="flex items-center text-red-500 hover:text-red-600">
+                        <LogOutIcon className="mr-2" size={18} />
+                        Logout
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              {registeredEvents ? (
-                <h2 className="text-2xl font-semibold mb-4">
-                  Registered Events:
-                </h2>
-              ) : (
-                <></>
-              )}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {registeredEvents ?(registeredEvents.map((event) => (
-                  <EventCard key={event.id} event={event} />
-                ))):<></>}
+              <div className="lg:col-span-3">
+                <h2 className="text-2xl font-semibold mb-6">Dashboard</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <DisplayInfo
+                    icon={<Mail className="text-red-500" size={24} />}
+                    dataType="Email"
+                    value={userData.email}
+                  />
+                  <DisplayInfo
+                    icon={<Phone className="text-red-500" size={24} />}
+                    dataType="Mobile"
+                    value={userData.phone}
+                  />
+                  <DisplayInfo
+                    icon={<Calendar className="text-red-500" size={24} />}
+                    dataType="Age"
+                    value={userData.age}
+                  />
+                  <DisplayInfo
+                    icon={<Award className="text-red-500" size={24} />}
+                    dataType="Events Registered"
+                    value={registeredEvents ? registeredEvents.length : 0}
+                  />
+                </div>
+                <h2 className="text-2xl font-semibold mb-4">Registered Events</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {registeredEvents ? (
+                    registeredEvents.map((event) => (
+                      <EventCard key={event.id} event={event} />
+                    ))
+                  ) : (
+                    <p>No events registered yet.</p>
+                  )}
+                </div>
               </div>
             </motion.div>
           ) : (
