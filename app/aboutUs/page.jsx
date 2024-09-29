@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useRef, useCallback, useEffect, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import NavBar from "../components/NavBar";
@@ -19,8 +19,48 @@ const techTeamData = [
   { name: "Adarsh Kumar", post: "Tech Head" },
 ];
 
+const SocialMediaTeamData = [
+  { name: "Shreya Mondal", post: "Social Media Team Head" },
+  { name: "Sankalp Gupta", post: "Social Media Team Head" },
+  { name: "Harsh Vardhan", post: "Social Media Team Head" },
+  { name: "Aryaman Gupta", post: "Social Media Team Head" },
+];
+const PublicityTeamData = [
+  { name: "Vikrant", post: "Publicity Team" },
+  { name: "Snehit Rai", post: "Publicity Team" },
+  { name: "Sneha Singh", post: "Publicity Team" },
+  { name: "Rupendra Sharma", post: "Publicity Team" },
+  { name: "PXL_2023123", post: "Publicity Team" },
+  { name: "Harshil", post: "Publicity Team" },
+];
 
+const PRData = [
+  { name: "Sneha", post: "Public and Relations Team Head" },
+  { name: "Sainath", post: "Public and Relations Team Head" },
+  { name: "Dhayna", post: "Public and Relations Team Head" },
+  { name: "Bhavesh", post: "Public and Relations Team Head" },
+  { name: "Arnie Sikarwar", post: "Public and Relations Team Head" },
+  { name: "Ansh", post: "Public and Relations Team Head" },
+];
 
+const MarketingTeamData = [
+  { name: "Nikita Rathore", post: "Marketing Team Head" },
+  { name: "Manasvi", post: "Marketing Team Head" },
+  { name: "Jayanth", post: "Marketing Team Head" },
+  { name: "Aakash", post: "Marketing Team Head" },
+];
+
+const EventsTeamData = [
+  { name: "Twish Bathula", post: "Events Team Head" },
+  { name: "Rajat Varshney", post: "Events Team Head" },
+  { name: "ho ske toh daal dena", post: "Events Team Head" },
+];
+
+const DesignTeamData = [
+  { name: "Tanmay Barik", post: "Design Team Head" },
+  { name: "Jatasya", post: "Design Team Head" },
+  { name: "Parveen", post: "Design Team Head" },
+];
 
 function Header({ children }) {
   const controls = useAnimation();
@@ -120,7 +160,9 @@ const MemberCard = React.memo(function MemberCard({
         />
       </div>
       <div className="flex-1">
-        <h3 className="text-base sm:text-lg md:text-xl font-bold text-center">{name}</h3>
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-center">
+          {name}
+        </h3>
       </div>
     </motion.div>
   );
@@ -146,10 +188,47 @@ const AboutUs = () => {
         <MatrixBackground />
         <Header>Meet the heroes who organized this event</Header>
         <Teamblock teamName="Helm">
-          {helmTeamData.map((member, index) => renderMemberCard(member, index, "helm"))}
+          {helmTeamData.map((member, index) =>
+            renderMemberCard(member, index, "helm")
+          )}
         </Teamblock>
         <Teamblock teamName="Technical">
-          {techTeamData.map((member, index) => renderMemberCard(member, index, "tech"))}
+          {techTeamData.map((member, index) =>
+            renderMemberCard(member, index, "tech")
+          )}
+        </Teamblock>
+        <Teamblock teamName="Social Media">
+          {SocialMediaTeamData.map((member, index) =>
+            renderMemberCard(member, index, "SM")
+          )}
+        </Teamblock>
+
+        <Teamblock teamName="Publicity">
+          {PublicityTeamData.map((member, index) =>
+            renderMemberCard(member, index, "Publi")
+          )}
+        </Teamblock>
+
+        <Teamblock teamName="Public and Relations">
+          {PRData.map((member, index) => renderMemberCard(member, index, "PR"))}
+        </Teamblock>
+
+        <Teamblock teamName="Marketing">
+          {MarketingTeamData.map((member, index) =>
+            renderMemberCard(member, index, "Marketing")
+          )}
+        </Teamblock>
+
+        <Teamblock teamName="Events">
+          {EventsTeamData.map((member, index) =>
+            renderMemberCard(member, index, "Events")
+          )}
+        </Teamblock>
+
+        <Teamblock teamName="Design">
+          {DesignTeamData.map((member, index) =>
+            renderMemberCard(member, index, "Design")
+          )}
         </Teamblock>
       </div>
     </>
