@@ -148,7 +148,7 @@ const AboutUs = () => {
         <Teamblock teamName="Helm">
           {helmTeamData.map((member, index) => renderMemberCard(member, index, "helm"))}
         </Teamblock>
-        <Teamblock teamName="Technical">
+        <Teamblock teamName="Tech">
           {techTeamData.map((member, index) => renderMemberCard(member, index, "tech"))}
         </Teamblock>
       </div>
