@@ -51,9 +51,9 @@ const MarketingTeamData = [
 ];
 
 const EventsTeamData = [
-  { name: "Twish Bathula", post: "Events Team Head" },
+  { name: "Twisha Bathula", post: "Events Team Head" },
   { name: "Rajat Varshney", post: "Events Team Head" },
-  { name: "ho ske toh daal dena", post: "Events Team Head" },
+  { name: "Definitely not Rajat Varshney", post: "Events Team Head" },
 ];
 
 const DesignTeamData = [
