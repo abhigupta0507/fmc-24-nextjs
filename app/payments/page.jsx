@@ -74,6 +74,7 @@ export default function PaymentPage() {
         );
         const payments = await res.json();
         const enhancedPayments = payments.map(addDummyData);
+        // console.log(enhancedPayments);
         setData(enhancedPayments.reverse());
       } catch (error) {
         console.error("Error fetching payments:", error);
@@ -130,7 +131,7 @@ export default function PaymentPage() {
                 <td className="p-3">{payment.email}</td>
                 <td className="p-3">{payment.mobile}</td>
                 <td className="p-3">₹{parseFloat(payment.amount_paid).toFixed(2)}</td>
-                <td className="p-3">{payment.ordered_items.join(', ')}</td>
+                <td className="p-3">{payment.purchased_events.join(', ')}</td>
                 <td className="p-3">
                   <button
                     onClick={() => openModal(payment.image_url)}
