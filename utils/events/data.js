@@ -1,7 +1,7 @@
 module.exports.jsonString = `{
   "Photog": {
     "Snapchase": {
-      "id": 1,
+      "id": "e1",
       "price": 199,
       "name": "Snapchase",
       "type":"Photog",
@@ -9,7 +9,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Portfolio in 24 Hours": {
-      "id": 2,
+      "id": "e2",
       "price": 299,
       "name": "Portfolio in 24 Hours",
       "type":"Photog",
@@ -17,7 +17,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "PhotoArt": {
-      "id": 3,
+      "id": "e3",
       "price": 199,
       "name": "PhotoArt",
       "type":"Photog",
@@ -25,7 +25,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Instameet": {
-      "id": 4,
+      "id": "e4",
       "price": 299,
       "name": "Instameet",
       "type":"Photog",
@@ -33,7 +33,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Infocus": {
-      "id": 5,
+      "id": "e5",
       "price": 199,
       "name": "Infocus",
       "type":"Photog",
@@ -43,7 +43,7 @@ module.exports.jsonString = `{
   },
   "Outreach": {
     "Vlogoholic": {
-      "id": 6,
+      "id": "e6",
       "price": 199,
       "name": "Vlogoholic",
       "type":"Outreach",
@@ -51,7 +51,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Rant-It": {
-      "id": 7,
+      "id": "e7",
       "price": 499,
       "name": "Rant-It",
       "type":"Outreach",
@@ -59,7 +59,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Documentary": {
-      "id": 8,
+      "id": "e8",
       "price": 199,
       "name": "Documentary",
       "type":"Outreach",
@@ -67,7 +67,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Admad": {
-      "id": 9,
+      "id": "e9",
       "price": 499,
       "name": "Admad",
       "type":"Outreach",
@@ -77,7 +77,7 @@ module.exports.jsonString = `{
   },
   "Media": {
     "WriterBlock": {
-      "id": 10,
+      "id": "e10",
       "price": 199,
       "name": "WriterBlock",
       "type":"Media",
@@ -85,7 +85,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Straight From Site": {
-      "id": 11,
+      "id": "e11",
       "price": 499,
       "name": "SFS",
       "type":"Media",
@@ -93,7 +93,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Laughing Gazette": {
-      "id": 12,
+      "id": "e12",
       "price": 199,
       "name": "Laughing Gazette",
       "type":"Media",
@@ -101,7 +101,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Infinite Tales": {
-      "id": 13,
+      "id": "e13",
       "price": 499,
       "name": "Infinite Tales",
       "type":"Media",
@@ -111,7 +111,7 @@ module.exports.jsonString = `{
   },
   "Design": {
     "Swap The Canvas": {
-      "id": 14,
+      "id": "e14",
       "price": 499,
       "name": "Swap The Canvas",
       "type":"Design",
@@ -119,7 +119,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Re-Invent": {
-      "id": 15,
+      "id": "e15",
       "price": 199,
       "name": "Re-Invent",
       "type":"Design",
@@ -127,7 +127,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Design The Tunes": {
-      "id": 16,
+      "id": "e16",
       "price": 199,
       "name": "Design The Tunes",
       "type":"Design",
@@ -135,7 +135,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Design-a-thon": {
-      "id": 17,
+      "id": "e17",
       "price": 499,
       "name": "Design-a-thon",
       "type":"Design",
@@ -145,7 +145,7 @@ module.exports.jsonString = `{
   },
   "Cine": {
     "Make it Short": {
-      "id": 18,
+      "id": "e18",
       "price": 199,
       "name": "Make it Short",
       "type":"Cine",
@@ -153,7 +153,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Directors Cut": {
-      "id": 19,
+      "id": "e19",
       "price": 499,
       "name": "Directors Cut",
       "type":"Cine",
@@ -161,7 +161,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Digital Dastaan": {
-      "id": 20,
+      "id": "e20",
       "price": 299,
       "name": "Digital Dastaan",
       "type":"Cine",
@@ -169,7 +169,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "That's How Broll": {
-      "id": 21,
+      "id": "e21",
       "price": 199,
       "name": "Broll",
       "type":"Cine",
@@ -179,7 +179,7 @@ module.exports.jsonString = `{
   },
   "Animation": {
     "Capture The Imagination": {
-      "id": 25,
+      "id": "e25",
       "price": 199,
       "name": "Capture The Imagination",
       "type":"Cine",
@@ -187,7 +187,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Logo Motion": {
-      "id": 22,
+      "id": "e22",
       "price": 199,
       "name": "Logo Motion",
       "type":"Cine",
@@ -195,7 +195,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "Realm Of Wonder": {
-      "id": 23,
+      "id": "e23",
       "price": 199,
       "name": "Realm Of Wonder",
       "type":"Cine",
@@ -203,7 +203,7 @@ module.exports.jsonString = `{
       "online":"false"
     },
     "VFXorama": {
-      "id": 24,
+      "id": "e24",
       "price": 299,
       "name": "VFXorama",
       "type":"Cine",
