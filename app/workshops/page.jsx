@@ -6,15 +6,16 @@ import bg from "./bg.png";
 import NavBar from "../components/NavBar";
 import MatrixBackground from "../components/background/MatrixBackground";
 import animation from "./animation.png";
-import { allWorkshops } from './../../utils/workshops/workshops';
-import { Loader, Minus, ShoppingCart, X } from 'lucide-react';
+import { allWorkshops } from "./../../utils/workshops/workshops";
+import { Loader, Minus, ShoppingCart, X } from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
+import { FaMinus, FaTimes } from "react-icons/fa";
 
-const cardData = allWorkshops().events;
+const cardData = allWorkshops();
 
 const Explore = () => {
-  const [cart, setCart] = useState({ workshops: [], events: [] });
+  const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,70 +23,84 @@ const Explore = () => {
   const router = useRouter();
 
   // Dummy fetch for cart
+
   useEffect(() => {
-    const fetchCart = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       setError(null);
       try {
-        // API call for fetching cart data,
-        const res = { cart: [] }; 
-        setCart({
-          workshops: res.cart.filter(id => id.startsWith('w')).map(id => cardData.find(workshop => workshop.id === id)),
-          events: res.cart.filter(id => !id.startsWith('e'))
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/cart_and_reg`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${cookies.get("authToken")}`,
+            },
+          }
+        ).then((res) => res.json());
+        console.log(res);
+        if (!res.message) setCart(res.cart);
       } catch (error) {
-        console.error("Error fetching cart:", error);
-        setError("Failed to load cart. Please try again later.");
+        console.error("Error fetching events:", error);
+        setError("Failed to load events. Please try again later.");
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchCart();
+    fetchData();
   }, []);
 
   const addToCart = useCallback(async (workshop) => {
-    try {
-      // API response for adding to cart
-      const res = { message: null };
-      if (!res.message) {
-        setCart(prevCart => ({
-          ...prevCart,
-          workshops: [...prevCart.workshops, workshop]
-        }));
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/add_to_cart`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.get("authToken")}`,
+        },
+        body: JSON.stringify({
+          events: workshop,
+        }),
       }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      setError("Failed to add to cart. Please try again later.");
-    }
+    ).then((res) => res.json());
+
+    setCart((prevCart) => [...prevCart, workshop]);
   }, []);
 
   const removeFromCart = useCallback(async (workshopId) => {
-    try {
-      // API response for removing from cart
-      const res = { message: null };
-      if (!res.message) {
-        setCart(prevCart => ({
-          ...prevCart,
-          workshops: prevCart.workshops.filter(item => item.id !== workshopId)
-        }));
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/remove_from_cart`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.get("authToken")}`,
+        },
+        body: JSON.stringify({ events: [workshopId] }),
       }
-    } catch (error) {
-      console.error("Error removing from cart:", error);
-      setError("Failed to remove from cart. Please try again later.");
-    }
+    ).then((res) => res.json());
+    setCart((prev) => prev.filter((item) => item.id !== workshopId));
   }, []);
 
-  const isInCart = useCallback((workshopId) => {
-    return cart.workshops.some(item => item.id === workshopId);
-  }, [cart]);
-
-  
+  const isInCart = useCallback(
+    (workshopId) => {
+      if (Array.isArray(cart)) {
+        return cart?.some((item) => item.id === workshopId);
+      }
+    },
+    [cart]
+  );
 
   if (isLoading) {
     return (
       <div className="mx-auto h-48 w-48 justify-center mt-40">
-        <Loader size={42} className="text-white mx-auto text-5xl animate-spin" />
+        <Loader
+          size={42}
+          className="text-white mx-auto text-5xl animate-spin"
+        />
       </div>
     );
   }
@@ -98,12 +113,25 @@ const Explore = () => {
     <div className="mb-100px">
       <NavBar />
       <div className="relative min-h-screen font-sans text-white overflow-hidden">
-        <MatrixBackground/>
+        <MatrixBackground />
         <div className="container mx-auto px-8 py-8 h-screen">
-          <CardContainer cards={cardData} addToCart={addToCart} isInCart={isInCart} />
+          <CardContainer
+            cards={cardData}
+            addToCart={addToCart}
+            isInCart={isInCart}
+          />
         </div>
-        <CartButton onClick={() => setIsCartOpen(true)} itemCount={cart.workshops.length + cart.events.length} />
-        <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cart={cart} removeFromCart={removeFromCart} />
+        <CartButton
+          onClick={() => setIsCartOpen(true)}
+          itemCount={cart?.length}
+        />
+        {isCartOpen && (
+          <CartModal
+            onClose={() => setIsCartOpen(false)}
+            cart={cart}
+            onRemove={removeFromCart}
+          />
+        )}
       </div>
     </div>
   );
@@ -121,8 +149,14 @@ function CardContainer({ cards, addToCart, isInCart }) {
         >
           Workshops
         </motion.h2>
-        {cards.map((card, index) => (
-          <ExploreCard key={card.id} card={card} index={index} addToCart={addToCart} isInCart={isInCart} />
+        {cards?.map((card, index) => (
+          <ExploreCard
+            key={card.id}
+            card={card}
+            index={index}
+            addToCart={addToCart}
+            isInCart={isInCart}
+          />
         ))}
       </div>
     </div>
@@ -152,19 +186,24 @@ function ExploreCard({ card, index, addToCart, isInCart }) {
         <div className="w-full md:w-2/3 p-4 flex flex-col justify-center text-center md:text-left">
           <div className="flex flex-col justify-center h-full text-center">
             <h2 className="text-3xl font-bold mb-2">{card.activity}</h2>
-            <p className="text-md text-gray-500 font-bold mb-2">{card.name}<span className="text-gray-400 ml-4">[{card.type.split(' ')[0]}]</span></p>
+            <p className="text-md text-gray-500 font-bold mb-2">
+              {card.name}
+              <span className="text-gray-400 ml-4">
+                [{card.type.split(" ")[0]}]
+              </span>
+            </p>
             <p className="text-lg">{card.description}</p>
             <p className="text-xl font-bold mt-2">Price: ₹{card.price}</p>
             <button
               onClick={() => addToCart(card)}
               className={`mt-4 px-4 py-2 rounded transition-colors ${
-                inCart 
-                  ? 'bg-green-500 text-white cursor-not-allowed' 
-                  : 'bg-blue-500 text-white hover:bg-blue-600'
+                inCart
+                  ? "bg-green-500 text-white cursor-not-allowed"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
               disabled={inCart}
             >
-              {inCart ? 'Added to Cart' : 'Add to Cart'}
+              {inCart ? "Added to Cart" : "Add to Cart"}
             </button>
           </div>
         </div>
@@ -189,74 +228,107 @@ function CartButton({ onClick, itemCount }) {
   );
 }
 
-function CartModal({ isOpen, onClose, cart, removeFromCart }) {
-  const totalPrice = [...cart.workshops, ...cart.events].reduce((total, item) => total + item.price, 0);
+const CartModal = ({ cart, onClose, onRemove }) => {
+  // Filter items for events and workshops
+  const events = cart?.filter((item) => item.id.startsWith("e"));
+  const workshops = cart?.filter((item) => item.id.startsWith("w"));
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-        >
-          <motion.div
-            className="bg-gray-900 rounded-xl p-6 w-full max-w-md"
-            initial={{ scale: 0.9, y: 50 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.9, y: 50 }}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-white">Your Cart</h2>
-              <button onClick={onClose} className="text-gray-400 hover:text-white">
-                <X size={24} />
-              </button>
-            </div>
-            <div className="space-y-4">
-              {cart.workshops.length > 0 || cart.events.length > 0 ? (
-                <>
-                  {[...cart.workshops, ...cart.events].map((item) => (
-                    <div key={item.id} className="flex justify-between items-center mb-2">
-                      <div>
-                        <span className="text-white">{item.activity}</span>
-                        <p className=" text-gray-300 text-sm">{item.name}</p>
-                      </div>
-                      
-                      <div>
-                        <span className="mr-4 text-white">₹{item.price}</span>
-                        <button
-                          onClick={() => removeFromCart(item.id)}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          <Minus size={16} />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                  <div className="mt-4 pt-4 border-t border-gray-700">
-                    <div className="flex justify-between items-center">
-                      <span className="font-bold text-white">Total:</span>
-                      <span className="font-bold text-white">₹{totalPrice}</span>
+    <motion.div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="bg-gray-900 rounded-xl p-6 w-full max-w-md"
+        initial={{ scale: 0.9, y: 50 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 50 }}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Your Cart</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-white">
+            <FaTimes size={24} />
+          </button>
+        </div>
+
+        {cart?.length === 0 ? (
+          <p className="text-gray-400">Your cart is empty</p>
+        ) : (
+          <>
+            {/* Section for Events */}
+            {events.length > 0 && (
+              <div className="mb-4">
+                <h3 className="text-xl font-semibold mb-2">Events</h3>
+                {events.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center mb-2"
+                  >
+                    <span>{item.name}</span>
+                    <div>
+                      <span className="mr-4">₹ {item.price}</span>
+                      <button
+                        onClick={() => onRemove(item.id)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <FaMinus size={16} />
+                      </button>
                     </div>
                   </div>
-                  <button
-                    className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full"
-                    onClick={() => console.log(cart)}
-                  >
-                    Proceed to Checkout
-                  </button>
-                </>
-              ) : (
-                <p className="text-gray-400">Your cart is empty.</p>
-              )}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
+                ))}
+              </div>
+            )}
 
+            {/* Section for Workshops */}
+            {workshops.length > 0 && (
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Workshops</h3>
+                {workshops.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center mb-2"
+                  >
+                    <span>{item.name}</span>
+                    <div>
+                      <span className="mr-4">₹ {item.price}</span>
+                      <button
+                        onClick={() => onRemove(item.id)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <FaMinus size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Total Price */}
+            <div className="mt-4 pt-4 border-t border-gray-700">
+              <div className="flex justify-between items-center">
+                <span className="font-bold">Total:</span>
+                <span className="font-bold">
+                  ₹ {cart?.reduce((total, item) => total + item.price, 0)}
+                </span>
+              </div>
+            </div>
+
+            {/* Checkout Button */}
+            <button
+              className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 w-full"
+              onClick={() => {
+                router.push(cookies.get("authToken") ? "/checkout" : "/login");
+              }}
+            >
+              Proceed to Checkout
+            </button>
+          </>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+};
 
 export default Explore;
