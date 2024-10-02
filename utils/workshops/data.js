@@ -1,5 +1,6 @@
-module.exports.jsonString = `[
-    { 
+module.exports.jsonString = `{
+  "events": [
+    {
       "id": "w1",
       "name": "Deepak Pareek",
       "type": "Outreach Event",
@@ -63,4 +64,5 @@ module.exports.jsonString = `[
       "description": "Dive deep into the world of media and democracy with Paranjoy Guha Thakurta in an interactive session that promises to challenge your perspectives and ignite meaningful conversations!",
       "price": 400
     }
-  ]`;
+  ]
+}`;
