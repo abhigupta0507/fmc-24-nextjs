@@ -229,7 +229,8 @@ function CartButton({ onClick, itemCount }) {
 }
 
 const CartModal = ({ cart, onClose, onRemove }) => {
-  // Filter items for events and workshops
+  const router = useRouter();
+  const cookies = useCookies();
   const events = cart?.filter((item) => item.id.startsWith("e"));
   const workshops = cart?.filter((item) => item.id.startsWith("w"));
 
