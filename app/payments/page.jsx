@@ -6,7 +6,7 @@ const addDummyData = (payment) => {
   const dummyItems = ['Cine', 'Photog', 'Media', 'Outreach', 'Animation'];
   return {
     ...payment,
-    name: `Customer ${Math.floor(Math.random() * 1000)}`,
+    // name: `Customer ${Math.floor(Math.random() * 1000)}`,
     mobile: `+1 ${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 10000)}`,
     ordered_items: Array.from({ length: Math.floor(Math.random() * 3) + 1 }, () => dummyItems[Math.floor(Math.random() * dummyItems.length)]),
   };
