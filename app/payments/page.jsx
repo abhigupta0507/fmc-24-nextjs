@@ -6,7 +6,7 @@ const addDummyData = (payment) => {
   const dummyItems = ['Cine', 'Photog', 'Media', 'Outreach', 'Animation'];
   return {
     ...payment,
-    name: `Customer ${Math.floor(Math.random() * 1000)}`,
+    // name: `Customer ${Math.floor(Math.random() * 1000)}`,
     mobile: `+1 ${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 10000)}`,
     ordered_items: Array.from({ length: Math.floor(Math.random() * 3) + 1 }, () => dummyItems[Math.floor(Math.random() * dummyItems.length)]),
   };
@@ -74,6 +74,7 @@ export default function PaymentPage() {
         );
         const payments = await res.json();
         const enhancedPayments = payments.map(addDummyData);
+        // console.log(enhancedPayments);
         setData(enhancedPayments.reverse());
       } catch (error) {
         console.error("Error fetching payments:", error);
@@ -130,7 +131,7 @@ export default function PaymentPage() {
                 <td className="p-3">{payment.email}</td>
                 <td className="p-3">{payment.mobile}</td>
                 <td className="p-3">₹{parseFloat(payment.amount_paid).toFixed(2)}</td>
-                <td className="p-3">{payment.ordered_items.join(', ')}</td>
+                <td className="p-3">{payment.purchased_events.join(', ')}</td>
                 <td className="p-3">
                   <button
                     onClick={() => openModal(payment.image_url)}
