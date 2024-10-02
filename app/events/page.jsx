@@ -224,7 +224,20 @@ const EventsPage = () => {
           }
         ).then((res) => res.json());
         if (!res.message) setCart(res.cart);
-        if (!res.message) setRegisteredEvents(res.registered);
+        if (!res.message) {
+          const filteredEventIds = res?.registered?.filter((id) =>
+            id.startsWith("e")
+          );
+
+          const populatedEvents = await Promise.all(
+            filteredEventIds.map(async (eventId) => {
+              const event = await getEventById(eventId);
+              return event;
+            })
+          );
+
+          setRegisteredEvents(populatedEvents);
+        }
         console.log(cart);
       } catch (error) {
         console.error("Error fetching events:", error);
