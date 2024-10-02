@@ -1,5 +1,6 @@
 import "./globals.css";
-import { CookiesProvider } from 'next-client-cookies/server';
+import { CookiesProvider } from "next-client-cookies/server";
+import { CartProvider } from "../utils/CartContext";
 export const metadata = {
   title: "FMC Weekend",
   description: "Asia's Largest Digital Arts Festival",
@@ -15,7 +16,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className=" font-clash bg-black overflow-x-hidden">
-      <CookiesProvider>{children}</CookiesProvider>
+        <CookiesProvider>
+          <CartProvider>{children}</CartProvider>
+        </CookiesProvider>
       </body>
     </html>
   );
