@@ -236,7 +236,10 @@ const EventsPage = () => {
                 tempRegisteredEvents.push(getEventById(item));
               }
               // Handle other cases: number or strings not starting with 'e'
-              else if (typeof item === "string" || typeof item === "number") {
+              else if (
+                (typeof item === "string" && !item.startsWith("w")) ||
+                typeof item === "number"
+              ) {
                 item = "e" + item.toString();
                 tempRegisteredEvents.push(getEventById(item));
               }
@@ -245,12 +248,10 @@ const EventsPage = () => {
             // Populate events
             const populatedEvents = await Promise.all(tempRegisteredEvents);
             setRegisteredEvents(populatedEvents);
-
-            console.log(populatedEvents);
           }
         }
 
-        console.log(cart);
+        console.log(registeredEvents);
       } catch (error) {
         console.error("Error fetching events:", error);
         setError("Failed to load events. Please try again later.");
