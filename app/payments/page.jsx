@@ -7,7 +7,7 @@ const addDummyData = (payment) => {
   return {
     ...payment,
     // name: `Customer ${Math.floor(Math.random() * 1000)}`,
-    mobile: `+1 ${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 10000)}`,
+    // mobile: `+1 ${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 10000)}`,
     ordered_items: Array.from({ length: Math.floor(Math.random() * 3) + 1 }, () => dummyItems[Math.floor(Math.random() * dummyItems.length)]),
   };
 };
@@ -129,7 +129,7 @@ export default function PaymentPage() {
                 <td className="p-3">{new Date(payment.timestamp).toLocaleString()}</td>
                 <td className="p-3">{payment.name}</td>
                 <td className="p-3">{payment.email}</td>
-                <td className="p-3">{payment.mobile}</td>
+                <td className="p-3">{payment.phone}</td>
                 <td className="p-3">₹{parseFloat(payment.amount_paid).toFixed(2)}</td>
                 <td className="p-3">{payment.purchased_events.join(', ')}</td>
                 <td className="p-3">
