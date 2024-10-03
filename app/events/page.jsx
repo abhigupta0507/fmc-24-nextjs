@@ -414,7 +414,7 @@ const EventsPage = () => {
                     Array.isArray(cart) &&
                     cart.some((item) => item.id === details.id)
                   }
-                  isRegistered={registeredEvents?.includes(details.id)}
+                  isRegistered={registeredEvents?.includes(details)}
                   isSelected={selectedEvents.some(
                     (item) => item.id === details.id
                   )}
