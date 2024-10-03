@@ -19,6 +19,7 @@ import { getEventById } from "../../utils/events/events";
 import Link from "next/link";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { useCart } from "../../utils/CartContext";
+import { getWorkshopById } from "../../utils/workshops/workshops";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -49,6 +50,8 @@ const Dashboard = () => {
             // Check if item is a string and starts with 'e'
             if (typeof item === "string" && item.startsWith("e")) {
               tempRegisteredEvents.push(getEventById(item));
+            } else if (typeof item === "string" && item.startsWith("w")) {
+              tempRegisteredEvents.push(getWorkshopById(item));
             }
             // Handle other cases: number or strings not starting with 'e'
             else if (typeof item === "string" || typeof item === "number") {
@@ -91,8 +94,8 @@ const Dashboard = () => {
       transition={{ duration: 0.5 }}
       className="bg-gradient-to-br from-red-400 to-black p-4 rounded-lg shadow-lg"
     >
-      <h3 className="text-xl font-bold text-white mb-2">{event.type}</h3>
-      <p className="text-gray-200">{event.name}</p>
+      <h3 className="text-xl font-bold text-white mb-2">{event?.type}</h3>
+      <p className="text-gray-200">{event?.name}</p>
     </motion.div>
   );
 
@@ -191,7 +194,7 @@ const Dashboard = () => {
                   />
                   <DisplayInfo
                     icon={<Award className="text-red-500" size={24} />}
-                    dataType="Events Registered"
+                    dataType="Events and workshops Registered"
                     value={registeredEvents ? registeredEvents.length : 0}
                   />
                 </div>
@@ -200,9 +203,26 @@ const Dashboard = () => {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {registeredEvents ? (
-                    registeredEvents.map((event) => (
-                      <EventCard key={event.id} event={event} />
-                    ))
+                    registeredEvents
+                      .filter((item) => item.id.startsWith("e"))
+                      .map((event) => (
+                        <EventCard key={event?.id} event={event} />
+                      ))
+                  ) : (
+                    <p>No events registered yet.</p>
+                  )}
+                </div>
+                <br />
+                <h2 className="text-2xl font-semibold mb-4">
+                  Registered Workshops
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {registeredEvents ? (
+                    registeredEvents
+                      .filter((item) => item.id.startsWith("w"))
+                      .map((event) => (
+                        <EventCard key={event?.id} event={event} />
+                      ))
                   ) : (
                     <p>No events registered yet.</p>
                   )}

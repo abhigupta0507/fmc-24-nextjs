@@ -6,7 +6,10 @@ import bg from "./bg.png";
 import NavBar from "../components/NavBar";
 import MatrixBackground from "../components/background/MatrixBackground";
 import animation from "./animation.png";
-import { allWorkshops } from "./../../utils/workshops/workshops";
+import {
+  allWorkshops,
+  getWorkshopById,
+} from "./../../utils/workshops/workshops";
 import { Loader, Minus, ShoppingCart, X } from "lucide-react";
 import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
@@ -18,6 +21,7 @@ const Explore = () => {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [registeredWorkshops, setRegisteredWorkshops] = useState([]);
   const [error, setError] = useState(null);
   const cookies = useCookies();
   const router = useRouter();
@@ -41,9 +45,30 @@ const Explore = () => {
         ).then((res) => res.json());
         console.log(res);
         if (!res.message) setCart(res.cart);
+        if (!res.message) {
+          let tempRegisteredWorkshops = [];
+
+          for (let item of res.registered) {
+            // Check if item is a string and starts with 'e'
+            if (typeof item === "string" && item.startsWith("w")) {
+              tempRegisteredWorkshops.push(getWorkshopById(item));
+            }
+            // Handle other cases: number or strings not starting with 'e'
+            else if (
+              (typeof item === "string" && !item.startsWith("e")) ||
+              typeof item === "number"
+            ) {
+              item = "w" + item.toString();
+              tempRegisteredWorkshops.push(getWorkshopById(item));
+            }
+          }
+          // Populate Workshops
+          const populatedWorkshops = await Promise.all(tempRegisteredWorkshops);
+          setRegisteredWorkshops(populatedWorkshops);
+        }
       } catch (error) {
-        console.error("Error fetching events:", error);
-        setError("Failed to load events. Please try again later.");
+        console.error("Error fetching Workshops:", error);
+        setError("Failed to load Workshops. Please try again later.");
       } finally {
         setIsLoading(false);
       }
@@ -93,7 +118,6 @@ const Explore = () => {
     },
     [cart]
   );
-
   if (isLoading) {
     return (
       <div className="mx-auto h-48 w-48 justify-center mt-40">
@@ -119,6 +143,7 @@ const Explore = () => {
             cards={cardData}
             addToCart={addToCart}
             isInCart={isInCart}
+            registeredWorkshops={registeredWorkshops}
           />
         </div>
         <CartButton
@@ -137,7 +162,7 @@ const Explore = () => {
   );
 };
 
-function CardContainer({ cards, addToCart, isInCart }) {
+function CardContainer({ cards, addToCart, isInCart, registeredWorkshops }) {
   return (
     <div className="relative h-full overflow-x-hidden overflow-y-scroll snap-y no-scrollbar">
       <div className="space-y-1000 h-full">
@@ -156,6 +181,7 @@ function CardContainer({ cards, addToCart, isInCart }) {
             index={index}
             addToCart={addToCart}
             isInCart={isInCart}
+            isRegistered={registeredWorkshops?.includes(card)}
           />
         ))}
       </div>
@@ -163,7 +189,7 @@ function CardContainer({ cards, addToCart, isInCart }) {
   );
 }
 
-function ExploreCard({ card, index, addToCart, isInCart }) {
+function ExploreCard({ card, index, addToCart, isInCart, isRegistered }) {
   const isEven = index % 2 === 0;
   const cardDirection = isEven ? "md:flex-row" : "md:flex-row-reverse";
   const inCart = isInCart(card.id);
@@ -197,13 +223,17 @@ function ExploreCard({ card, index, addToCart, isInCart }) {
             <button
               onClick={() => addToCart(card)}
               className={`mt-4 px-4 py-2 rounded transition-colors ${
-                inCart
+                inCart || isRegistered == true
                   ? "bg-green-500 text-white cursor-not-allowed"
                   : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
-              disabled={inCart}
+              disabled={inCart || isRegistered == true}
             >
-              {inCart ? "Added to Cart" : "Add to Cart"}
+              {inCart
+                ? "Added to Cart"
+                : isRegistered == true
+                ? "Registered"
+                : "Add to Cart"}
             </button>
           </div>
         </div>
