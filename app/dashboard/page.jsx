@@ -18,10 +18,12 @@ import { useCookies } from "next-client-cookies";
 import { getEventById } from "../../utils/events/events";
 import Link from "next/link";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { useCart } from "../../utils/CartContext";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
   const [registeredEvents, setRegisteredEvents] = useState(null);
+  const { cart, setCart } = useCart();
   const cookies = useCookies();
 
   useEffect(() => {
@@ -37,7 +39,33 @@ const Dashboard = () => {
         }
       ).then((res) => res.json());
       setUserData(res);
-      setRegisteredEvents(res.registered.map((res) => getEventById(res)));
+      if (!res.message) {
+        setCart(res.cart);
+
+        if (!res.message) {
+          let tempRegisteredEvents = [];
+
+          for (let item of res.registered) {
+            // Check if item is a string and starts with 'e'
+            if (typeof item === "string" && item.startsWith("e")) {
+              tempRegisteredEvents.push(getEventById(item));
+            }
+            // Handle other cases: number or strings not starting with 'e'
+            else if (typeof item === "string" || typeof item === "number") {
+              item = "e" + item.toString();
+              tempRegisteredEvents.push(getEventById(item));
+            }
+          }
+
+          // Populate events
+          const populatedEvents = await Promise.all(tempRegisteredEvents);
+          setRegisteredEvents(populatedEvents);
+
+          console.log(populatedEvents);
+        }
+      }
+
+      console.log(cart);
     })();
   }, []);
 
@@ -105,25 +133,37 @@ const Dashboard = () => {
                   <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
                   <ul className="space-y-2">
                     <li>
-                      <Link href="/events" className="flex items-center text-gray-300 hover:text-gray-400">
+                      <Link
+                        href="/events"
+                        className="flex items-center text-gray-300 hover:text-gray-400"
+                      >
                         <LandPlot className="mr-2" size={18} />
                         Events
                       </Link>
                     </li>
                     <li>
-                      <Link href="/workshops" className="flex items-center text-gray-300 hover:text-gray-400">
+                      <Link
+                        href="/workshops"
+                        className="flex items-center text-gray-300 hover:text-gray-400"
+                      >
                         <FaChalkboardTeacher className="mr-2" size={18} />
                         Workshops
                       </Link>
                     </li>
                     <li>
-                      <Link href="https://forms.gle/Qz5CcatCDGkCeWU36" className="flex items-center text-gray-300 hover:text-gray-400">
+                      <Link
+                        href="https://forms.gle/Qz5CcatCDGkCeWU36"
+                        className="flex items-center text-gray-300 hover:text-gray-400"
+                      >
                         <HomeIcon className="mr-2" size={18} />
                         Accomodation
                       </Link>
                     </li>
                     <li>
-                      <Link href="/logout" className="flex items-center text-red-500 hover:text-red-600">
+                      <Link
+                        href="/logout"
+                        className="flex items-center text-red-500 hover:text-red-600"
+                      >
                         <LogOutIcon className="mr-2" size={18} />
                         Logout
                       </Link>
@@ -155,7 +195,9 @@ const Dashboard = () => {
                     value={registeredEvents ? registeredEvents.length : 0}
                   />
                 </div>
-                <h2 className="text-2xl font-semibold mb-4">Registered Events</h2>
+                <h2 className="text-2xl font-semibold mb-4">
+                  Registered Events
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {registeredEvents ? (
                     registeredEvents.map((event) => (
