@@ -231,8 +231,8 @@ function CartButton({ onClick, itemCount }) {
 const CartModal = ({ cart, onClose, onRemove }) => {
   const router = useRouter();
   const cookies = useCookies();
-  const events = cart?.filter((item) => item.id.startsWith("e"));
-  const workshops = cart?.filter((item) => item.id.startsWith("w"));
+  const events = cart?.filter((item) => item.id?.startsWith("e"));
+  const workshops = cart?.filter((item) => item.id?.startsWith("w"));
 
   return (
     <motion.div

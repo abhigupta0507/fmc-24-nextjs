@@ -28,7 +28,7 @@ export default function FormPage() {
   const [total, setTotal] = useState("fetching...");
   const fileRef = useRef(null);
   const cookies = useCookies();
-  const router=useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -60,13 +60,16 @@ export default function FormPage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${cookies.get("authToken")}`,
         },
-        body:JSON.stringify({image_url:image_url,amount_paid:total.slice(1)})
+        body: JSON.stringify({
+          image_url: image_url,
+          amount_paid: total.slice(1),
+        }),
       }
     ).then((res) => res.json());
     // console.log(res);
     e.target.reset();
     setSending(false);
-    router.push('/')
+    router.push("/");
   };
 
   const closeAlert = () => {
@@ -87,7 +90,12 @@ export default function FormPage() {
           <div className="container mx-auto flex flex-wrap justify-center items-center px-4">
             <div className="w-full flex flex-col items-center mb-6 lg:mb-0">
               <div className="bg-gray-200 w-[400px] h-[400px] flex items-center justify-center">
-                <Image src="/qr_code.jpg" alt="QR Code" width={400} height={400} />
+                <Image
+                  src="/qr_code.jpg"
+                  alt="QR Code"
+                  width={400}
+                  height={400}
+                />
                 {/* <p className="text-black">QR HERE</p> */}
               </div>
 
@@ -107,7 +115,9 @@ export default function FormPage() {
                 />
                 <button
                   type="submit"
-                  className={`bg-red-500 p-3 rounded-lg text-white font-semibold hover:bg-red-600 ${sending?"cursor-not-allowed":""}`}
+                  className={`bg-red-500 p-3 rounded-lg text-white font-semibold hover:bg-red-600 ${
+                    sending ? "cursor-not-allowed" : ""
+                  }`}
                   disabled={sending}
                 >
                   Confirm

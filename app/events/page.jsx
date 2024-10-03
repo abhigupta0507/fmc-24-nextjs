@@ -95,8 +95,8 @@ const SectionBlock = ({ name, children, id }) => (
 
 const CartModal = ({ cart, onClose, onRemove }) => {
   // Filter items for events and workshops
-  const events = cart?.filter((item) => item.id.startsWith("e"));
-  const workshops = cart?.filter((item) => item.id.startsWith("w"));
+  const events = cart?.filter((item) => item.id?.startsWith("e"));
+  const workshops = cart?.filter((item) => item.id?.startsWith("w"));
 
   return (
     <motion.div
@@ -223,21 +223,33 @@ const EventsPage = () => {
             },
           }
         ).then((res) => res.json());
-        if (!res.message) setCart(res.cart);
+        console.log(res);
         if (!res.message) {
-          const filteredEventIds = res?.registered?.filter((id) =>
-            id.startsWith("e")
-          );
+          setCart(res.cart);
 
-          const populatedEvents = await Promise.all(
-            filteredEventIds.map(async (eventId) => {
-              const event = await getEventById(eventId);
-              return event;
-            })
-          );
+          if (!res.message) {
+            let tempRegisteredEvents = [];
 
-          setRegisteredEvents(populatedEvents);
+            for (let item of res.registered) {
+              // Check if item is a string and starts with 'e'
+              if (typeof item === "string" && item.startsWith("e")) {
+                tempRegisteredEvents.push(getEventById(item));
+              }
+              // Handle other cases: number or strings not starting with 'e'
+              else if (typeof item === "string" || typeof item === "number") {
+                item = "e" + item.toString();
+                tempRegisteredEvents.push(getEventById(item));
+              }
+            }
+
+            // Populate events
+            const populatedEvents = await Promise.all(tempRegisteredEvents);
+            setRegisteredEvents(populatedEvents);
+
+            console.log(populatedEvents);
+          }
         }
+
         console.log(cart);
       } catch (error) {
         console.error("Error fetching events:", error);
